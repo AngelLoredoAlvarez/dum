@@ -1,4 +1,6 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 import {
   Badge,
   Box,
@@ -20,6 +22,9 @@ import { useFragment } from "react-relay/hooks";
 
 import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUserFragment_user.graphql";
 import CurrentUserFragment from "../graphql/CurrentUserFragment";
+import CustomDrawerContent from "./CustomDrawerContent";
+
+const Drawer = createDrawerNavigator();
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -217,4 +222,23 @@ function Layout(props: LayoutProps) {
   );
 }
 
-export default Layout;
+function DrawerNavigator(props: LayoutProps) {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContent={() => (
+          <CustomDrawerContent currentUser={props.currentUser} />
+        )}
+        screenOptions={{ headerShown: false }}
+      >
+        <Drawer.Screen name="Desarrollos Urbanos Montecristo">
+          {() => (
+            <Layout currentUser={props.currentUser}>{props.children}</Layout>
+          )}
+        </Drawer.Screen>
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default DrawerNavigator;
