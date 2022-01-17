@@ -1,0 +1,26 @@
+{
+  "name": "@dum/db",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "gm": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS -r @dum/config/env\" graphile-migrate",
+    "migrate": "yarn gm migrate",
+    "watch": "yarn gm watch",
+    "commit": "yarn gm commit",
+    "uncommit": "yarn gm uncommit",
+    "reset": "yarn gm reset",
+    "dump": "yarn gm migrate && yarn gm reset --shadow --erase && yarn gm migrate --shadow --forceActions",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS -r @dum/config/env\" jest"
+  },
+  "dependencies": {
+    "graphile-migrate": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.6.4",
+    "cross-env": "^7.0.3",
+    "graphile-worker": "^0.12.2",
+    "jest": "^27.4.7",
+    "lodash": "^4.17.21",
+    "pg": "^8.7.1"
+  }
+}

@@ -1,0 +1,12 @@
+.env
+.expo
+.next
+node_modules
+dist
+/heroku-setup
+/yarn-error.log
+.agignore
+*.tsbuildinfo
+.ethereal
+yarn-error.log
+__generated__
