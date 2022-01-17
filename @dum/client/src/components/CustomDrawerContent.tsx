@@ -50,14 +50,6 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
     <DrawerContentScrollView {...props}>
       <VStack space="6" my="2" mx="1">
         <Box px="4">
-          <Avatar
-            size="lg"
-            source={{
-              uri: `${data?.avatarUrl}`,
-            }}
-          >
-            {data ? getCharactersFromName(data?.fullName) : ""}
-          </Avatar>
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
             {data?.fullName}
           </Text>
