@@ -45,9 +45,9 @@ function Layout(props: LayoutProps) {
 
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const router = useRouter();
-
   const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+
+  const router = useRouter();
 
   if (router.pathname === "/login" && currentUser) return <Redirect href="/" />;
 
