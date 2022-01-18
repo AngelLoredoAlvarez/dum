@@ -23,6 +23,7 @@ import { useFragment } from "react-relay/hooks";
 import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUserFragment_user.graphql";
 import CurrentUserFragment from "../graphql/CurrentUserFragment";
 import CustomDrawerContent from "./CustomDrawerContent";
+import Redirect from "./Redirect";
 
 const Drawer = createDrawerNavigator();
 
@@ -46,6 +47,8 @@ function Layout(props: LayoutProps) {
   const router = useRouter();
 
   const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+
+  if (router.pathname === "/login" && currentUser) return <Redirect href="/" />;
 
   return (
     <Box flex={1}>
@@ -115,7 +118,8 @@ function Layout(props: LayoutProps) {
               mr={2}
             />
           </VStack>
-          {router.pathname !== "/login" &&
+          {!currentUser &&
+          router.pathname !== "/login" &&
           (screenSize === "base" || screenSize === "sm") ? (
             <IconButton
               _hover={{
@@ -135,7 +139,8 @@ function Layout(props: LayoutProps) {
               onPress={() => router.push("/login")}
             />
           ) : null}
-          {router.pathname !== "/login" &&
+          {!currentUser &&
+          router.pathname !== "/login" &&
           (screenSize === "md" ||
             screenSize === "lg" ||
             screenSize === "xl" ||
