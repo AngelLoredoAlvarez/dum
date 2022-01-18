@@ -10,6 +10,7 @@ import {
   IconButton,
   Link,
   Pressable,
+  ScrollView,
   StatusBar,
   Text,
   useBreakpointValue,
@@ -159,7 +160,7 @@ function Layout(props: LayoutProps) {
         _light={{ bg: "warmGray.50" }}
         flex={1}
       >
-        {props.children}
+        <ScrollView>{props.children}</ScrollView>
       </Box>
       {router.pathname !== "/login" ? (
         <HStack
