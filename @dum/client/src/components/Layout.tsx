@@ -160,7 +160,11 @@ function Layout(props: LayoutProps) {
         _light={{ bg: "warmGray.50" }}
         flex={1}
       >
-        <ScrollView>{props.children}</ScrollView>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        >
+          {props.children}
+        </ScrollView>
       </Box>
       {router.pathname !== "/login" ? (
         <HStack
