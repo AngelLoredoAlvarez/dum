@@ -34,6 +34,12 @@ interface LayoutProps {
 }
 
 function Layout(props: LayoutProps) {
+  const router = useRouter();
+
+  const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const screenSize = useBreakpointValue({
     base: "base",
     sm: "sm",
@@ -42,12 +48,6 @@ function Layout(props: LayoutProps) {
     xl: "xl",
     "2xl": "2xl",
   });
-
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  const currentUser = useFragment(CurrentUserFragment, props.currentUser);
-
-  const router = useRouter();
 
   if (router.pathname === "/login" && currentUser) return <Redirect href="/" />;
 
