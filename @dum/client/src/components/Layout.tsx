@@ -163,7 +163,7 @@ function Layout(props: LayoutProps) {
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         >
-          {props.children}
+          <Center flex={1}>{props.children}</Center>
         </ScrollView>
       </Box>
       {router.pathname !== "/login" ? (
