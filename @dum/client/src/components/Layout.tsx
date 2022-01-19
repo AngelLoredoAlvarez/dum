@@ -1,6 +1,10 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  DrawerActions,
+  NavigationContainer,
+  useNavigation,
+} from "@react-navigation/native";
 import {
   Badge,
   Box,
@@ -39,6 +43,8 @@ function Layout(props: LayoutProps) {
 
   const currentUser = useFragment(CurrentUserFragment, props.currentUser);
 
+  const { dispatch } = useNavigation();
+
   const { colorMode, toggleColorMode } = useColorMode();
 
   const screenSize = useBreakpointValue({
@@ -70,7 +76,7 @@ function Layout(props: LayoutProps) {
       >
         <HStack alignItems="center" space={3}>
           {currentUser ? (
-            <Pressable>
+            <Pressable onPress={() => dispatch(DrawerActions.toggleDrawer())}>
               {({ isHovered }) => (
                 <Avatar
                   imageURI={require("../../public/Logo_Montecristo_Color.png")}
