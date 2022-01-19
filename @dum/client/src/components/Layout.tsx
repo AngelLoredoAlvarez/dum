@@ -23,6 +23,7 @@ import { useFragment } from "react-relay/hooks";
 
 import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUserFragment_user.graphql";
 import CurrentUserFragment from "../graphql/CurrentUserFragment";
+import Avatar from "./Avatar";
 import CustomDrawerContent from "./CustomDrawerContent";
 import Redirect from "./Redirect";
 
@@ -68,6 +69,22 @@ function Layout(props: LayoutProps) {
         py="1"
       >
         <HStack alignItems="center" space={3}>
+          {currentUser ? (
+            <Pressable>
+              {({ isHovered }) => (
+                <Avatar
+                  imageURI={require("../../public/Logo_Montecristo_Color.png")}
+                  isHovered={isHovered}
+                  size="md"
+                />
+              )}
+            </Pressable>
+          ) : (
+            <Avatar
+              imageURI={require("../../public/Logo_Montecristo_Color.png")}
+              size="md"
+            />
+          )}
           <Text color={"white"} fontSize={"lg"}>
             Desarrollos Urbanos Montecristo
           </Text>
