@@ -1,10 +1,11 @@
-import { Heading, Text } from "native-base";
+import { FlatList, Heading, Text } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
+import PostListItem from "../components/PostListItem";
 import type { IndexPageQuery as IndexPageQueryTypes } from "../graphql/__generated__/IndexPageQuery.graphql";
 import IndexPageQuery from "../graphql/IndexPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -17,10 +18,12 @@ function IndexPage({ preloadedQuery }: RelayProps<{}, IndexPageQueryTypes>) {
 
   return (
     <Layout currentUser={indexPageQuery.currentUser}>
-      <Heading>¡Las Noticias!</Heading>
-      {indexPageQuery.posts.edges.map(({ node }) => (
-        <Text key={node.id}>{node.id}</Text>
-      ))}
+      <Heading size={["xl", "2xl", "3xl"]}>¡Las Noticias!</Heading>
+      <FlatList
+        data={indexPageQuery.posts.edges}
+        keyExtractor={(item) => item.node.__id}
+        renderItem={({ item }) => <PostListItem post={item.node} />}
+      />
     </Layout>
   );
 }
