@@ -91,7 +91,17 @@ function Layout(props: LayoutProps) {
               size="md"
             />
           )}
-          <Text color={"white"} fontSize={"lg"}>
+          <Text
+            color={"white"}
+            fontSize={{
+              base: "sm",
+              sm: "md",
+              md: "lg",
+              lg: "lg",
+              xl: "lg",
+              "2xl": "lg",
+            }}
+          >
             Desarrollos Urbanos Montecristo
           </Text>
           <IconButton
