@@ -22,6 +22,7 @@ import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUs
 import type { LogoutMutation as LogoutMutationTypes } from "../graphql/__generated__/LogoutMutation.graphql";
 import CurrentUserFragment from "../graphql/CurrentUserFragment";
 import LogoutMutation from "../graphql/LogoutMutation";
+import Avatar from "./Avatar";
 
 interface CustomDrawerContentProps {
   currentUser: CurrentUserFragment_user$key;
@@ -51,6 +52,13 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
   return (
     <DrawerContentScrollView {...props}>
       <VStack space="6" my="2" mx="1">
+        <Avatar
+          imageURI={currentUser?.avatarUrl}
+          size="lg"
+          text={getCharactersFromName(
+            currentUser?.fullName ? currentUser.fullName : "DUM"
+          )}
+        />
         <Box px="4">
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
             {currentUser?.fullName}
