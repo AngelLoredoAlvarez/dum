@@ -6,7 +6,6 @@ import {
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import {
-  Avatar,
   Box,
   Divider,
   HStack,
@@ -41,9 +40,12 @@ function getCharactersFromName(fullName: string) {
 }
 
 function CustomDrawerContent(props: CustomDrawerContentProps) {
-  const data = useFragment(CurrentUserFragment, props.currentUser);
+  const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+
   const [logout] = useMutation<LogoutMutationTypes>(LogoutMutation);
+
   const router = useRouter();
+
   const { dispatch } = useNavigation();
 
   return (
@@ -51,7 +53,7 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
       <VStack space="6" my="2" mx="1">
         <Box px="4">
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
-            {data?.fullName}
+            {currentUser?.fullName}
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
