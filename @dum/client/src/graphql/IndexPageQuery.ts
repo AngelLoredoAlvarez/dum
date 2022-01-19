@@ -8,7 +8,6 @@ export default graphql`
     posts {
       edges {
         node {
-          id
           ...PostFragment_post
         }
       }
