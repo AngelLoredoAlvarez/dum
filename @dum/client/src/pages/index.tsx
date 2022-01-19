@@ -1,4 +1,4 @@
-import { Text } from "native-base";
+import { Heading, Text } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -17,6 +17,7 @@ function IndexPage({ preloadedQuery }: RelayProps<{}, IndexPageQueryTypes>) {
 
   return (
     <Layout currentUser={indexPageQuery.currentUser}>
+      <Heading>¡Las Noticias!</Heading>
       {indexPageQuery.posts.edges.map(({ node }) => (
         <Text key={node.id}>{node.id}</Text>
       ))}
