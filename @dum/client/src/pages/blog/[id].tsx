@@ -19,7 +19,9 @@ function PostPage({ preloadedQuery }: RelayProps<{}, PostPageQueryTypes>) {
   return (
     <Layout currentUser={postPageQuery.currentUser}>
       <HStack w={"100%"}>
-        <Link onPress={() => router.push("/")}>Regresar...</Link>
+        <Link ml={3} mt={2} onPress={() => router.push("/")}>
+          Regresar...
+        </Link>
       </HStack>
       <Post post={postPageQuery.post} />
     </Layout>
