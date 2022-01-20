@@ -1,10 +1,13 @@
 import { Text } from "native-base";
 import * as React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
+import LoginPageErrors from "../components/LoginPageErrors";
+import LoginForm from "../forms/LoginForm";
 import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/__generated__/LoginPageQuery.graphql";
 import LoginPageQuery from "../graphql/LoginPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -17,7 +20,9 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
 
   return (
     <Layout currentUser={loginPageQuery.currentUser}>
-      <Text>Login</Text>
+      <ErrorBoundary FallbackComponent={LoginPageErrors}>
+        <LoginForm />
+      </ErrorBoundary>
     </Layout>
   );
 }
