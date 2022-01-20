@@ -101,6 +101,7 @@ function Layout(props: LayoutProps) {
               xl: "lg",
               "2xl": "lg",
             }}
+            onPress={() => router.push("/")}
           >
             Desarrollos Urbanos Montecristo
           </Text>
