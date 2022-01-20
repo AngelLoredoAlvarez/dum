@@ -1,3 +1,5 @@
+import { HStack, Link } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
@@ -10,10 +12,16 @@ import PostPageQuery from "../../graphql/PostPageQuery";
 import { getClientEnvironment } from "../../lib/client";
 
 function PostPage({ preloadedQuery }: RelayProps<{}, PostPageQueryTypes>) {
-  const query = usePreloadedQuery(PostPageQuery, preloadedQuery);
+  const postPageQuery = usePreloadedQuery(PostPageQuery, preloadedQuery);
+
+  const router = useRouter();
+
   return (
-    <Layout currentUser={query.currentUser}>
-      <Post post={query.post} />
+    <Layout currentUser={postPageQuery.currentUser}>
+      <HStack w={"100%"}>
+        <Link onPress={() => router.push("/")}>Regresar...</Link>
+      </HStack>
+      <Post post={postPageQuery.post} />
     </Layout>
   );
 }
