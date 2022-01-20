@@ -199,7 +199,7 @@ function Layout(props: LayoutProps) {
           <Center flex={1}>{props.children}</Center>
         </ScrollView>
       </Box>
-      {router.pathname !== "/login" ? (
+      {router.pathname !== "/login" && !router.pathname.includes("/blog") ? (
         <HStack
           _dark={{
             bg: "coolGray.800",
