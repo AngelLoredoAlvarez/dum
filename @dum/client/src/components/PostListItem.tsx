@@ -1,4 +1,5 @@
 import { Box, Heading, HStack, Image, Link, Stack, Text } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -11,6 +12,8 @@ interface PostListItemProps {
 
 function PostListItem(props: PostListItemProps) {
   const post = useFragment(PostFragment, props.post);
+
+  const router = useRouter();
 
   return (
     <Stack
@@ -86,7 +89,7 @@ function PostListItem(props: PostListItemProps) {
         >
           {post.body}
         </Text>
-        <Link href="#">Leer más...</Link>
+        <Link onPress={() => router.push(`/blog/${post.id}`)}>Leer más...</Link>
         <HStack
           alignItems="center"
           flex={1}
