@@ -6,6 +6,7 @@ import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../../components/Layout";
+import Loading from "../../components/Loading";
 import Post from "../../components/Post";
 import type { PostPageQuery as PostPageQueryTypes } from "../../graphql/__generated__/PostPageQuery.graphql";
 import PostPageQuery from "../../graphql/PostPageQuery";
@@ -35,6 +36,7 @@ export default withRelay(PostPage, PostPageQuery, {
 
     return createServerEnvironment(cookies);
   },
+  fallback: <Loading />,
   serverSideProps: async (ctx) => {
     const cookies = ctx.req.headers.cookie;
 

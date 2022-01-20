@@ -1,4 +1,3 @@
-import { Text } from "native-base";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { usePreloadedQuery } from "react-relay";
@@ -6,6 +5,7 @@ import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
+import Loading from "../components/Loading";
 import LoginPageErrors from "../components/LoginPageErrors";
 import LoginForm from "../forms/LoginForm";
 import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/__generated__/LoginPageQuery.graphql";
@@ -34,7 +34,7 @@ export default withRelay(LoginPage, LoginPageQuery, {
 
     return createServerEnvironment(cookies);
   },
-  fallback: () => <Text>Cargando tus pinches datos prro</Text>,
+  fallback: <Loading />,
   serverSideProps: async (ctx) => {
     const cookies = ctx.req.headers.cookie;
 

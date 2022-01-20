@@ -1,10 +1,11 @@
-import { FlatList, Heading, Text } from "native-base";
+import { FlatList, Heading } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
+import Loading from "../components/Loading";
 import PostListItem from "../components/PostListItem";
 import type { IndexPageQuery as IndexPageQueryTypes } from "../graphql/__generated__/IndexPageQuery.graphql";
 import IndexPageQuery from "../graphql/IndexPageQuery";
@@ -35,7 +36,7 @@ export default withRelay(IndexPage, IndexPageQuery, {
 
     return createServerEnvironment(cookies);
   },
-  fallback: () => <Text>Cargando tus pinches datos prro</Text>,
+  fallback: <Loading />,
   serverSideProps: async (ctx) => {
     const cookies = ctx.req.headers.cookie;
 

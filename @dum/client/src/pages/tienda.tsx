@@ -5,6 +5,7 @@ import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
+import Loading from "../components/Loading";
 import type { StorePageQuery as StorePageQueryTypes } from "../graphql/__generated__/StorePageQuery.graphql";
 import StorePageQuery from "../graphql/StorePageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -29,7 +30,7 @@ export default withRelay(StorePage, StorePageQuery, {
 
     return createServerEnvironment(cookies);
   },
-  fallback: () => <Text>Cargando tus pinches datos prro</Text>,
+  fallback: <Loading />,
   serverSideProps: async (ctx) => {
     const cookies = ctx.req.headers.cookie;
 
