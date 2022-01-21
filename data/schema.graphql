@@ -533,9 +533,6 @@ type PostsEdge {
 type Product {
   """Unique code used to get the information from a product."""
   barcode: String!
-
-  """The cateogory to belongs a product."""
-  category: ProductCategory
   createdAt: Datetime!
 
   """The description of the characteristics of a product."""
@@ -553,17 +550,6 @@ type Product {
   """The tax that applies to the product."""
   tax: BigFloat
   updatedAt: Datetime!
-}
-
-enum ProductCategory {
-  CONSTRUCTION
-  ELECTRICAL
-  GARDENING
-  HAND_TOOLS
-  LADDERS
-  PLUMBING
-  SECURITY_EQUIPMENTSWOODWORK
-  TOOL_KITS
 }
 
 """
