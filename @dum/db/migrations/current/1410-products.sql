@@ -6,6 +6,8 @@
    price numeric(8,2) not null,
    tax numeric (3,2),
    stock integer not null,
+   -- Remember to change the type of sub_deparment_id from SERIAL to UUID
+   sub_department_id integer not null references dum_public.sub_departments(id) on delete cascade,
    created_at timestamptz not null default now(),
    updated_at timestamptz not null default now()
  );
@@ -18,6 +20,9 @@ create policy select_all on dum_public.products for select using (true);
 
 -- Grant the SELECT permission to all the columns in the table
 grant select on dum_public.products to :DATABASE_VISITOR;
+
+-- Allow efficient retrieval of all the Products owned by a particular Sub - Department.
+create index idx_product_sub_departments_products on dum_public.products (sub_department_id);
 
 comment on table dum_public.products is
   E'A product sold in the store.';
