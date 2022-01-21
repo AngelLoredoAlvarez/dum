@@ -1,22 +1,8 @@
--- The enum type that will contain all the categories of the tools that the store will have
-create type dum_public.product_category as enum (
-  'ELECTRICAL',
-  'HAND_TOOLS',
-  'TOOL_KITS',
-  'GARDENING',
-  'CONSTRUCTION',
-  'LADDERS',
-  'SECURITY_EQUIPMENTS'
-  'WOODWORK',
-  'PLUMBING'
-);
-
 -- The table that will store the information of the products in the store
  create table dum_public.products (
    id uuid primary key default gen_random_uuid(),
    barcode text not null check (barcode ~ '^[0-9]*$'),
    description text not null,
-   category dum_public.product_category,
    price numeric(8,2) not null,
    tax numeric (3,2),
    stock integer not null,
@@ -42,8 +28,6 @@ comment on column dum_public.products.barcode is
   E'Unique code used to get the information from a product.';
 comment on column dum_public.products.description is
   E'The description of the characteristics of a product.';
- comment on column dum_public.products.category is
-  E'The cateogory to belongs a product.';
 comment on column dum_public.products.price is
   E'The price of the product.';
 comment on column dum_public.products.tax is
@@ -55,15 +39,3 @@ create trigger _100_timestamps
   before insert or update on dum_public.products
   for each row
   execute procedure dum_private.tg__timestamps();
-
--- Insert mock data, just for testing, ¡¡¡REMOVE THIS BEFORE COMMIT THE CHANGES!!!
-insert into dum_public.products (
-  barcode,
-  description,
-  category,
-  price,
-  tax,
-  stock
-) values ('0000000000', 'Martillo Pulido Truper 16658 - MOR-16', 'CONSTRUCTION', 215.00, 0.16, 10),
-         ('0000000001', 'Carretilla para Niños Truper 10440', 'CONSTRUCTION', 215.00, 0.16, 5),
-         ('0000000002', 'Flexómetro de 5 m Contra Impactos Truper', 'CONSTRUCTION', 215.00, 0.16, 3);
