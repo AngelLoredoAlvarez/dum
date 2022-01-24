@@ -7,7 +7,7 @@
    tax numeric (3,2),
    stock integer not null,
    -- Remember to change the type of sub_deparment_id from SERIAL to UUID
-   sub_department_id integer not null references dum_public.sub_departments(id) on delete cascade,
+   sub_department_id uuid not null references dum_public.sub_departments(id) on delete cascade,
    created_at timestamptz not null default now(),
    updated_at timestamptz not null default now()
  );
