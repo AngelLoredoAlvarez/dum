@@ -25,8 +25,8 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
-import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUserFragment_user.graphql";
-import CurrentUserFragment from "../graphql/CurrentUserFragment";
+import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__/CurrentUserFragment_user.graphql";
+import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
 import Avatar from "./Avatar";
 import CustomDrawerContent from "./CustomDrawerContent";
 import Redirect from "./Redirect";

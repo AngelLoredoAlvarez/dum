@@ -7,8 +7,8 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import PostListItem from "../components/PostListItem";
-import type { IndexPageQuery as IndexPageQueryTypes } from "../graphql/__generated__/IndexPageQuery.graphql";
-import IndexPageQuery from "../graphql/IndexPageQuery";
+import type { IndexPageQuery as IndexPageQueryTypes } from "../graphql/Queries/__generated__/IndexPageQuery.graphql";
+import IndexPageQuery from "../graphql/Queries/IndexPageQuery";
 import { getClientEnvironment } from "../lib/client";
 
 function IndexPage({ preloadedQuery }: RelayProps<{}, IndexPageQueryTypes>) {

@@ -18,10 +18,10 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment, useMutation } from "react-relay";
 
-import { CurrentUserFragment_user$key } from "../graphql/__generated__/CurrentUserFragment_user.graphql";
-import type { LogoutMutation as LogoutMutationTypes } from "../graphql/__generated__/LogoutMutation.graphql";
-import CurrentUserFragment from "../graphql/CurrentUserFragment";
-import LogoutMutation from "../graphql/LogoutMutation";
+import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__/CurrentUserFragment_user.graphql";
+import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
+import type { LogoutMutation as LogoutMutationTypes } from "../graphql/Mutations/__generated__/LogoutMutation.graphql";
+import LogoutMutation from "../graphql/Mutations/LogoutMutation";
 import Avatar from "./Avatar";
 
 interface CustomDrawerContentProps {

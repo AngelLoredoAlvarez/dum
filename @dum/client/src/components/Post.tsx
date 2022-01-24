@@ -2,8 +2,8 @@ import { Box, Image, Text } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay";
 
-import { PostFragment_post$key } from "../graphql/__generated__/PostFragment_post.graphql";
-import PostFragment from "../graphql/PostFragment";
+import { PostFragment_post$key } from "../graphql/Fragments/__generated__/PostFragment_post.graphql";
+import PostFragment from "../graphql/Fragments/PostFragment";
 
 interface PostProps {
   post: PostFragment_post$key;

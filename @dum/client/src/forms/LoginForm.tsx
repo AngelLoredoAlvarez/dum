@@ -22,8 +22,8 @@ import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "react-relay/hooks";
 import * as Yup from "yup";
 
-import type { LoginMutation as LoginMutationTypes } from "../graphql/__generated__/LoginMutation.graphql";
-import LoginMutation from "../graphql/LoginMutation";
+import type { LoginMutation as LoginMutationTypes } from "../graphql/Mutations/__generated__/LoginMutation.graphql";
+import LoginMutation from "../graphql/Mutations/LoginMutation";
 
 const LoginValidationSchema = Yup.object().shape({
   useremail: Yup.string().required(

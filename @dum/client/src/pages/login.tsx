@@ -8,8 +8,8 @@ import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import LoginPageErrors from "../components/LoginPageErrors";
 import LoginForm from "../forms/LoginForm";
-import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/__generated__/LoginPageQuery.graphql";
-import LoginPageQuery from "../graphql/LoginPageQuery";
+import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/Queries/__generated__/LoginPageQuery.graphql";
+import LoginPageQuery from "../graphql/Queries/LoginPageQuery";
 import { getClientEnvironment } from "../lib/client";
 
 function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {

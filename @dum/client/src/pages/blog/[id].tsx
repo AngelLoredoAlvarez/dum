@@ -8,8 +8,8 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import Post from "../../components/Post";
-import type { PostPageQuery as PostPageQueryTypes } from "../../graphql/__generated__/PostPageQuery.graphql";
-import PostPageQuery from "../../graphql/PostPageQuery";
+import type { PostPageQuery as PostPageQueryTypes } from "../../graphql/Queries/__generated__/PostPageQuery.graphql";
+import PostPageQuery from "../../graphql/Queries/PostPageQuery";
 import { getClientEnvironment } from "../../lib/client";
 
 function PostPage({ preloadedQuery }: RelayProps<{}, PostPageQueryTypes>) {

@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
-import { PostFragment_post$key } from "../graphql/__generated__/PostFragment_post.graphql";
-import PostFragment from "../graphql/PostFragment";
+import { PostFragment_post$key } from "../graphql/Fragments/__generated__/PostFragment_post.graphql";
+import PostFragment from "../graphql/Fragments/PostFragment";
 
 interface PostListItemProps {
   post: PostFragment_post$key;

@@ -6,8 +6,8 @@ import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
-import type { StorePageQuery as StorePageQueryTypes } from "../graphql/__generated__/StorePageQuery.graphql";
-import StorePageQuery from "../graphql/StorePageQuery";
+import type { StorePageQuery as StorePageQueryTypes } from "../graphql/Queries/__generated__/StorePageQuery.graphql";
+import StorePageQuery from "../graphql/Queries/StorePageQuery";
 import { getClientEnvironment } from "../lib/client";
 
 function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
