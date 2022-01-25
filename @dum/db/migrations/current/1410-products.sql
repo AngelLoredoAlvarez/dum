@@ -48,6 +48,13 @@ create trigger _100_timestamps
   for each row
   execute procedure dum_private.tg__timestamps();
 
+/*
+ * Custom Query that returns the price in a users friendly format
+ */
+create or replace function dum_public.products_price(product dum_public.products) returns text as $$
+  select cast(product.unformated_price as money);
+$$ language sql stable;
+
 -- Inserts mock data in the dum_public.products table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.products(
   barcode,
