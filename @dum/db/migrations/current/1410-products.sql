@@ -2,6 +2,7 @@
  create table dum_public.products (
    id uuid primary key default gen_random_uuid(),
    barcode text not null check (barcode ~ '^[0-9]*$'),
+   brand text not null,
    description text not null,
    price numeric(8,2) not null,
    tax numeric (3,2),
@@ -31,6 +32,8 @@ comment on column dum_public.products.id is
   E'Unique identifier for the product.';
 comment on column dum_public.products.barcode is
   E'Unique code used to get the information from a product.';
+comment on column dum_public.products.brand is
+  E'The brand of the product.';
 comment on column dum_public.products.description is
   E'The description of the characteristics of a product.';
 comment on column dum_public.products.price is
