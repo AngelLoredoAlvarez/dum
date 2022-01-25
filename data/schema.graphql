@@ -634,9 +634,7 @@ type Product {
 
   """Unique identifier for the product."""
   id: UUID!
-
-  """The price of the product."""
-  price: BigFloat!
+  price: String
 
   """The current quantity of the product in stock."""
   stock: Int!
@@ -647,6 +645,9 @@ type Product {
 
   """The tax that applies to the product."""
   tax: BigFloat
+
+  """The price of the product."""
+  unformatedPrice: BigFloat!
   updatedAt: Datetime!
 }
 
