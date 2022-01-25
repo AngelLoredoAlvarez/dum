@@ -5,5 +5,6 @@ export default graphql`
     currentUser {
       ...CurrentUserFragment_user
     }
+    ...MainDepartmentsFragment_mainDepartments
   }
 `;
