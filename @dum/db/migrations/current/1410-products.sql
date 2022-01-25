@@ -4,7 +4,7 @@
    barcode text not null check (barcode ~ '^[0-9]*$'),
    brand text not null,
    description text not null,
-   price numeric(8,2) not null,
+   unformated_price numeric(8,2) not null,
    tax numeric (3,2),
    stock integer not null,
    -- Remember to change the type of sub_deparment_id from SERIAL to UUID
@@ -36,7 +36,7 @@ comment on column dum_public.products.brand is
   E'The brand of the product.';
 comment on column dum_public.products.description is
   E'The description of the characteristics of a product.';
-comment on column dum_public.products.price is
+comment on column dum_public.products.unformated_price is
   E'The price of the product.';
 comment on column dum_public.products.tax is
   E'The tax that applies to the product.';
@@ -53,7 +53,7 @@ insert into dum_public.products(
   barcode,
   brand,
   description,
-  price,
+  unformated_price,
   tax,
   stock,
   sub_department_id
