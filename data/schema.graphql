@@ -624,6 +624,9 @@ type PostsEdge {
 type Product {
   """Unique code used to get the information from a product."""
   barcode: String!
+
+  """The brand of the product."""
+  brand: String!
   createdAt: Datetime!
 
   """The description of the characteristics of a product."""
