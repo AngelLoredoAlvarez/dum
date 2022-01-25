@@ -297,7 +297,7 @@ type MainDepartment {
   createdAt: Datetime!
 
   """Unique identifier for the Main Department."""
-  id: Int!
+  id: UUID!
 
   """The name of the Main Department."""
   mainDepartment: String!
@@ -340,7 +340,7 @@ tested for equality and combined with a logical ‘and.’
 """
 input MainDepartmentCondition {
   """Checks for equality with the object’s `id` field."""
-  id: Int
+  id: UUID
 
   """Checks for equality with the object’s `mainDepartment` field."""
   mainDepartment: String
@@ -640,7 +640,7 @@ type Product {
 
   """Reads a single `SubDepartment` that is related to this `Product`."""
   subDepartment: SubDepartment
-  subDepartmentId: Int!
+  subDepartmentId: UUID!
 
   """The tax that applies to the product."""
   tax: BigFloat
@@ -655,7 +655,7 @@ input ProductCondition {
   id: UUID
 
   """Checks for equality with the object’s `subDepartmentId` field."""
-  subDepartmentId: Int
+  subDepartmentId: UUID
 }
 
 """A connection to a list of `Product` values."""
@@ -729,7 +729,7 @@ type Query {
     """The method to use when ordering `Lot`."""
     orderBy: [LotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): LotsConnection
-  mainDepartment(id: Int!): MainDepartment
+  mainDepartment(id: UUID!): MainDepartment
   mainDepartmentByMainDepartment(mainDepartment: String!): MainDepartment
 
   """Reads and enables pagination through a set of `MainDepartment`."""
@@ -812,7 +812,7 @@ type Query {
     """The method to use when ordering `Product`."""
     orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProductsConnection
-  subDepartment(id: Int!): SubDepartment
+  subDepartment(id: UUID!): SubDepartment
   subDepartmentBySubDepartment(subDepartment: String!): SubDepartment
 
   """Reads and enables pagination through a set of `SubDepartment`."""
@@ -947,10 +947,10 @@ type SubDepartment {
   Reads a single `MainDepartment` that is related to this `SubDepartment`.
   """
   department: MainDepartment
-  departmentId: Int!
+  departmentId: UUID!
 
   """Unique identifier for the Sub - Department."""
-  id: Int!
+  id: UUID!
   pictureUrl: String
 
   """Reads and enables pagination through a set of `Product`."""
@@ -993,10 +993,10 @@ tested for equality and combined with a logical ‘and.’
 """
 input SubDepartmentCondition {
   """Checks for equality with the object’s `departmentId` field."""
-  departmentId: Int
+  departmentId: UUID
 
   """Checks for equality with the object’s `id` field."""
-  id: Int
+  id: UUID
 
   """Checks for equality with the object’s `subDepartment` field."""
   subDepartment: String
