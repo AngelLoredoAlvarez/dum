@@ -4,6 +4,7 @@
    barcode text not null check (barcode ~ '^[0-9]*$'),
    brand text not null,
    description text not null,
+   picture_url text check(picture_url ~ '^$|^https?://[^/]+'),
    unformated_price numeric(8,2) not null,
    tax numeric (3,2),
    stock integer not null,
@@ -36,6 +37,8 @@ comment on column dum_public.products.brand is
   E'The brand of the product.';
 comment on column dum_public.products.description is
   E'The description of the characteristics of a product.';
+comment on column dum_public.products.picture_url is
+  E'Optional picture URL.';
 comment on column dum_public.products.unformated_price is
   E'The price of the product.';
 comment on column dum_public.products.tax is
