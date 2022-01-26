@@ -41,12 +41,19 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
     >
       <HStack
         flex={1}
-        ml={3}
+        ml={{
+          base: 3,
+          sm: 3,
+          md: 3,
+          lg: 20,
+          xl: 3,
+          "2xl": 3,
+        }}
         mr={{
           base: 0,
           sm: 0,
           md: 0,
-          lg: 3,
+          lg: 20,
           xl: 0,
           "2xl": 0,
         }}
