@@ -1,9 +1,10 @@
-import { VStack } from "native-base";
+import { Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
+import BestSellerSwiper from "../components/BestSellersSwiper";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import MainDepartmentsList from "../components/MainDepartmentsList";
@@ -19,14 +20,56 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
 
   return (
     <Layout currentUser={storePageQuery.currentUser}>
-      <VStack
-        alignItems={"center"}
-        borderWidth={1}
-        flex={1}
-        h={"100%"}
-        w={"100%"}
-      >
+      <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
         <MainDepartmentsList departments={storePageQuery} />
+        <BestSellerSwiper bestSellers={storePageQuery} />
+        <Text
+          bold
+          fontSize={{
+            base: "xl",
+            sm: "xl",
+            md: "xl",
+            lg: "xl",
+            "2xl": "4xl",
+          }}
+          ml={3}
+          mr={3}
+          mt={5}
+          textAlign={"center"}
+        >
+          ENCUENTRA LAS MEJORES OFERTAS EN NUESTRA TIENDA ONLINE
+        </Text>
+        <Text
+          fontSize={{
+            base: "xl",
+            sm: "xl",
+            md: "xl",
+            lg: "xl",
+            "2xl": "4xl",
+          }}
+          ml={3}
+          mr={3}
+          textAlign={"center"}
+        >
+          En nuestra Tienda Online encontrarás una amplia variedad de artículos
+          para tu Hogar, Jardín, Plomería, Maquinaría Ligera y ¡mucho más!
+        </Text>
+        <Text
+          bold
+          fontSize={{
+            base: "xl",
+            sm: "xl",
+            md: "xl",
+            lg: "xl",
+            "2xl": "4xl",
+          }}
+          ml={3}
+          mr={3}
+          mt={5}
+          textAlign={"center"}
+        >
+          NO TE PIERDAS NUESTRAS PROMOCIONES
+        </Text>
       </VStack>
     </Layout>
   );
