@@ -22,6 +22,18 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
     <Layout currentUser={storePageQuery.currentUser}>
       <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
         <MainDepartmentsList departments={storePageQuery} />
+        <Text
+          bold
+          fontSize={{
+            base: "2xl",
+            sm: "2xl",
+            md: "2xl",
+            lg: "2xl",
+            "2xl": "5xl",
+          }}
+        >
+          ¡LO MÁS VENDIDO!
+        </Text>
         <BestSellerSwiper bestSellers={storePageQuery} />
         <Text
           bold
