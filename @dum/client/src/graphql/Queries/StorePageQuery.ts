@@ -6,5 +6,6 @@ export default graphql`
       ...CurrentUserFragment_user
     }
     ...MainDepartmentsFragment_mainDepartments
+    ...BestSellersFragment_bestSellers
   }
 `;
