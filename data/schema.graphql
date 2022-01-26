@@ -634,6 +634,9 @@ type Product {
 
   """Unique identifier for the product."""
   id: UUID!
+
+  """Optional picture URL."""
+  pictureUrl: String
   price: String
 
   """The current quantity of the product in stock."""
