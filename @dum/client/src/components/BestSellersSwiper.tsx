@@ -19,7 +19,7 @@ function BestSellerSwiper(props: BestSellersProps) {
   );
 
   return (
-    <Box h={"60%"} w={"100%"}>
+    <Box h={"55%"} w={"100%"}>
       <Box
         ml={{
           base: 3,
