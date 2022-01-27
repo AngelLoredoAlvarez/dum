@@ -252,8 +252,8 @@ function Layout(props: LayoutProps) {
                   <MaterialCommunityIcons
                     name={
                       router.pathname.includes("/tienda")
-                        ? "cart"
-                        : "cart-outline"
+                        ? "store"
+                        : "store-outline"
                     }
                   />
                 }
