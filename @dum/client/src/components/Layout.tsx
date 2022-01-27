@@ -195,7 +195,10 @@ function Layout(props: LayoutProps) {
         flex={1}
       >
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: "center",
+          }}
         >
           <Center flex={1}>{props.children}</Center>
         </ScrollView>
