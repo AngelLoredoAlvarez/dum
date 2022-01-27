@@ -19,8 +19,9 @@ function BestSellerSwiper(props: BestSellersProps) {
   );
 
   return (
-    <Box h={"55%"} w={"100%"}>
+    <Box h={"450"} w={"100%"}>
       <Box
+        flex={1}
         ml={{
           base: 3,
           sm: 3,
@@ -37,7 +38,6 @@ function BestSellerSwiper(props: BestSellersProps) {
           xl: 40,
           "2xl": 56,
         }}
-        flex={1}
       >
         <Swiper
           controlsProps={{
