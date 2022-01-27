@@ -241,7 +241,7 @@ function Layout(props: LayoutProps) {
           <Pressable
             cursor="pointer"
             flex={1}
-            opacity={router.pathname === "/tienda" ? 1 : 0.6}
+            opacity={router.pathname.includes("/tienda") ? 1 : 0.6}
             onPress={() => router.push("/tienda")}
             py="2"
           >
@@ -251,7 +251,9 @@ function Layout(props: LayoutProps) {
                 as={
                   <MaterialCommunityIcons
                     name={
-                      router.pathname === "/tienda" ? "cart" : "cart-outline"
+                      router.pathname.includes("/tienda")
+                        ? "cart"
+                        : "cart-outline"
                     }
                   />
                 }
