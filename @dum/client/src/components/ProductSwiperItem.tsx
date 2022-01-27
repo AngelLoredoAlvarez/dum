@@ -19,7 +19,6 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
         _dark={{ backgroundColor: "gray.700", borderColor: "gray.700" }}
         _light={{ backgroundColor: "coolGray.50", borderColor: "gray.300" }}
         borderWidth={1}
-        flex={1}
         direction={{
           base: "column",
           sm: "column",
@@ -28,6 +27,7 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
           xl: "row",
           "2xl": "row",
         }}
+        flex={1}
         overflow="hidden"
         rounded="lg"
       >
@@ -46,6 +46,7 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
           alignItems={"center"}
           alignSelf={"center"}
           flex={1}
+          mt={3}
           space={{
             base: 3,
             sm: 3,
@@ -54,7 +55,6 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
             xl: 3,
             "2xl": 8,
           }}
-          mt={3}
         >
           <Text
             _dark={{
