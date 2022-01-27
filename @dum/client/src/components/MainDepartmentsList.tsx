@@ -10,6 +10,7 @@ import {
   Pressable,
   Stack,
 } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
@@ -25,6 +26,8 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
     MainDepartmentsFragment,
     props.departments
   );
+
+  const router = useRouter();
 
   return (
     <Stack
@@ -106,8 +109,20 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
       >
         <Hidden only={["base", "sm", "md"]}>
           <HStack space={4}>
+            <Link onPress={() => router.push("/tienda")}>INICIO</Link>
             {data.mainDepartments.edges.map(({ node }) => (
-              <Link href="#" key={node.id}>
+              <Link
+                onPress={() =>
+                  router.push(
+                    `/tienda/${node.mainDepartment
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/\s/g, "-")
+                      .toLowerCase()}/${node.id}`
+                  )
+                }
+                key={node.id}
+              >
                 {node.mainDepartment}
               </Link>
             ))}
@@ -124,6 +139,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
               );
             }}
           >
+            <Menu.Item>INICIO</Menu.Item>
             {data.mainDepartments.edges.map(({ node }) => (
               <Menu.Item key={node.id}>{node.mainDepartment}</Menu.Item>
             ))}
