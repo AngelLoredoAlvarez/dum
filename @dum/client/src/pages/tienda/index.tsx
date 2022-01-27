@@ -4,14 +4,14 @@ import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
-import BestSellerSwiper from "../components/BestSellersSwiper";
-import Layout from "../components/Layout";
-import Loading from "../components/Loading";
-import MainDepartmentsList from "../components/MainDepartmentsList";
-import ProductsOffersSwiper from "../components/ProductsOffersSwiper";
-import type { StorePageQuery as StorePageQueryTypes } from "../graphql/Queries/__generated__/StorePageQuery.graphql";
-import StorePageQuery from "../graphql/Queries/StorePageQuery";
-import { getClientEnvironment } from "../lib/client";
+import BestSellerSwiper from "../../components/BestSellersSwiper";
+import Layout from "../../components/Layout";
+import Loading from "../../components/Loading";
+import MainDepartmentsList from "../../components/MainDepartmentsList";
+import ProductsOffersSwiper from "../../components/ProductsOffersSwiper";
+import type { StorePageQuery as StorePageQueryTypes } from "../../graphql/Queries/__generated__/StorePageQuery.graphql";
+import StorePageQuery from "../../graphql/Queries/StorePageQuery";
+import { getClientEnvironment } from "../../lib/client";
 
 function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
   const storePageQuery = usePreloadedQuery<StorePageQueryTypes>(
@@ -94,7 +94,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
 export default withRelay(StorePage, StorePageQuery, {
   createClientEnvironment: () => getClientEnvironment(),
   createServerEnvironment: async (_ctx, { cookies }) => {
-    const { createServerEnvironment } = await import("../lib/server/server");
+    const { createServerEnvironment } = await import("../../lib/server/server");
 
     return createServerEnvironment(cookies);
   },
