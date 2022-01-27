@@ -18,7 +18,6 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
       <Stack
         _dark={{ backgroundColor: "gray.700", borderColor: "gray.700" }}
         _light={{ backgroundColor: "coolGray.50", borderColor: "gray.300" }}
-        borderWidth={1}
         direction={{
           base: "column",
           sm: "column",
@@ -42,7 +41,6 @@ function ProductSwiperItem(props: ProductSwiperItemProps) {
           />
         </Box>
         <VStack
-          alignContent={"center"}
           alignItems={"center"}
           alignSelf={"center"}
           flex={1}
