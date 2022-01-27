@@ -44,7 +44,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.38",
     "@types/react-native": "0.66.15",
-    "@types/react-relay": "13.0.0",
+    "@types/react-relay": "11.0.3",
     "@types/relay-runtime": "12.0.0",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-relay": "12.0.0",
