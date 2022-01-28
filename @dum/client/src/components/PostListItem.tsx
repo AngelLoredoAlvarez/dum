@@ -89,7 +89,9 @@ function PostListItem(props: PostListItemProps) {
         >
           {post.body}
         </Text>
-        <Link onPress={() => router.push(`/blog/${post.id}`)}>Leer más...</Link>
+        <Link onPress={() => router.push(`/blog/${post.rowId}`)}>
+          Leer más...
+        </Link>
         <HStack
           alignItems="center"
           flex={1}
