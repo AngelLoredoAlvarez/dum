@@ -2,7 +2,6 @@ import PgPubsub from "@graphile/pg-pubsub";
 import Postgis from "@graphile/postgis";
 import PgSimplifyInflectorPlugin from "@graphile-contrib/pg-simplify-inflector";
 import { Express, Request, Response } from "express";
-import { NodePlugin } from "graphile-build";
 import { resolve } from "path";
 import { Pool, PoolClient } from "pg";
 import {
@@ -178,17 +177,11 @@ export function getPostGraphileOptions({
       SubscriptionsPlugin,
 
       // Adds GeoSpacial database features
-      Postgis
+      Postgis,
     ],
 
-    /*
-     * Plugins we don't want in our schema
-     */
-    skipPlugins: [
-      // Disable the 'Node' interface
-      NodePlugin,
-    ],
-
+    // Enable ID's for Relay Modern
+    classicIds: true,
     graphileBuildOptions: {
       /*
        * Any properties here are merged into the settings passed to each Graphile
@@ -262,7 +255,7 @@ export function getPostGraphileOptions({
           return Promise.resolve();
         },
       };
-    }
+    },
   };
   return options;
 }
