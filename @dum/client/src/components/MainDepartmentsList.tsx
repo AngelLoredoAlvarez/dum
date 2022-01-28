@@ -112,6 +112,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
             <Link onPress={() => router.push("/tienda")}>INICIO</Link>
             {data.mainDepartments.edges.map(({ node }) => (
               <Link
+                key={node.id}
                 onPress={() =>
                   router.push(
                     `/tienda/${node.mainDepartment
@@ -121,7 +122,6 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
                       .toLowerCase()}/${node.rowId}`
                   )
                 }
-                key={node.id}
               >
                 {node.mainDepartment}
               </Link>
@@ -139,9 +139,22 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
               );
             }}
           >
-            <Menu.Item>INICIO</Menu.Item>
+            <Menu.Item onPress={() => router.push("/tienda")}>INICIO</Menu.Item>
             {data.mainDepartments.edges.map(({ node }) => (
-              <Menu.Item key={node.id}>{node.mainDepartment}</Menu.Item>
+              <Menu.Item
+                key={node.id}
+                onPress={() =>
+                  router.push(
+                    `/tienda/${node.mainDepartment
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/\s/g, "-")
+                      .toLowerCase()}/${node.rowId}`
+                  )
+                }
+              >
+                {node.mainDepartment}
+              </Menu.Item>
             ))}
           </Menu>
         </Hidden>
