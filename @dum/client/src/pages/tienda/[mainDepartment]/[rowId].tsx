@@ -20,11 +20,13 @@ function MainDepartmentPage({
       preloadedQuery
     );
 
+  console.log(mainDepartmentPageQuery);
+
   return (
     <Layout currentUser={mainDepartmentPageQuery.currentUser}>
       <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
         <MainDepartmentsList departments={mainDepartmentPageQuery} />
-        <Text>Main Department</Text>
+        <Text>{mainDepartmentPageQuery.mainDepartment.mainDepartment}</Text>
       </VStack>
     </Layout>
   );
