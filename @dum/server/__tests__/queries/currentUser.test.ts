@@ -13,7 +13,7 @@ afterAll(teardown);
 test("currentUser when logged out", async () => {
   await runGraphQLQuery(
     // GraphQL query goes here:
-    `{currentUser{id}}`,
+    `{currentUser{rowId}}`,
 
     // GraphQL variables:
     {},
@@ -36,7 +36,7 @@ test("currentUser when logged in", async () => {
   const { user, session } = await createUserAndLogIn();
   await runGraphQLQuery(
     // GraphQL query goes here:
-    `{currentUser{id}}`,
+    `{currentUser{rowId}}`,
 
     // GraphQL variables:
     {},
@@ -51,7 +51,7 @@ test("currentUser when logged in", async () => {
       expect(json.errors).toBeFalsy();
       expect(json.data).toBeTruthy();
       expect(json.data!.currentUser).toMatchObject({
-        id: user.id,
+        rowId: user.id,
       });
     }
   );
