@@ -1,11 +1,11 @@
 import { graphql } from "react-relay/hooks";
 
 export default graphql`
-  query PostPageQuery($id: UUID!) {
+  query PostPageQuery($rowId: UUID!) {
     currentUser {
       ...CurrentUserFragment_user
     }
-    post(id: $id) {
+    post(rowId: $rowId) {
       ...PostFragment_post
     }
   }
