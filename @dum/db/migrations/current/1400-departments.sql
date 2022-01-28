@@ -112,7 +112,7 @@ insert into dum_public.sub_departments (
          ('7e1a9584-ebfe-4216-9d1f-96841a719429', 'Fijación y Sujeción', 'https://www.lifeder.com/wp-content/uploads/2017/12/587.jpg', '20701679-709d-4cda-a0a8-589e65bfe309'),
          ('4484477b-7b52-4d09-8a61-563f2adce6be', 'Láminas para Techos', 'https://comeca.com.mx/wp-content/uploads/2017/08/laminasparatechoscolor.jpg', '20701679-709d-4cda-a0a8-589e65bfe309'),
          ('1273d184-d8a5-44ea-a23a-e6e8409344e9', 'Aceites y Lubricantes', 'https://garinetiquetas.com/assets/img/automotriz/etiquetas_de_marca.jpg', '20701679-709d-4cda-a0a8-589e65bfe309'),
-         ('aadee1ef-a1dc-499d-91a0-371f83ccd64e', 'Pintura', 'https://www.hogar.mapfre.es/media/2018/08/pinturas_con_base_de_aceite_o_de_agua.jpg', '20701679-709d-4cda-a0a8-589e65bfe309'),
+         ('aadee1ef-a1dc-499d-91a0-371f83ccd64e', 'Pintura', 'https://www.pinturassuper.com/wp-content/uploads/2019/02/Caracteristicas-de-la-pintura-de-esmalte.jpg', '20701679-709d-4cda-a0a8-589e65bfe309'),
          ('5ea37be6-444b-41d2-b775-7bd58e61180a', 'Otros Productos', 'https://mercafilms.com.mx/wp-content/uploads/2018/09/otros_productos.png', '20701679-709d-4cda-a0a8-589e65bfe309'),
          ('a01a2642-fc99-4677-9113-7830ef8d7d1b', 'Básculas', 'https://www.sicar.mx/wp-content/uploads/2016/06/bascula-torrey-LEQ-3.png', '20701679-709d-4cda-a0a8-589e65bfe309'),
          ('4adebd8a-08e9-4d31-bace-4384cb15b3c9', 'Accesorios para Baño', 'https://hygolet.com.mx/blog/wp-content/uploads/2020/01/accesorios.jpg', '6b234a7a-e3fd-458b-a75f-63797e0bb70b'),
