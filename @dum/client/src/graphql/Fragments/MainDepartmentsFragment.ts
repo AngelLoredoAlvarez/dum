@@ -12,6 +12,7 @@ export default graphql`
       edges {
         node {
           id
+          rowId
           mainDepartment
         }
       }
