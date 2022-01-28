@@ -35,7 +35,7 @@ test("Register", async () => {
         }
       ) {
         user {
-          id
+          rowId
           name
           avatarUrl
           createdAt
@@ -70,18 +70,18 @@ test("Register", async () => {
       expect(json.data!.register).toBeTruthy();
       expect(json.data!.register.user).toBeTruthy();
       expect(sanitize(json.data!.register.user)).toMatchInlineSnapshot(`
-Object {
-  "avatarUrl": null,
-  "createdAt": "[timestamp-1]",
-  "id": "[id-1]",
-  "isAdmin": false,
-  "isVerified": false,
-  "name": "Test Name",
-  "updatedAt": "[timestamp-1]",
-  "username": "[username-1]",
-}
-`);
-      const id = json.data!.register.user.id;
+        Object {
+          "avatarUrl": null,
+          "createdAt": "[timestamp-1]",
+          "isAdmin": false,
+          "isVerified": false,
+          "name": "Test Name",
+          "rowId": "[id-1]",
+          "updatedAt": "[timestamp-1]",
+          "username": "[username-1]",
+        }
+      `);
+      const id = json.data!.register.user.rowId;
 
       // If you need to, you can query the DB within the context of this
       // function - e.g. to check that your mutation made the changes you'd
