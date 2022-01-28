@@ -1,4 +1,4 @@
-import { Text, VStack } from "native-base";
+import { Box, Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -36,7 +36,7 @@ function MainDepartmentPage({
         >
           {mainDepartmentPageQuery.mainDepartment.mainDepartment}
         </Text>
-        <VStack borderWidth={1} flex={1} width={"100%"}></VStack>
+        <Box borderWidth={1} h={"300"} w={"100%"}></Box>
       </VStack>
     </Layout>
   );
