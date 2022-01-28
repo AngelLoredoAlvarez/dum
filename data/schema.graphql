@@ -101,6 +101,20 @@ A point in time as described by the [ISO
 """
 scalar Datetime
 
+"""All input for the `deleteUserAuthenticationById` mutation."""
+input DeleteUserAuthenticationByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `UserAuthentication` to be deleted.
+  """
+  id: ID!
+}
+
 """All input for the `deleteUserAuthentication` mutation."""
 input DeleteUserAuthenticationInput {
   """
@@ -108,7 +122,7 @@ input DeleteUserAuthenticationInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: UUID!
+  rowId: UUID!
 }
 
 """The output of our delete `UserAuthentication` mutation."""
@@ -118,7 +132,7 @@ type DeleteUserAuthenticationPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedUserAuthenticationNodeId: ID
+  deletedUserAuthenticationId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -132,6 +146,20 @@ type DeleteUserAuthenticationPayload {
   userAuthentication: UserAuthentication
 }
 
+"""All input for the `deleteUserEmailById` mutation."""
+input DeleteUserEmailByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `UserEmail` to be deleted.
+  """
+  id: ID!
+}
+
 """All input for the `deleteUserEmail` mutation."""
 input DeleteUserEmailInput {
   """
@@ -139,7 +167,7 @@ input DeleteUserEmailInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: UUID!
+  rowId: UUID!
 }
 
 """The output of our delete `UserEmail` mutation."""
@@ -149,7 +177,7 @@ type DeleteUserEmailPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedUserEmailNodeId: ID
+  deletedUserEmailId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -236,12 +264,17 @@ type LogoutPayload {
   success: Boolean
 }
 
-type Lot {
+type Lot implements Node {
   block: Int!
   geom: GeometryPoint!
-  id: UUID!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
   latlong: String
   number: Int!
+  rowId: UUID!
 }
 
 """
@@ -251,8 +284,8 @@ input LotCondition {
   """Checks for equality with the object’s `geom` field."""
   geom: GeoJSON
 
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 }
 
 """A connection to a list of `Lot` values."""
@@ -293,15 +326,20 @@ enum LotsOrderBy {
 }
 
 """A Main Department wich the Store will have."""
-type MainDepartment {
+type MainDepartment implements Node {
   createdAt: Datetime!
 
-  """Unique identifier for the Main Department."""
-  id: UUID!
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
 
   """The name of the Main Department."""
   mainDepartment: String!
   pictureUrl: String
+
+  """Unique identifier for the Main Department."""
+  rowId: UUID!
 
   """Reads and enables pagination through a set of `SubDepartment`."""
   subDepartmentsByDepartmentId(
@@ -339,11 +377,11 @@ A condition to be used against `MainDepartment` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input MainDepartmentCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
   """Checks for equality with the object’s `mainDepartment` field."""
   mainDepartment: String
+
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 }
 
 """A connection to a list of `MainDepartment` values."""
@@ -455,12 +493,28 @@ type Mutation {
     input: DeleteUserAuthenticationInput!
   ): DeleteUserAuthenticationPayload
 
+  """Deletes a single `UserAuthentication` using its globally unique id."""
+  deleteUserAuthenticationById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteUserAuthenticationByIdInput!
+  ): DeleteUserAuthenticationPayload
+
   """Deletes a single `UserEmail` using a unique key."""
   deleteUserEmail(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: DeleteUserEmailInput!
+  ): DeleteUserEmailPayload
+
+  """Deletes a single `UserEmail` using its globally unique id."""
+  deleteUserEmailById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteUserEmailByIdInput!
   ): DeleteUserEmailPayload
 
   """
@@ -544,6 +598,14 @@ type Mutation {
     input: UpdateUserInput!
   ): UpdateUserPayload
 
+  """Updates a single `User` using its globally unique id and a patch."""
+  updateUserById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateUserByIdInput!
+  ): UpdateUserPayload
+
   """
   Once you have received a verification token for your email, you may call this mutation with that token to make your email verified.
   """
@@ -553,6 +615,14 @@ type Mutation {
     """
     input: VerifyEmailInput!
   ): VerifyEmailPayload
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
 }
 
 """Information about pagination in a connection."""
@@ -571,7 +641,7 @@ type PageInfo {
 }
 
 """A post of interest for the user."""
-type Post {
+type Post implements Node {
   age: String
 
   """The topic of the post."""
@@ -583,8 +653,13 @@ type Post {
   """The headline or title of the post."""
   headline: String!
 
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+
   """Unique identifier for the post."""
-  id: UUID!
+  rowId: UUID!
   time: String
   topic: PostTopic
   updatedAt: Datetime!
@@ -621,7 +696,7 @@ type PostsEdge {
 }
 
 """A product sold in the store."""
-type Product {
+type Product implements Node {
   """Unique code used to get the information from a product."""
   barcode: String!
 
@@ -632,12 +707,17 @@ type Product {
   """The description of the characteristics of a product."""
   description: String!
 
-  """Unique identifier for the product."""
-  id: UUID!
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
 
   """Optional picture URL."""
   pictureUrl: String
   price: String
+
+  """Unique identifier for the product."""
+  rowId: UUID!
 
   """The current quantity of the product in stock."""
   stock: Int!
@@ -658,8 +738,8 @@ type Product {
 A condition to be used against `Product` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input ProductCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 
   """Checks for equality with the object’s `subDepartmentId` field."""
   subDepartmentId: UUID
@@ -703,10 +783,21 @@ enum ProductsOrderBy {
 }
 
 """The root query type which gives access points into the data universe."""
-type Query {
+type Query implements Node {
   """The currently logged in user (or null if not logged in)."""
   currentUser: User
-  lot(id: UUID!): Lot
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  id: ID!
+  lot(rowId: UUID!): Lot
+
+  """Reads a single `Lot` using its globally unique `ID`."""
+  lotById(
+    """The globally unique `ID` to be used in selecting a single `Lot`."""
+    id: ID!
+  ): Lot
 
   """Reads and enables pagination through a set of `Lot`."""
   lots(
@@ -736,7 +827,15 @@ type Query {
     """The method to use when ordering `Lot`."""
     orderBy: [LotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): LotsConnection
-  mainDepartment(id: UUID!): MainDepartment
+  mainDepartment(rowId: UUID!): MainDepartment
+
+  """Reads a single `MainDepartment` using its globally unique `ID`."""
+  mainDepartmentById(
+    """
+    The globally unique `ID` to be used in selecting a single `MainDepartment`.
+    """
+    id: ID!
+  ): MainDepartment
   mainDepartmentByMainDepartment(mainDepartment: String!): MainDepartment
 
   """Reads and enables pagination through a set of `MainDepartment`."""
@@ -767,7 +866,19 @@ type Query {
     """The method to use when ordering `MainDepartment`."""
     orderBy: [MainDepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): MainDepartmentsConnection
-  post(id: UUID!): Post
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    id: ID!
+  ): Node
+  post(rowId: UUID!): Post
+
+  """Reads a single `Post` using its globally unique `ID`."""
+  postById(
+    """The globally unique `ID` to be used in selecting a single `Post`."""
+    id: ID!
+  ): Post
 
   """Reads and enables pagination through a set of `Post`."""
   posts(
@@ -789,7 +900,13 @@ type Query {
     """
     offset: Int
   ): PostsConnection
-  product(id: UUID!): Product
+  product(rowId: UUID!): Product
+
+  """Reads a single `Product` using its globally unique `ID`."""
+  productById(
+    """The globally unique `ID` to be used in selecting a single `Product`."""
+    id: ID!
+  ): Product
 
   """Reads and enables pagination through a set of `Product`."""
   products(
@@ -819,7 +936,15 @@ type Query {
     """The method to use when ordering `Product`."""
     orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProductsConnection
-  subDepartment(id: UUID!): SubDepartment
+  subDepartment(rowId: UUID!): SubDepartment
+
+  """Reads a single `SubDepartment` using its globally unique `ID`."""
+  subDepartmentById(
+    """
+    The globally unique `ID` to be used in selecting a single `SubDepartment`.
+    """
+    id: ID!
+  ): SubDepartment
   subDepartmentBySubDepartment(subDepartment: String!): SubDepartment
 
   """Reads and enables pagination through a set of `SubDepartment`."""
@@ -850,10 +975,30 @@ type Query {
     """The method to use when ordering `SubDepartment`."""
     orderBy: [SubDepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): SubDepartmentsConnection
-  user(id: UUID!): User
-  userAuthentication(id: UUID!): UserAuthentication
+  user(rowId: UUID!): User
+  userAuthentication(rowId: UUID!): UserAuthentication
+
+  """Reads a single `UserAuthentication` using its globally unique `ID`."""
+  userAuthenticationById(
+    """
+    The globally unique `ID` to be used in selecting a single `UserAuthentication`.
+    """
+    id: ID!
+  ): UserAuthentication
+
+  """Reads a single `User` using its globally unique `ID`."""
+  userById(
+    """The globally unique `ID` to be used in selecting a single `User`."""
+    id: ID!
+  ): User
   userByUsername(username: String!): User
-  userEmail(id: UUID!): UserEmail
+  userEmail(rowId: UUID!): UserEmail
+
+  """Reads a single `UserEmail` using its globally unique `ID`."""
+  userEmailById(
+    """The globally unique `ID` to be used in selecting a single `UserEmail`."""
+    id: ID!
+  ): UserEmail
 }
 
 input RegisterInput {
@@ -947,7 +1092,7 @@ type ResetPasswordPayload {
 }
 
 """A Sub - Department that belongs to a Main Department."""
-type SubDepartment {
+type SubDepartment implements Node {
   createdAt: Datetime!
 
   """
@@ -956,8 +1101,10 @@ type SubDepartment {
   department: MainDepartment
   departmentId: UUID!
 
-  """Unique identifier for the Sub - Department."""
-  id: UUID!
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
   pictureUrl: String
 
   """Reads and enables pagination through a set of `Product`."""
@@ -989,6 +1136,9 @@ type SubDepartment {
     orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProductsConnection!
 
+  """Unique identifier for the Sub - Department."""
+  rowId: UUID!
+
   """The name of the Sub - Department."""
   subDepartment: String!
   updatedAt: Datetime!
@@ -1002,8 +1152,8 @@ input SubDepartmentCondition {
   """Checks for equality with the object’s `departmentId` field."""
   departmentId: UUID
 
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 
   """Checks for equality with the object’s `subDepartment` field."""
   subDepartment: String
@@ -1061,6 +1211,25 @@ A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/
 """
 scalar UUID
 
+"""All input for the `updateUserById` mutation."""
+input UpdateUserByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `User` to be updated.
+  """
+  id: ID!
+
+  """
+  An object where the defined keys will be set on the `User` being updated.
+  """
+  patch: UserPatch!
+}
+
 """All input for the `updateUser` mutation."""
 input UpdateUserInput {
   """
@@ -1069,13 +1238,13 @@ input UpdateUserInput {
   """
   clientMutationId: String
 
-  """Unique identifier for the user."""
-  id: UUID!
-
   """
   An object where the defined keys will be set on the `User` being updated.
   """
   patch: UserPatch!
+
+  """Unique identifier for the user."""
+  rowId: UUID!
 }
 
 """The output of our update `User` mutation."""
@@ -1102,7 +1271,7 @@ type UpdateUserPayload {
 }
 
 """A user who can log in to the application."""
-type User {
+type User implements Node {
   """Optional avatar URL."""
   avatarUrl: String
   createdAt: Datetime!
@@ -1110,8 +1279,10 @@ type User {
   fullName: String
   hasPassword: Boolean
 
-  """Unique identifier for the user."""
-  id: UUID!
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
 
   """If true, the user has elevated privileges."""
   isAdmin: Boolean!
@@ -1119,6 +1290,9 @@ type User {
 
   """Public-facing name (or pseudonym) of the user."""
   name: String
+
+  """Unique identifier for the user."""
+  rowId: UUID!
   secondSurname: String
   updatedAt: Datetime!
 
@@ -1175,12 +1349,17 @@ type User {
 """
 Contains information about the login providers this user has used, so that they may disconnect them should they wish.
 """
-type UserAuthentication {
+type UserAuthentication implements Node {
   createdAt: Datetime!
-  id: UUID!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
 
   """A unique identifier for the user within the login service."""
   identifier: String!
+  rowId: UUID!
 
   """The login service used, e.g. `twitter` or `github`."""
   service: String!
@@ -1196,8 +1375,8 @@ A condition to be used against `UserAuthentication` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input UserAuthenticationCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 
   """Checks for equality with the object’s `service` field."""
   service: String
@@ -1220,18 +1399,23 @@ enum UserAuthenticationsOrderBy {
 }
 
 """Information about a user's email address."""
-type UserEmail {
+type UserEmail implements Node {
   createdAt: Datetime!
 
   """The users email address, in `a@b.c` format."""
   email: String!
-  id: UUID!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
   isPrimary: Boolean!
 
   """
   True if the user has is_verified their email address (by clicking the link in the email we sent them, or logging in with a social login provider), false otherwise.
   """
   isVerified: Boolean!
+  rowId: UUID!
   updatedAt: Datetime!
 
   """Reads a single `User` that is related to this `UserEmail`."""
@@ -1244,11 +1428,11 @@ A condition to be used against `UserEmail` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input UserEmailCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
-
   """Checks for equality with the object’s `isPrimary` field."""
   isPrimary: Boolean
+
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
 
   """Checks for equality with the object’s `userId` field."""
   userId: UUID
