@@ -11,6 +11,7 @@ export default graphql`
       @connection(key: "SubDepartmentsFragment_subDepartmentsByDepartmentId") {
       edges {
         node {
+          id
           ...SubDepartmentFragment_subDepartment
         }
       }
