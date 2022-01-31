@@ -4,11 +4,9 @@ import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
-import BestSellerSwiper from "../../components/BestSellersSwiper";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
-import ProductsOffersSwiper from "../../components/ProductsOffersSwiper";
 import type { StorePageQuery as StorePageQueryTypes } from "../../graphql/Queries/__generated__/StorePageQuery.graphql";
 import StorePageQuery from "../../graphql/Queries/StorePageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -36,9 +34,6 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
         >
           ¡LO MÁS VENDIDO!
         </Text>
-        <VStack flex={1} width={"100%"}>
-          <BestSellerSwiper bestSellers={storePageQuery} />
-        </VStack>
         <Text
           bold
           fontSize={{
@@ -83,9 +78,6 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
         >
           ¡NO TE PIERDAS ESTAS PROMOCIONES!
         </Text>
-        <VStack flex={1} width={"100%"}>
-          <ProductsOffersSwiper />
-        </VStack>
       </VStack>
     </Layout>
   );
