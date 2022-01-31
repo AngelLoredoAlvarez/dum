@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS -r @dum/config/env\" jest"
   },
   "dependencies": {
-    "dotenv": "^14.3.2"
+    "dotenv": "^15.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
