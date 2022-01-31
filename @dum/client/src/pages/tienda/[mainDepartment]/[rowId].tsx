@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "native-base";
+import { Text, useBreakpointValue, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -7,6 +7,8 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../../components/Layout";
 import Loading from "../../../components/Loading";
 import MainDepartmentsList from "../../../components/MainDepartmentsList";
+import SubDepartmentsList from "../../../components/SubDepartmentsList";
+import SubDepartmentsSwiper from "../../../components/SubDepartmentsSwiper";
 import type { MainDepartmentPageQuery as MainDepartmentPageQueryTypes } from "../../../graphql/Queries/__generated__/MainDepartmentPageQuery.graphql";
 import MainDepartmentPageQuery from "../../../graphql/Queries/MainDepartmentPageQuery";
 import { getClientEnvironment } from "../../../lib/client";
@@ -19,6 +21,15 @@ function MainDepartmentPage({
       MainDepartmentPageQuery,
       preloadedQuery
     );
+
+  const screenSize = useBreakpointValue({
+    base: "base",
+    sm: "sm",
+    md: "md",
+    lg: "lg",
+    xl: "xl",
+    "2xl": "2xl",
+  });
 
   return (
     <Layout currentUser={mainDepartmentPageQuery.currentUser}>
@@ -36,7 +47,19 @@ function MainDepartmentPage({
         >
           {mainDepartmentPageQuery.mainDepartment.mainDepartment}
         </Text>
-        <Box borderWidth={1} h={"300"} w={"100%"}></Box>
+        <VStack borderWidth={1} flex={1} width={"100%"}>
+          {screenSize === "base" ||
+          screenSize === "sm" ||
+          screenSize === "md" ? (
+            <SubDepartmentsSwiper
+              subDepartments={mainDepartmentPageQuery.mainDepartment}
+            />
+          ) : (
+            <SubDepartmentsList
+              subDepartments={mainDepartmentPageQuery.mainDepartment}
+            />
+          )}
+        </VStack>
       </VStack>
     </Layout>
   );
