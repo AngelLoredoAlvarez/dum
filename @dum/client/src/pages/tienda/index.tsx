@@ -1,9 +1,10 @@
-import { Text, VStack } from "native-base";
+import { Box, Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
+import BestSellerSwiper from "../../components/BestSellerSwiper";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
@@ -34,6 +35,26 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
         >
           ¡LO MÁS VENDIDO!
         </Text>
+        <Box
+          h={{
+            base: "30%",
+            sm: "30%",
+            md: "35%",
+            lg: "30%",
+            xl: "35%",
+            "2xl": "30%",
+          }}
+          w={{
+            base: "95%",
+            sm: "95%",
+            md: "95%",
+            lg: "85%",
+            xl: "75%",
+            "2xl": "65%",
+          }}
+        >
+          <BestSellerSwiper bestSellers={storePageQuery} />
+        </Box>
         <Text
           bold
           fontSize={{
@@ -78,6 +99,26 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
         >
           ¡NO TE PIERDAS ESTAS PROMOCIONES!
         </Text>
+        <Box
+          h={{
+            base: "30%",
+            sm: "30%",
+            md: "35%",
+            lg: "30%",
+            xl: "35%",
+            "2xl": "30%",
+          }}
+          w={{
+            base: "95%",
+            sm: "95%",
+            md: "95%",
+            lg: "85%",
+            xl: "75%",
+            "2xl": "65%",
+          }}
+        >
+          <BestSellerSwiper bestSellers={storePageQuery} />
+        </Box>
       </VStack>
     </Layout>
   );
