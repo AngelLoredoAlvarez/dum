@@ -105,6 +105,7 @@ function Layout(props: LayoutProps) {
           >
             Desarrollos Urbanos Montecristo
           </Text>
+          <Text>{screenSize}</Text>
           <IconButton
             _hover={{
               bg: "muted",
