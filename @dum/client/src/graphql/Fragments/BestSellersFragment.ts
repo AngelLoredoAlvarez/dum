@@ -3,7 +3,7 @@ import { graphql } from "react-relay/hooks";
 export default graphql`
   fragment BestSellersFragment_bestSellers on Query
   @argumentDefinitions(
-    first: { type: "Int!", defaultValue: 5 }
+    first: { type: "Int!", defaultValue: 10 }
     after: { type: "Cursor" }
   )
   @refetchable(queryName: "BestSellers") {
@@ -11,6 +11,7 @@ export default graphql`
       @connection(key: "BestSellersFragment_products") {
       edges {
         node {
+          id
           ...ProductFragment_product
         }
       }
