@@ -1,4 +1,4 @@
-import { Text, VStack } from "native-base";
+import { Box, Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -7,6 +7,7 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../../components/Layout";
 import Loading from "../../../components/Loading";
 import MainDepartmentsList from "../../../components/MainDepartmentsList";
+import SubDepartmentsSwiper from "../../../components/SubDepartmentsSwiper";
 import type { MainDepartmentPageQuery as MainDepartmentPageQueryTypes } from "../../../graphql/Queries/__generated__/MainDepartmentPageQuery.graphql";
 import MainDepartmentPageQuery from "../../../graphql/Queries/MainDepartmentPageQuery";
 import { getClientEnvironment } from "../../../lib/client";
@@ -36,6 +37,28 @@ function MainDepartmentPage({
         >
           {mainDepartmentPageQuery.mainDepartment.mainDepartment}
         </Text>
+        <Box
+          h={{
+            base: "30%",
+            sm: "30%",
+            md: "35%",
+            lg: "30%",
+            xl: "35%",
+            "2xl": "30%",
+          }}
+          w={{
+            base: "95%",
+            sm: "95%",
+            md: "95%",
+            lg: "85%",
+            xl: "75%",
+            "2xl": "65%",
+          }}
+        >
+          <SubDepartmentsSwiper
+            subDepartments={mainDepartmentPageQuery.mainDepartment}
+          />
+        </Box>
       </VStack>
     </Layout>
   );
