@@ -6,7 +6,7 @@ global.setImmediate = requestAnimationFrame;
 
 import { ColorMode, NativeBaseProvider, StorageManager } from "native-base";
 import type { AppProps } from "next/app";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -102,12 +102,13 @@ const initialPreloadedQuery = getInitialPreloadedQuery({
 function DUMApp({ Component, pageProps }: AppProps) {
   const relayProps = getRelayProps(pageProps, initialPreloadedQuery);
   const env = relayProps.preloadedQuery?.environment ?? clientEnv!;
+  const router = useRouter();
 
   return (
     <NativeBaseProvider colorModeManager={colorManager}>
       <RelayEnvironmentProvider environment={env}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Component {...pageProps} {...relayProps} />
+          <Component {...pageProps} {...relayProps} key={router.asPath} />
         </ErrorBoundary>
       </RelayEnvironmentProvider>
     </NativeBaseProvider>
