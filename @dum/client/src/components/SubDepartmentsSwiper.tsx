@@ -1,3 +1,4 @@
+import { Pressable, Text } from "native-base";
 import * as React from "react";
 import Swiper from "react-native-web-swiper";
 import { useFragment } from "react-relay/hooks";
@@ -17,7 +18,35 @@ function SubDepartmentsSwiper(props: SubDepartmentsSwiperProps) {
   );
 
   return (
-    <Swiper>
+    <Swiper
+      controlsProps={{
+        dotActiveStyle: { backgroundColor: "#f59e0b" },
+        dotsTouchable: true,
+        nextPos: "right",
+        prevPos: "left",
+        //prevTitle: "",
+        nextTitle: ">",
+        nextTitleStyle: { color: "black", fontSize: 24, fontWeight: "500" },
+        PrevComponent: ({ onPress }) => (
+          <Pressable onPress={onPress}>
+            <Text
+              _dark={{
+                color: "black",
+              }}
+              _light={{
+                color: "black",
+              }}
+              fontSize={24}
+              fontWeight={500}
+            >
+              {"<"}
+            </Text>
+          </Pressable>
+        ),
+      }}
+      loop
+      timeout={5}
+    >
       {subDepartments.subDepartmentsByDepartmentId.edges.map(({ node }) => (
         <SubDepartmentSwiperItem key={node.id} subDepartment={node} />
       ))}
