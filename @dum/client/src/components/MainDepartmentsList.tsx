@@ -115,11 +115,22 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
                 key={node.id}
                 onPress={() =>
                   router.push(
+                    {
+                      pathname: `/tienda/[mainDepartment]/[rowId]`,
+                      query: {
+                        mainDepartment: `${node.mainDepartment
+                          .normalize("NFD")
+                          .replace(/[\u0300-\u036f]/g, "")
+                          .replace(/\s/g, "-")
+                          .toLowerCase()}`,
+                        rowId: `${node.rowId}`,
+                      },
+                    },
                     `/tienda/${node.mainDepartment
                       .normalize("NFD")
                       .replace(/[\u0300-\u036f]/g, "")
                       .replace(/\s/g, "-")
-                      .toLowerCase()}/${node.rowId}`
+                      .toLowerCase()}`
                   )
                 }
               >
