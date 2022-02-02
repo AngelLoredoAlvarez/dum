@@ -1,4 +1,5 @@
 import { Image, Pressable, Text, VStack } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -11,9 +12,29 @@ interface SubDepartmentsListItemProps {
 
 function SubDepartmentsListItem(props: SubDepartmentsListItemProps) {
   const subDepartment = useFragment(SubDepartmentFragment, props.subDepartment);
+  const router = useRouter();
+  const { mainDepartment } = router.query;
 
   return (
-    <Pressable>
+    <Pressable
+      onPress={() =>
+        router.push(
+          {
+            pathname: "/tienda/[mainDepartment]/[subDepartment]",
+            query: {
+              mainDepartment: mainDepartment,
+              subDepartment: `${subDepartment.subDepartment}`,
+              rowId: `${subDepartment.rowId}`,
+            },
+          },
+          `/tienda/${mainDepartment}/${subDepartment.subDepartment
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s/g, "-")
+            .toLowerCase()}`
+        )
+      }
+    >
       {({ isHovered }) => (
         <VStack
           alignContent={"center"}
