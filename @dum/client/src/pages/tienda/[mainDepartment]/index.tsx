@@ -3,6 +3,7 @@ import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
+import { useRouter } from "next/router";
 
 import Layout from "../../../components/Layout";
 import Loading from "../../../components/Loading";
@@ -21,6 +22,9 @@ function MainDepartmentPage({
       MainDepartmentPageQuery,
       preloadedQuery
     );
+
+  const router = useRouter();
+  console.log(router.query);
 
   return (
     <Layout currentUser={mainDepartmentPageQuery.currentUser}>
