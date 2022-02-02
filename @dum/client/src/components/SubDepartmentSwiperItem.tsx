@@ -1,4 +1,4 @@
-import { Text, View, VStack } from "native-base";
+import { Image, Pressable, Text, View, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -18,9 +18,32 @@ function SubDepartmentSwiperItem(props: SubDepartmentSwiperItemProps) {
   return (
     <View h={"100%"} w={"100%"}>
       {props.isActive ? (
-        <VStack>
-          <Text>{subDepartment.subDepartment}</Text>
-        </VStack>
+        <Pressable h={"100%"} w={"100%"}>
+          <VStack h={"100%"} w={"100%"}>
+            <Image
+              alt={subDepartment.subDepartment}
+              flex={1}
+              source={{
+                uri: `${subDepartment.pictureUrl}`,
+              }}
+              w={"100%"}
+            />
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "md",
+                lg: "lg",
+                xl: "xl",
+                "2xl": "2xl",
+              }}
+              mb={6}
+              textAlign={"center"}
+            >
+              {subDepartment.subDepartment}
+            </Text>
+          </VStack>
+        </Pressable>
       ) : null}
     </View>
   );
