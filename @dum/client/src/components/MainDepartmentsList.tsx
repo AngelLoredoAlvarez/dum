@@ -116,7 +116,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
                 onPress={() =>
                   router.push(
                     {
-                      pathname: `/tienda/[mainDepartment]/[rowId]`,
+                      pathname: `/tienda/[mainDepartment]`,
                       query: {
                         mainDepartment: `${node.mainDepartment
                           .normalize("NFD")
@@ -157,7 +157,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
                 onPress={() =>
                   router.push(
                     {
-                      pathname: `/tienda/[mainDepartment]/[rowId]`,
+                      pathname: `/tienda/[mainDepartment]`,
                       query: {
                         mainDepartment: `${node.mainDepartment
                           .normalize("NFD")
