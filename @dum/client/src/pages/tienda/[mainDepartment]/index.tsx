@@ -1,5 +1,4 @@
 import { Box, Hidden, Text, VStack } from "native-base";
-import { useRouter } from "next/router";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -22,9 +21,6 @@ function MainDepartmentPage({
       MainDepartmentPageQuery,
       preloadedQuery
     );
-
-  const router = useRouter();
-  console.log(router.query);
 
   return (
     <Layout currentUser={mainDepartmentPageQuery.currentUser}>
