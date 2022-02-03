@@ -5,14 +5,6 @@ export default graphql`
     currentUser {
       ...CurrentUserFragment_user
     }
-    posts {
-      edges {
-        node {
-          id
-          rowId
-          ...PostFragment_post
-        }
-      }
-    }
+    ...PostsFragment_posts
   }
 `;
