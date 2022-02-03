@@ -28,6 +28,7 @@ function BestSellerSwiper(props: BestSellerSwiperProps) {
         //prevTitle: "",
         nextTitle: ">",
         nextTitleStyle: { color: "black", fontSize: 24, fontWeight: "500" },
+        // @ts-expect-error
         PrevComponent: ({ onPress }) => (
           <Pressable onPress={onPress}>
             <Text
