@@ -5,6 +5,7 @@ try {
   rimraf.sync(`${__dirname}/../@dum/*/dist`);
   rimraf.sync(`${__dirname}/../@dum/*/tsconfig.tsbuildinfo`);
   rimraf.sync(`${__dirname}/../@dum/client/.next`);
+  rimraf.sync(`${__dirname}/../@dum/client/.expo`);
 } catch (e) {
   console.error("Failed to clean up, perhaps rimraf isn't installed?");
   console.error(e);
