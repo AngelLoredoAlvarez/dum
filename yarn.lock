@@ -6296,9 +6296,9 @@ configstore@^5.0.1:
     xdg-basedir "^4.0.0"
 
 connect-redis@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-6.0.0.tgz#7e443fc7028eca43302bee59f51a315f65cd56b5"
-  integrity sha512-6eGEAAPHYvcfbRNCMmPzBIjrqRWLw7at9lCUH4G6NQ8gwWDJelaUmFNOqPIhehbw941euVmIuqWsaWiKXfb+5g==
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-6.1.0.tgz#91673c12cce754835ae1cfafbab77ee343bdb715"
+  integrity sha512-QLhd/xUkmyvK5qO7oQHiUScIBtVFXBkmvj+vuPbBhbP7OKerj6z2bbjgnP+x46DZLZlZpOzmtUdM43+jVl/U1Q==
 
 console-browserify@^1.1.0:
   version "1.2.0"
