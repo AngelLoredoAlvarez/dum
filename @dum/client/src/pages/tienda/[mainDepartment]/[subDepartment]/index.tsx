@@ -1,12 +1,51 @@
-import { Box, Text } from "native-base";
+import { Box, Text, VStack } from "native-base";
 import * as React from "react";
+import { usePreloadedQuery } from "react-relay/hooks";
+import type { RelayProps } from "relay-nextjs";
+import { withRelay } from "relay-nextjs";
 
-function SubDepartmentPage() {
+import Layout from "../../../../components/Layout";
+import Loading from "../../../../components/Loading";
+import MainDepartmentsList from "../../../../components/MainDepartmentsList";
+import type { SubDepartmentPageQuery as SubDepartmentPageQueryTypes } from "../../../../graphql/Queries/__generated__/SubDepartmentPageQuery.graphql";
+import SubDepartmentPageQuery from "../../../../graphql/Queries/SubDepartmentPageQuery";
+import { getClientEnvironment } from "../../../../lib/client";
+
+function SubDepartmentPage({
+  preloadedQuery,
+}: RelayProps<{}, SubDepartmentPageQueryTypes>) {
+  const subDepartmentPageQuery = usePreloadedQuery<SubDepartmentPageQueryTypes>(
+    SubDepartmentPageQuery,
+    preloadedQuery
+  );
+
   return (
-    <Box bgColor={"black"}>
-      <Text>Subdepartment Page</Text>
-    </Box>
+    <Layout currentUser={subDepartmentPageQuery.currentUser}>
+      <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
+        <MainDepartmentsList departments={subDepartmentPageQuery} />
+        <Box>
+          <Text>
+            {subDepartmentPageQuery.subDepartmentByName.subDepartment}
+          </Text>
+        </Box>
+      </VStack>
+    </Layout>
   );
 }
 
-export default SubDepartmentPage;
+export default withRelay(SubDepartmentPage, SubDepartmentPageQuery, {
+  createClientEnvironment: () => getClientEnvironment(),
+  createServerEnvironment: async (_ctx, { cookies }) => {
+    const { createServerEnvironment } = await import(
+      "../../../../lib/server/server"
+    );
+
+    return createServerEnvironment(cookies);
+  },
+  fallback: <Loading />,
+  serverSideProps: async (ctx) => {
+    const cookies = ctx.req.headers.cookie;
+
+    return { cookies };
+  },
+});
