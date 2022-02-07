@@ -19,14 +19,6 @@ function SubDepartmentsListItem(props: SubDepartmentsListItemProps) {
     <Pressable
       onPress={() =>
         router.push(
-          {
-            pathname: "/tienda/[mainDepartment]/[subDepartment]",
-            query: {
-              mainDepartment: mainDepartment,
-              subDepartment: `${subDepartment.subDepartment}`,
-              rowId: `${subDepartment.rowId}`,
-            },
-          },
           `/tienda/${mainDepartment}/${subDepartment.subDepartment
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
