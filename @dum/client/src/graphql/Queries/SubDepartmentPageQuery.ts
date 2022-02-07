@@ -11,6 +11,7 @@ export default graphql`
       rowId
       subDepartment
       description
+      ...SubDepartmentProductsFragment_products
     }
   }
 `;
