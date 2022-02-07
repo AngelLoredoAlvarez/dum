@@ -36,11 +36,11 @@ function MainDepartmentPage({
             "2xl": "5xl",
           }}
         >
-          {mainDepartmentPageQuery.mainDepartment.mainDepartment}
+          {mainDepartmentPageQuery.mainDepartmentByName.mainDepartment}
         </Text>
         <Hidden only={["base", "sm"]}>
           <SubDepartmentsList
-            subDepartments={mainDepartmentPageQuery.mainDepartment}
+            subDepartments={mainDepartmentPageQuery.mainDepartmentByName}
           />
         </Hidden>
         <Hidden only={["2xl", "xl", "lg", "md"]}>
@@ -63,7 +63,7 @@ function MainDepartmentPage({
             }}
           >
             <SubDepartmentsSwiper
-              subDepartments={mainDepartmentPageQuery.mainDepartment}
+              subDepartments={mainDepartmentPageQuery.mainDepartmentByName}
             />
           </Box>
         </Hidden>
