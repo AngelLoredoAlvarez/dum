@@ -80,6 +80,24 @@
             }
           }
         }
+      },
+      "dum_public.main_departments": {
+        "constraint": {
+          "main_department_unique_name": {
+            "tags": {
+              "omit": true
+            }
+          }
+        }
+      },
+      "dum_public.sub_departments": {
+        "constraint": {
+          "sub_department_unique_name": {
+            "tags": {
+              "omit": true
+            }
+          }
+        }
       }
     },
     "procedure": {

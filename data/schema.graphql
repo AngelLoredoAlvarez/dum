@@ -836,7 +836,6 @@ type Query implements Node {
     """
     id: ID!
   ): MainDepartment
-  mainDepartmentByMainDepartment(mainDepartment: String!): MainDepartment
 
   """Reads and enables pagination through a set of `MainDepartment`."""
   mainDepartments(
@@ -945,7 +944,6 @@ type Query implements Node {
     """
     id: ID!
   ): SubDepartment
-  subDepartmentBySubDepartment(subDepartment: String!): SubDepartment
 
   """Reads and enables pagination through a set of `SubDepartment`."""
   subDepartments(
