@@ -41,7 +41,6 @@ create or replace function dum_public.main_department_by_name(text) returns dum_
   select * from dum_public.main_departments where unaccent(dum_public.main_departments.main_department) ilike '%' || regexp_replace($1, '-', ' ', 'g') || '%';
 $$ language sql stable;
 
-
 -- INSERTS mock data in the dum_public.main_departments table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.main_departments(
   id,
@@ -95,6 +94,15 @@ create trigger _100_timestamps
   before insert or update on dum_public.sub_departments
   for each row
   execute procedure dum_private.tg__timestamps();
+
+/*
+ * Custom Query that returns a specific Sub Department according it's name
+ * We used the 'dispense' arguments feture, wich mead that, instead of name the argument, we allow to PostgreSQL to name them,
+ * that because the functions returns a weird behavior when we named the arguments
+*/
+create or replace function dum_public.sub_department_by_name(text) returns dum_public.sub_departments as $$
+  select * from dum_public.sub_departments where unaccent(dum_public.sub_departments.sub_department) ilike '%' || regexp_replace($1, '-', ' ', 'g') || '%';
+$$ language sql stable;
 
 -- INSERTS mock data in the dum_public.sub_departments table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.sub_departments (

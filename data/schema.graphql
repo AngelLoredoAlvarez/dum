@@ -945,6 +945,7 @@ type Query implements Node {
     """
     id: ID!
   ): SubDepartment
+  subDepartmentByName(arg0: String!): SubDepartment
 
   """Reads and enables pagination through a set of `SubDepartment`."""
   subDepartments(
