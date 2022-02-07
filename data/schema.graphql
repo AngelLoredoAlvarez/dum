@@ -836,6 +836,7 @@ type Query implements Node {
     """
     id: ID!
   ): MainDepartment
+  mainDepartmentByName(arg0: String!): MainDepartment
 
   """Reads and enables pagination through a set of `MainDepartment`."""
   mainDepartments(
