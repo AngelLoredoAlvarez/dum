@@ -10,6 +10,7 @@ export default graphql`
       id
       rowId
       subDepartment
+      description
     }
   }
 `;
