@@ -3,7 +3,7 @@ import { graphql } from "react-relay/hooks";
 export default graphql`
   fragment SubDepartmentProductsFragment_products on SubDepartment
   @argumentDefinitions(
-    first: { type: "Int!", defaultValue: 10 }
+    first: { type: "Int!", defaultValue: 12 }
     after: { type: "Cursor" }
   )
   @refetchable(queryName: "SubDepartmentProducts") {
