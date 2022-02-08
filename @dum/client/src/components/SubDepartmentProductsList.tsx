@@ -1,4 +1,4 @@
-import { Stack } from "native-base";
+import { FlatList } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
@@ -11,17 +11,28 @@ interface SubDepartmentProductsListProps {
 }
 
 function SubDepartmentProductsList(props: SubDepartmentProductsListProps) {
-  const { data } = usePaginationFragment(
+  const { data, loadNext } = usePaginationFragment(
     SubDepartmentProductsFragment,
     props.products
   );
 
   return (
-    <Stack mt={3} space={3}>
-      {data.products.edges.map(({ node }) => (
-        <SubDepartmentProductsListItem key={node.id} product={node} />
-      ))}
-    </Stack>
+    <FlatList
+      alignContent={"center"}
+      alignSelf={"center"}
+      borderWidth={1}
+      data={data.products.edges}
+      flexWrap={1}
+      keyExtractor={(item) => item.node.id}
+      numColumns={6}
+      onEndReached={() => {
+        loadNext(6);
+      }}
+      onEndReachedThreshold={0}
+      renderItem={({ item }) => (
+        <SubDepartmentProductsListItem product={item.node} />
+      )}
+    />
   );
 }
 
