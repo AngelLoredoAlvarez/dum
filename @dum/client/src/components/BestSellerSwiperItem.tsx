@@ -60,7 +60,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
               }}
               textAlign={"center"}
             >
-              {product.brand}
+              {product.brand.brand}
             </Text>
             <Text
               fontSize={{
