@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "native-base";
+import { Box, ScrollView, Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -20,106 +20,111 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
 
   return (
     <Layout currentUser={storePageQuery.currentUser}>
-      <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
-        <MainDepartmentsList departments={storePageQuery} />
-        <Text
-          bold
-          fontSize={{
-            base: "lg",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "4xl",
-            "2xl": "5xl",
-          }}
-        >
-          ¡LO MÁS VENDIDO!
-        </Text>
-        <Box
-          h={{
-            base: "30%",
-            sm: "30%",
-            md: "35%",
-            lg: "30%",
-            xl: "35%",
-            "2xl": "30%",
-          }}
-          w={{
-            base: "95%",
-            sm: "95%",
-            md: "95%",
-            lg: "85%",
-            xl: "75%",
-            "2xl": "65%",
-          }}
-        >
-          <BestSellerSwiper bestSellers={storePageQuery} />
-        </Box>
-        <Text
-          bold
-          fontSize={{
-            base: "lg",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "4xl",
-            "2xl": "5xl",
-          }}
-          mt={8}
-          textAlign={"center"}
-        >
-          ¡ENCUENTRA LAS MEJORES OFERTAS EN NUESTRA TIENDA ONLIE!
-        </Text>
-        <Text
-          fontSize={{
-            base: "lg",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "4xl",
-            "2xl": "5xl",
-          }}
-          textAlign={"center"}
-        >
-          En nuestra Tienda Online encontrarás una amplia variedad de artículos
-          para el Hogar, Jardín, de Plomería,Maquinaria Ligera ¡y mucho más!
-        </Text>
-        <Text
-          bold
-          fontSize={{
-            base: "lg",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "4xl",
-            "2xl": "5xl",
-          }}
-          mt={8}
-          textAlign={"center"}
-        >
-          ¡NO TE PIERDAS ESTAS PROMOCIONES!
-        </Text>
-        <Box
-          h={{
-            base: "30%",
-            sm: "30%",
-            md: "35%",
-            lg: "30%",
-            xl: "35%",
-            "2xl": "30%",
-          }}
-          w={{
-            base: "95%",
-            sm: "95%",
-            md: "95%",
-            lg: "85%",
-            xl: "75%",
-            "2xl": "65%",
-          }}
-        >
-          <BestSellerSwiper bestSellers={storePageQuery} />
-        </Box>
-      </VStack>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+      >
+        <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
+          <MainDepartmentsList departments={storePageQuery} />
+          <Text
+            bold
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "4xl",
+              "2xl": "5xl",
+            }}
+          >
+            ¡LO MÁS VENDIDO!
+          </Text>
+          <Box
+            h={{
+              base: "30%",
+              sm: "30%",
+              md: "35%",
+              lg: "30%",
+              xl: "35%",
+              "2xl": "30%",
+            }}
+            w={{
+              base: "95%",
+              sm: "95%",
+              md: "95%",
+              lg: "85%",
+              xl: "75%",
+              "2xl": "65%",
+            }}
+          >
+            <BestSellerSwiper bestSellers={storePageQuery} />
+          </Box>
+          <Text
+            bold
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "4xl",
+              "2xl": "5xl",
+            }}
+            mt={8}
+            textAlign={"center"}
+          >
+            ¡ENCUENTRA LAS MEJORES OFERTAS EN NUESTRA TIENDA ONLIE!
+          </Text>
+          <Text
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "4xl",
+              "2xl": "5xl",
+            }}
+            textAlign={"center"}
+          >
+            En nuestra Tienda Online encontrarás una amplia variedad de
+            artículos para el Hogar, Jardín, de Plomería,Maquinaria Ligera ¡y
+            mucho más!
+          </Text>
+          <Text
+            bold
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "4xl",
+              "2xl": "5xl",
+            }}
+            mt={8}
+            textAlign={"center"}
+          >
+            ¡NO TE PIERDAS ESTAS PROMOCIONES!
+          </Text>
+          <Box
+            h={{
+              base: "30%",
+              sm: "30%",
+              md: "35%",
+              lg: "30%",
+              xl: "35%",
+              "2xl": "30%",
+            }}
+            w={{
+              base: "95%",
+              sm: "95%",
+              md: "95%",
+              lg: "85%",
+              xl: "75%",
+              "2xl": "65%",
+            }}
+          >
+            <BestSellerSwiper bestSellers={storePageQuery} />
+          </Box>
+        </VStack>
+      </ScrollView>
     </Layout>
   );
 }
