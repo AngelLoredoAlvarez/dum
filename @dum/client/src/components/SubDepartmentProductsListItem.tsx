@@ -19,15 +19,17 @@ function SubDepartmentProductsListItem(
       alignContent={"center"}
       alignItems={"center"}
       alignSelf={"center"}
-      mb={32}
-      ml={3}
-      mr={3}
-      h={"250"}
+      h={"350"}
+      mb={5}
+      ml={55}
+      overflow="hidden"
+      rounded="lg"
+      shadow="1"
       w={"250"}
     >
       <Image
         alt={product.description}
-        h={"100%"}
+        h={"70%"}
         source={{
           uri: `${product.pictureUrl}`,
         }}
