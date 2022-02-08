@@ -19,6 +19,9 @@ function SubDepartmentProductsListItem(
       alignContent={"center"}
       alignItems={"center"}
       alignSelf={"center"}
+      mb={32}
+      ml={3}
+      mr={3}
       h={"250"}
       w={"250"}
     >
@@ -30,7 +33,7 @@ function SubDepartmentProductsListItem(
         }}
         w={"100%"}
       />
-      <Heading textAlign={"center"}>{product.brand}</Heading>
+      <Heading textAlign={"center"}>{product.brand.brand}</Heading>
       <Text textAlign={"center"}>{product.description}</Text>
     </VStack>
   );
