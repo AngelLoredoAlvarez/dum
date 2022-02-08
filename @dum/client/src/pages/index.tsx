@@ -1,4 +1,3 @@
-import { Heading } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -19,7 +18,6 @@ function IndexPage({ preloadedQuery }: RelayProps<{}, IndexPageQueryTypes>) {
 
   return (
     <Layout currentUser={indexPageQuery.currentUser}>
-      <Heading size={["xl", "2xl", "3xl"]}>¡Las Noticias!</Heading>
       <PostsList posts={indexPageQuery} />
     </Layout>
   );
