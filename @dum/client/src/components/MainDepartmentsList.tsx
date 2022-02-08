@@ -44,6 +44,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
     >
       <HStack
         flex={1}
+        mb={3}
         ml={{
           base: 3,
           sm: 3,
@@ -89,6 +90,7 @@ function MainDepartmentsList(props: MainDepartmentsListProps) {
         alignContent={"center"}
         alignItems={"center"}
         alignSelf={"center"}
+        mb={3}
         ml={{
           base: 0,
           sm: 0,
