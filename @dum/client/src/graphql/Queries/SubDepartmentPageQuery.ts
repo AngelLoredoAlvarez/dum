@@ -7,10 +7,7 @@ export default graphql`
     }
     ...MainDepartmentsFragment_mainDepartments
     subDepartmentByName(arg0: $subDepartment) {
-      id
-      rowId
-      subDepartment
-      description
+      ...SubDepartmentFragment_subDepartment
       ...SubDepartmentProductsFragment_products
     }
   }
