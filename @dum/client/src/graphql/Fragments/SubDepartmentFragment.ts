@@ -6,5 +6,6 @@ export default graphql`
     rowId
     pictureUrl
     subDepartment
+    description
   }
 `;
