@@ -14,6 +14,35 @@ type Brand implements Node {
   """
   id: ID!
 
+  """Reads and enables pagination through a set of `Product`."""
+  products(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ProductCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `Product`."""
+    orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ProductsConnection!
+
   """Unique identifier for the brands."""
   rowId: UUID!
   updatedAt: Datetime!
@@ -764,8 +793,11 @@ type Product implements Node {
   """Unique code used to get the information from a product."""
   barcode: String!
 
-  """The brand of the product."""
-  brand: String!
+  """Reads a single `Brand` that is related to this `Product`."""
+  brand: Brand
+
+  """The identifier of the Brand to wich the product belongs."""
+  brandId: UUID!
   createdAt: Datetime!
 
   """The description of the characteristics of a product."""
@@ -802,6 +834,9 @@ type Product implements Node {
 A condition to be used against `Product` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input ProductCondition {
+  """Checks for equality with the object’s `brandId` field."""
+  brandId: UUID
+
   """Checks for equality with the object’s `rowId` field."""
   rowId: UUID
 
@@ -837,6 +872,8 @@ type ProductsEdge {
 
 """Methods to use when ordering `Product`."""
 enum ProductsOrderBy {
+  BRAND_ID_ASC
+  BRAND_ID_DESC
   ID_ASC
   ID_DESC
   NATURAL

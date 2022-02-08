@@ -2,13 +2,12 @@
  create table dum_public.products (
    id uuid primary key default gen_random_uuid(),
    barcode text not null check (barcode ~ '^[0-9]*$'),
-   brand text not null,
+   brand_id uuid not null references dum_public.brands(id) on delete cascade,
    description text not null,
    picture_url text check(picture_url ~ '^$|^https?://[^/]+'),
    unformated_price numeric(8,2) not null,
    tax numeric (3,2),
    stock integer not null,
-   -- Remember to change the type of sub_deparment_id from SERIAL to UUID
    sub_department_id uuid not null references dum_public.sub_departments(id) on delete cascade,
    created_at timestamptz not null default now(),
    updated_at timestamptz not null default now()
@@ -24,7 +23,10 @@ create policy select_all on dum_public.products for select using (true);
 grant select on dum_public.products to :DATABASE_VISITOR;
 
 -- Allow efficient retrieval of all the Products owned by a particular Sub - Department.
-create index idx_product_sub_departments_products on dum_public.products (sub_department_id);
+create index idx_product_sub_departments_products on dum_public.products(sub_department_id);
+
+-- Allow efficient retrieval of all the Products owned by a particular Brand
+create index idx_product_brand_products on dum_public.products(brand_id);
 
 comment on table dum_public.products is
   E'A product sold in the store.';
@@ -33,8 +35,8 @@ comment on column dum_public.products.id is
   E'Unique identifier for the product.';
 comment on column dum_public.products.barcode is
   E'Unique code used to get the information from a product.';
-comment on column dum_public.products.brand is
-  E'The brand of the product.';
+comment on column dum_public.products.brand_id is
+  E'The identifier of the Brand to wich the product belongs.';
 comment on column dum_public.products.description is
   E'The description of the characteristics of a product.';
 comment on column dum_public.products.picture_url is
@@ -61,33 +63,58 @@ $$ language sql stable;
 -- Inserts mock data in the dum_public.products table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.products(
   barcode,
-  brand,
+  brand_id,
   description,
   picture_url,
   unformated_price,
   tax,
   stock,
   sub_department_id
-) values('0000000000', 'BLACK & DECKER', 'TIJERA SIERRA CORTA RAMAS BLACK+DECKER LLP120 20V', 'https://cms.grupoferrepat.net/assets/img/productos/LLP120.jpg', 3000, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000001', 'ALFA', 'TUBERÍA ITALFA 100 M PARA AGUA FRÍA XKT-10-13A', 'https://cms.grupoferrepat.net/assets/img/productos/XKT-10-13A.jpg', 1698, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000002', 'STIHL', 'CORTASETOS ELÉCTRICO STIHL HSE 52 460 W', 'https://cms.grupoferrepat.net/assets/img/productos/S4818011351.jpg', 3399, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000003', 'BLACK & DECKER', 'PODADORA CORTA CÉSPED 59MM ELÉCTRICA BLACK&DECKER GR3000-B3 1000W', 'https://cms.grupoferrepat.net/assets/img/productos/GR3000-B3.jpg', 2897, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000004', 'BLACK & DECKER', 'PODADORA CORTA CÉSPED 59MM ELÉCTRICA BLACK&DECKER GR3000-B3 1000W', 'https://cms.grupoferrepat.net/assets/img/productos/GR3000-B3.jpg', 2897, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000005', 'ARDA', 'MANGUERA PARA JARDÍN TRAMADA ARDA PREMIER 3/4 100 M', 'https://cms.grupoferrepat.net/assets/img/productos/102114.jpg', 2238, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000006', 'BLACK & DECKER', 'PODADORA DESBROZADORA BORDEADORA 3-1 BLACK+DECKER MTE912-B3', 'https://cms.grupoferrepat.net/assets/img/productos/MTE912-B3.jpg', 2079, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000007', 'CORONA', 'TIJERA DE PODA RAMAS ALTAS CORONA AL 6512 TUBULAR', 'https://cms.grupoferrepat.net/assets/img/productos/7AL6512.jpg', 1569, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000008', 'SWEDISH HUSKY POWER', 'FUMIGADORA ELÉCTRICA SWEDISH HUSKY POWER BLASTER 20 LTS', 'https://cms.grupoferrepat.net/assets/img/productos/BLASTER.jpg', 1336, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000009', 'SWISSMEX', 'ASPESORA MANUAL DE MOCHILA SWISSMEX 425.015 DE 15 LTS', 'https://cms.grupoferrepat.net/assets/img/productos/00636.jpg', 1499, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('0000000010', 'POWER CAT', 'FUMIGADORA MANUAL POWERCAT PWC-20DS 20 LTS', 'https://cms.grupoferrepat.net/assets/img/productos/PWC-20DS.jpg', 1459, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('1000000011', 'KAWASHIMA', 'ASPERSORA MANUAL AGRÍCOLA KAWASHIMA AKM20L DE 20 L', 'https://cms.grupoferrepat.net/assets/img/productos/AKM20L.jpg', 903, 0.16, 10, '6310a459-4f35-4c61-ae3f-aa1f4690525a'),
-        ('2000000001', 'TEKA', 'HORNO ELÉCTRICO TEKA STEAKMASTER MULTIFUNCIÓN 3518 W', 'https://i.linio.com/p/2fab3f8215f1c479a99644c712e5b1e0-product.webp', 28999, 0.16, 5, '07e1074b-99a1-4795-9a1e-c59419a6d15c'),
-        ('3000000002', 'BONASA', 'BOMBA BONASA 15/60 IMPULSOR BRONCE 1.5 HP', 'https://i.linio.com/p/a531baafe5b3e2a30ec5c0ac7c523dfd-product.webp', 4499, 0.16, 2, 'e6202cd2-165c-4b22-b583-d5cc947041e7'),
-        ('4000000003', 'IUSA', 'MINISPLIT IUSA PRIMO 12000BTU/H. 115V FRÍO CALOR', 'https://i.linio.com/p/605f1448a6bdbe5c88e00b572e85cc18-product.webp', 6959, 0.16, 3, '25980163-64ab-4c45-b817-74aeafd36f50'),
-        ('5000000004', 'TRUPPER', 'ESTANTE PLÁSTICO USO RUDO 5 REPISAS TRUPER EST-5', 'https://resources.sears.com.mx/medios-plazavip/mkt/60efa9b39545a_img_0701jpg.jpg', 835, 0.16, 4, 'b4b84da6-4000-4250-82a6-b3d45b9fb8a2'),
-        ('6000000005', 'VICTORINOX', 'NAVAJA VICTORINOX MULTIHERRAMIENTA SWISSTOOL BS 3.0323.3CN 29 FUNCIONES', 'https://cms.grupoferrepat.net/assets/img/productos/3_D_0323_D_3CN.jpg', 5857, 0.16, 3, '40573ab4-3edb-486b-9748-97e33e5737ec'),
-        ('7000000006', 'MILWAUKEE', 'CARRO PARA TRANSPORTE DE HERRAMIENTAS MILWAUKEE 48-22-8415', 'https://cms.grupoferrepat.net/assets/img/productos/M48-22-8415.jpg', 4972, 0.16, 7, '2e1d5c1c-9100-45d6-ad1e-fd64388fc039'),
-        ('8000000007', 'BOSCH', 'MARTILLO DEMOLEDOR BOSCH GSH 27 VC DE 2000 W', 'https://cms.grupoferrepat.net/assets/img/productos/B11304.jpg', 32010, 0.16, 2, '24eb47ed-fa42-4ea7-b7c8-e27dc01c760a'),
-        ('9000000008', 'MILWAUKEE', 'TALADRO SACA NUCLEOS PORTÁTIL MX FUEL MILWAUKEE + SOPORTE', 'https://cms.grupoferrepat.net/assets/img/productos/MXF301-2CXS.jpg', 126499, 0.16, 2, '6bb1c2c1-253b-4c8f-99b3-f8d10c8598bc'),
-        ('1000000009', 'EVANS', 'COMPRESOR EVANS MEDIC AIR 1 HP 90L LIBRE DE ACEITE', 'https://www.evans.com.mx/media/catalog/product/cache/1/image/1800x/040ec09b1e35df139433887a97daa66f/C/o/Compresores_Libre_de_Aceite_EVANS_EL050E100_090MV_1L_52.jpg', 14484, 0.16, 3, 'b2a8be24-162f-49b7-8a2f-98d4c5b5aa21'),
-        ('11000000010', 'STIHL', 'KIT PISTÓN Y CILINDRO 52 MM STIHL 1111 020 1200', 'https://repuestosdejardineria.com/c/79-tm_home_default/cilindros.jpg', 3745, 0.16, 10, '638fce0c-e6b0-485a-98b8-0553b9cc9209'),
-        ('12000000011', 'AUSTROMEX', 'DISCO DE DIAMANTE PARA CONCRETO AUSTRODIAM 2243 16 PULG', 'https://cms.grupoferrepat.net/assets/img/productos/002243.jpg', 8174, 0.16, 5, '618e757e-0bd6-46ab-8415-ea7f9656d01a');
+) values('0000000000', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2 TIEMPOS STIHL 1 GALÓN 3.78 L', 'https://cms.grupoferrepat.net/assets/img/productos/98908.jpg', 878, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000001', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE LUBRICANTE BARRA CADENA MOTOSIERRA STIHL 0781 516 500', 'https://cms.grupoferrepat.net/assets/img/productos/95226.jpg', 429, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000002', 'bbcef709-fb02-4a0e-a4be-80fb275adc50', 'TUBO DE GRASA 225 ML PARA MARTILLO PERFORADOR BOSCH 1615430001', 'https://cms.grupoferrepat.net/assets/img/productos/1615001.jpg', 494, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000003', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA INDUSTRIAL DE 14 OZ. TRUPER 14861 - GRAS-15', 'https://cms.grupoferrepat.net/assets/img/productos/14861.jpg', 385, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000004', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA DE 14 OZ. TRUPER 14859 - GRAS-13', 'https://cms.grupoferrepat.net/assets/img/productos/14859.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000005', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'MINIGRASERA DE 3 OZ TRUPER 14911', 'https://cms.grupoferrepat.net/assets/img/productos/14911.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000006', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2T MOTOSIERRA STIHL 0781 319 8923 400ML', 'https://cms.grupoferrepat.net/assets/img/productos/95222-B.jpg', 109, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000007', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE DE 300 MILILITROS TRUPER 14872', 'https://cms.grupoferrepat.net/assets/img/productos/14872.jpg', 89, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000008', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITERA DE 180 MILILITROS TRUPER 14870 - ACEF-180', 'https://cms.grupoferrepat.net/assets/img/productos/14870.jpg', 76, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000009', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'UNIDAD DE LIMPIEZA Y LUBRICACIÓN TRUPER 19238 - UNI-LL-1/4', 'https://cms.grupoferrepat.net/assets/img/productos/14926.jpg', 45, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000010', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE SINTÉTICO PARA MOTOR DE 2 TIEMPOS TRUPER 17624 - ACT-2T-4', 'https://cms.grupoferrepat.net/assets/img/productos/17624.jpg', 38, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000011', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'TUERCA PARA GRASERA TRUPER 14864', 'https://cms.grupoferrepat.net/assets/img/productos/14864.jpg', 24, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000012', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2 TIEMPOS STIHL 1 GALÓN 3.78 L', 'https://cms.grupoferrepat.net/assets/img/productos/98908.jpg', 878, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000013', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE LUBRICANTE BARRA CADENA MOTOSIERRA STIHL 0781 516 500', 'https://cms.grupoferrepat.net/assets/img/productos/95226.jpg', 429, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000014', 'bbcef709-fb02-4a0e-a4be-80fb275adc50', 'TUBO DE GRASA 225 ML PARA MARTILLO PERFORADOR BOSCH 1615430001', 'https://cms.grupoferrepat.net/assets/img/productos/1615001.jpg', 494, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000015', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA INDUSTRIAL DE 14 OZ. TRUPER 14861 - GRAS-15', 'https://cms.grupoferrepat.net/assets/img/productos/14861.jpg', 385, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000016', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA DE 14 OZ. TRUPER 14859 - GRAS-13', 'https://cms.grupoferrepat.net/assets/img/productos/14859.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000017', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'MINIGRASERA DE 3 OZ TRUPER 14911', 'https://cms.grupoferrepat.net/assets/img/productos/14911.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000018', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2T MOTOSIERRA STIHL 0781 319 8923 400ML', 'https://cms.grupoferrepat.net/assets/img/productos/95222-B.jpg', 109, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000019', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE DE 300 MILILITROS TRUPER 14872', 'https://cms.grupoferrepat.net/assets/img/productos/14872.jpg', 89, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000020', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITERA DE 180 MILILITROS TRUPER 14870 - ACEF-180', 'https://cms.grupoferrepat.net/assets/img/productos/14870.jpg', 76, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000021', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'UNIDAD DE LIMPIEZA Y LUBRICACIÓN TRUPER 19238 - UNI-LL-1/4', 'https://cms.grupoferrepat.net/assets/img/productos/14926.jpg', 45, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000022', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE SINTÉTICO PARA MOTOR DE 2 TIEMPOS TRUPER 17624 - ACT-2T-4', 'https://cms.grupoferrepat.net/assets/img/productos/17624.jpg', 38, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000023', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'TUERCA PARA GRASERA TRUPER 14864', 'https://cms.grupoferrepat.net/assets/img/productos/14864.jpg', 24, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000024', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2 TIEMPOS STIHL 1 GALÓN 3.78 L', 'https://cms.grupoferrepat.net/assets/img/productos/98908.jpg', 878, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000025', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE LUBRICANTE BARRA CADENA MOTOSIERRA STIHL 0781 516 500', 'https://cms.grupoferrepat.net/assets/img/productos/95226.jpg', 429, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000026', 'bbcef709-fb02-4a0e-a4be-80fb275adc50', 'TUBO DE GRASA 225 ML PARA MARTILLO PERFORADOR BOSCH 1615430001', 'https://cms.grupoferrepat.net/assets/img/productos/1615001.jpg', 494, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000027', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA INDUSTRIAL DE 14 OZ. TRUPER 14861 - GRAS-15', 'https://cms.grupoferrepat.net/assets/img/productos/14861.jpg', 385, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000028', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA DE 14 OZ. TRUPER 14859 - GRAS-13', 'https://cms.grupoferrepat.net/assets/img/productos/14859.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000029', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'MINIGRASERA DE 3 OZ TRUPER 14911', 'https://cms.grupoferrepat.net/assets/img/productos/14911.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000030', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2T MOTOSIERRA STIHL 0781 319 8923 400ML', 'https://cms.grupoferrepat.net/assets/img/productos/95222-B.jpg', 109, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000031', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE DE 300 MILILITROS TRUPER 14872', 'https://cms.grupoferrepat.net/assets/img/productos/14872.jpg', 89, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000032', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITERA DE 180 MILILITROS TRUPER 14870 - ACEF-180', 'https://cms.grupoferrepat.net/assets/img/productos/14870.jpg', 76, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000033', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'UNIDAD DE LIMPIEZA Y LUBRICACIÓN TRUPER 19238 - UNI-LL-1/4', 'https://cms.grupoferrepat.net/assets/img/productos/14926.jpg', 45, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000034', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE SINTÉTICO PARA MOTOR DE 2 TIEMPOS TRUPER 17624 - ACT-2T-4', 'https://cms.grupoferrepat.net/assets/img/productos/17624.jpg', 38, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000035', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'TUERCA PARA GRASERA TRUPER 14864', 'https://cms.grupoferrepat.net/assets/img/productos/14864.jpg', 24, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000036', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2 TIEMPOS STIHL 1 GALÓN 3.78 L', 'https://cms.grupoferrepat.net/assets/img/productos/98908.jpg', 878, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000037', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE LUBRICANTE BARRA CADENA MOTOSIERRA STIHL 0781 516 500', 'https://cms.grupoferrepat.net/assets/img/productos/95226.jpg', 429, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000038', 'bbcef709-fb02-4a0e-a4be-80fb275adc50', 'TUBO DE GRASA 225 ML PARA MARTILLO PERFORADOR BOSCH 1615430001', 'https://cms.grupoferrepat.net/assets/img/productos/1615001.jpg', 494, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000039', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA INDUSTRIAL DE 14 OZ. TRUPER 14861 - GRAS-15', 'https://cms.grupoferrepat.net/assets/img/productos/14861.jpg', 385, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000040', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'GRASERA DE 14 OZ. TRUPER 14859 - GRAS-13', 'https://cms.grupoferrepat.net/assets/img/productos/14859.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000041', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'MINIGRASERA DE 3 OZ TRUPER 14911', 'https://cms.grupoferrepat.net/assets/img/productos/14911.jpg', 305, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000042', '4916fa04-c5fc-4111-a44c-e6d7738c67c1', 'ACEITE PARA MOTOR 2T MOTOSIERRA STIHL 0781 319 8923 400ML', 'https://cms.grupoferrepat.net/assets/img/productos/95222-B.jpg', 109, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000043', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE DE 300 MILILITROS TRUPER 14872', 'https://cms.grupoferrepat.net/assets/img/productos/14872.jpg', 89, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000044', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITERA DE 180 MILILITROS TRUPER 14870 - ACEF-180', 'https://cms.grupoferrepat.net/assets/img/productos/14870.jpg', 76, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000045', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'UNIDAD DE LIMPIEZA Y LUBRICACIÓN TRUPER 19238 - UNI-LL-1/4', 'https://cms.grupoferrepat.net/assets/img/productos/14926.jpg', 45, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000046', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'ACEITE SINTÉTICO PARA MOTOR DE 2 TIEMPOS TRUPER 17624 - ACT-2T-4', 'https://cms.grupoferrepat.net/assets/img/productos/17624.jpg', 38, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9'),
+        ('0000000047', 'f4719291-8950-4e26-82de-4c1a8c9e362f', 'TUERCA PARA GRASERA TRUPER 14864', 'https://cms.grupoferrepat.net/assets/img/productos/14864.jpg', 24, 0.16, 10, '1273d184-d8a5-44ea-a23a-e6e8409344e9');
