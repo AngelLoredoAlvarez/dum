@@ -53,11 +53,11 @@ function SubDepartmentProductsListItem(
       <Heading
         fontSize={{
           base: "sm",
-          sm: "md",
-          md: "lg",
-          lg: "xl",
-          xl: "2xl",
-          "2xl": "3xl",
+          sm: "sm",
+          md: "sm",
+          lg: "md",
+          xl: "lg",
+          "2xl": "xl",
         }}
         textAlign={"center"}
       >
