@@ -34,6 +34,7 @@ function SubDepartmentProductsListItem(
       overflow="hidden"
       rounded="lg"
       shadow="9"
+      space={2}
       w={{
         sm: "210",
         md: "220",
