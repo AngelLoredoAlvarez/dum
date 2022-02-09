@@ -1,4 +1,5 @@
 import { Heading, Image, Pressable, Text, VStack } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -13,9 +14,17 @@ function SubDepartmentProductsListItem(
   props: SubDepartmentProductsListItemProps
 ) {
   const product = useFragment(ProductFragment, props.product);
+  const router = useRouter();
+  const { mainDepartment, subDepartment } = router.query;
 
   return (
-    <Pressable>
+    <Pressable
+      onPress={() =>
+        router.push(
+          `/tienda/${mainDepartment}/${subDepartment}/${product.rowId}`
+        )
+      }
+    >
       {({ isHovered }) => (
         <VStack
           _dark={{ backgroundColor: "gray.700" }}
