@@ -52,6 +52,7 @@ function SubDepartmentProductsListItem(
       />
       <Heading textAlign={"center"}>{product.brand.brand}</Heading>
       <Text textAlign={"center"}>{product.description}</Text>
+      <Text>{product.price}</Text>
     </VStack>
   );
 }
