@@ -33,7 +33,7 @@ function SubDepartmentProductsListItem(
       }}
       overflow="hidden"
       rounded="lg"
-      shadow="1"
+      shadow="9"
       w={{
         sm: "210",
         md: "220",
