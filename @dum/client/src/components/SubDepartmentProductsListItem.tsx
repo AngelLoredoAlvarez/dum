@@ -16,6 +16,8 @@ function SubDepartmentProductsListItem(
 
   return (
     <VStack
+      _dark={{ backgroundColor: "gray.700" }}
+      _light={{ backgroundColor: "coolGray.50" }}
       alignContent={"center"}
       alignItems={"center"}
       alignSelf={"center"}
