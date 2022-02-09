@@ -21,7 +21,7 @@ function SubDepartmentProductsListItem(
       alignContent={"center"}
       alignItems={"center"}
       alignSelf={"center"}
-      h={"350"}
+      h={"450"}
       mb={5}
       ml={{
         base: 4,
