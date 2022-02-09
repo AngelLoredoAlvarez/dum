@@ -50,9 +50,25 @@ function SubDepartmentProductsListItem(
         }}
         w={"100%"}
       />
-      <Heading textAlign={"center"}>{product.brand.brand}</Heading>
-      <Text textAlign={"center"}>{product.description}</Text>
-      <Text>{product.price}</Text>
+      <Heading
+        fontSize={{
+          base: "sm",
+          sm: "md",
+          md: "lg",
+          lg: "xl",
+          xl: "2xl",
+          "2xl": "3xl",
+        }}
+        textAlign={"center"}
+      >
+        {product.brand.brand}
+      </Heading>
+      <Text fontSize={"sm"} textAlign={"center"}>
+        {product.description}
+      </Text>
+      <Text fontSize={"sm"} textAlign={"center"}>
+        {product.price}
+      </Text>
     </VStack>
   );
 }
