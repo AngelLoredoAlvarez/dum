@@ -1,4 +1,5 @@
 import { Image, Pressable, Text, View, VStack } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -14,11 +15,25 @@ interface SubDepartmentSwiperItemProps {
 
 function SubDepartmentSwiperItem(props: SubDepartmentSwiperItemProps) {
   const subDepartment = useFragment(SubDepartmentFragment, props.subDepartment);
+  const router = useRouter();
+  const { mainDepartment } = router.query;
 
   return (
     <View h={"100%"} w={"100%"}>
       {props.isActive ? (
-        <Pressable h={"100%"} w={"100%"}>
+        <Pressable
+          h={"100%"}
+          onPress={() =>
+            router.push(
+              `/tienda/${mainDepartment}/${subDepartment.subDepartment
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/\s/g, "-")
+                .toLowerCase()}`
+            )
+          }
+          w={"100%"}
+        >
           <VStack h={"100%"} w={"100%"}>
             <Image
               alt={subDepartment.subDepartment}
