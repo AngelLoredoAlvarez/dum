@@ -51,4 +51,5 @@ insert into dum_public.brands(
         ('99f28904-0a28-49dd-8e13-f42bb47bcb66', 'MILWAUKEE'),
         ('bbcef709-fb02-4a0e-a4be-80fb275adc50', 'BOSCH'),
         ('67d8f309-8eee-42ec-80fb-3cf8dfe59af1', 'EVANS'),
-        ('356fa919-397f-45be-a879-18cedc1a5a04', 'AUSTROMEX');
+        ('356fa919-397f-45be-a879-18cedc1a5a04', 'AUSTROMEX'),
+        ('fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'TERNIUM');
