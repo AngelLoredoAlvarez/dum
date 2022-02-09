@@ -11,7 +11,9 @@ import SubDepartmentProductsListHeader from "./SubDepartmentProductsListHeader";
 import SubDepartmentProductsListItem from "./SubDepartmentProductsListItem";
 
 interface SubDepartmentProductsListProps {
+  amountOfItemsToFetch: number;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
+  numberOfColumns: number;
   products: SubDepartmentProductsFragment_products$key;
   subDepartment: SubDepartmentFragment_subDepartment$key;
 }
@@ -24,24 +26,18 @@ function SubDepartmentProductsList(props: SubDepartmentProductsListProps) {
 
   return (
     <FlatList
+      contentContainerStyle={{
+        alignItems: "center",
+        flex: 1,
+        flexGrow: 1,
+      }}
       data={data.products.edges}
       flex={1}
       keyExtractor={(item) => item.node.id}
-      ListEmptyComponent={
-        <Text
-          fontSize={{
-            base: "sm",
-            sm: "sm",
-            md: "md",
-            lg: "lg",
-            xl: "xl",
-            "2xl": "2xl",
-          }}
-          textAlign={"center"}
-        >
-          No hay nada para mostrar :'(
-        </Text>
-      }
+      ListHeaderComponentStyle={{
+        alignItems: "stretch",
+        width: "100%",
+      }}
       ListFooterComponent={
         hasNext ? (
           isLoadingNext ? (
@@ -69,9 +65,9 @@ function SubDepartmentProductsList(props: SubDepartmentProductsListProps) {
           subDepartment={props.subDepartment}
         />
       }
-      numColumns={6}
+      numColumns={props.numberOfColumns}
       onEndReached={() => {
-        loadNext(6);
+        loadNext(props.amountOfItemsToFetch);
       }}
       onEndReachedThreshold={0}
       renderItem={({ item }) => (
