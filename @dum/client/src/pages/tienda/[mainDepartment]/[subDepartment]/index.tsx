@@ -21,7 +21,9 @@ function SubDepartmentPage({
   return (
     <Layout currentUser={subDepartmentPageQuery.currentUser}>
       <SubDepartmentProductsList
+        amountOfItemsToFetch={5}
         mainDepartments={subDepartmentPageQuery}
+        numberOfColumns={5}
         products={subDepartmentPageQuery.subDepartmentByName}
         subDepartment={subDepartmentPageQuery.subDepartmentByName}
       />
