@@ -21,11 +21,24 @@ function SubDepartmentProductsListItem(
       alignSelf={"center"}
       h={"350"}
       mb={5}
-      ml={55}
+      ml={{
+        base: 4,
+        sm: 4,
+        md: 4,
+        lg: 4,
+        xl: 4,
+        "2xl": 44,
+      }}
       overflow="hidden"
       rounded="lg"
       shadow="1"
-      w={"250"}
+      w={{
+        sm: "210",
+        md: "220",
+        lg: "230",
+        xl: "240",
+        "2xl": "250",
+      }}
     >
       <Image
         alt={product.description}
