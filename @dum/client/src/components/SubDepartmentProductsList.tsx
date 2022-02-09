@@ -1,4 +1,4 @@
-import { FlatList } from "native-base";
+import { FlatList, Text } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
@@ -6,6 +6,7 @@ import { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragment
 import { SubDepartmentFragment_subDepartment$key } from "../graphql/Fragments/__generated__/SubDepartmentFragment_subDepartment.graphql";
 import { SubDepartmentProductsFragment_products$key } from "../graphql/Fragments/__generated__/SubDepartmentProductsFragment_products.graphql";
 import SubDepartmentProductsFragment from "../graphql/Fragments/SubDepartmentProductsFragment";
+import Loading from "./Loading";
 import SubDepartmentProductsListHeader from "./SubDepartmentProductsListHeader";
 import SubDepartmentProductsListItem from "./SubDepartmentProductsListItem";
 
@@ -16,7 +17,7 @@ interface SubDepartmentProductsListProps {
 }
 
 function SubDepartmentProductsList(props: SubDepartmentProductsListProps) {
-  const { data, loadNext } = usePaginationFragment(
+  const { data, isLoadingNext, hasNext, loadNext } = usePaginationFragment(
     SubDepartmentProductsFragment,
     props.products
   );
@@ -26,6 +27,42 @@ function SubDepartmentProductsList(props: SubDepartmentProductsListProps) {
       data={data.products.edges}
       flex={1}
       keyExtractor={(item) => item.node.id}
+      ListEmptyComponent={
+        <Text
+          fontSize={{
+            base: "sm",
+            sm: "sm",
+            md: "md",
+            lg: "lg",
+            xl: "xl",
+            "2xl": "2xl",
+          }}
+          textAlign={"center"}
+        >
+          No hay nada para mostrar :'(
+        </Text>
+      }
+      ListFooterComponent={
+        hasNext ? (
+          isLoadingNext ? (
+            <Loading />
+          ) : null
+        ) : (
+          <Text
+            fontSize={{
+              base: "sm",
+              sm: "sm",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
+            }}
+            textAlign={"center"}
+          >
+            No hay nada más para mostrar
+          </Text>
+        )
+      }
       ListHeaderComponent={
         <SubDepartmentProductsListHeader
           mainDepartments={props.mainDepartments}
