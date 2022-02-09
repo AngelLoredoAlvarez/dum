@@ -10,7 +10,9 @@
    stock integer not null,
    sub_department_id uuid not null references dum_public.sub_departments(id) on delete cascade,
    created_at timestamptz not null default now(),
-   updated_at timestamptz not null default now()
+   updated_at timestamptz not null default now(),
+   -- Each Products must have a unique name
+  constraint product_unique_description unique(description)
  );
 
 -- Enable ROW lEVEL SECURITY
@@ -94,4 +96,4 @@ insert into dum_public.products(
         ('1000000011', 'fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'LÁMINA DE ALUMINIO TERNIUM 3.66 X .81 M RECTANGULAR', 'https://cms.grupoferrepat.net/assets/img/productos/30009.jpg', 483, 0.16, 10, '4484477b-7b52-4d09-8a61-563f2adce6be'),
         ('1000000012', 'fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'LÁMINA DE ALUMINIO TERNIUM 3.66 X .84 M ONDULADA', 'https://cms.grupoferrepat.net/assets/img/productos/30008.jpg', 483, 0.16, 10, '4484477b-7b52-4d09-8a61-563f2adce6be'),
         ('1000000013', 'fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'LÁMINA GALVANIZADA TERNIUM 3.66 X .81 M RECTANGULAR', 'https://cms.grupoferrepat.net/assets/img/productos/30029.jpg', 450, 0.16, 10, '4484477b-7b52-4d09-8a61-563f2adce6be'),
-        ('1000000014', 'fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'LÁMINA GALVANIZADA TERNIUM 3.66 X .81 M RECTANGULAR', 'https://cms.grupoferrepat.net/assets/img/productos/30029.jpg', 450, 0.16, 10, '4484477b-7b52-4d09-8a61-563f2adce6be');
+        ('1000000014', 'fd3cb9ff-c280-43fe-a812-4d435e9f7c54', 'LÁMINA DE ALUMINIO TERNIUM 3.05 X .84 M ONDULADA', 'https://cms.grupoferrepat.net/assets/img/productos/30007.jpg', 402, 0.16, 10, '4484477b-7b52-4d09-8a61-563f2adce6be');

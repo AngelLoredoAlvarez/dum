@@ -837,6 +837,9 @@ input ProductCondition {
   """Checks for equality with the object’s `brandId` field."""
   brandId: UUID
 
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
   """Checks for equality with the object’s `rowId` field."""
   rowId: UUID
 
@@ -874,6 +877,8 @@ type ProductsEdge {
 enum ProductsOrderBy {
   BRAND_ID_ASC
   BRAND_ID_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
   ID_ASC
   ID_DESC
   NATURAL
@@ -1040,6 +1045,7 @@ type Query implements Node {
     offset: Int
   ): PostsConnection
   product(rowId: UUID!): Product
+  productByDescription(description: String!): Product
 
   """Reads a single `Product` using its globally unique `ID`."""
   productById(
