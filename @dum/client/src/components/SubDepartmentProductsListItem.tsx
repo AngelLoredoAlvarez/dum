@@ -67,7 +67,7 @@ function SubDepartmentProductsListItem(
       <Text fontSize={"sm"} textAlign={"center"}>
         {product.description}
       </Text>
-      <Text fontSize={"sm"} textAlign={"center"}>
+      <Text bold fontSize={"sm"} textAlign={"center"}>
         {product.price}
       </Text>
     </VStack>
