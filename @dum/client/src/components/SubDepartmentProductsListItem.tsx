@@ -65,7 +65,7 @@ function SubDepartmentProductsListItem(
             alt={product.description}
             h={"70%"}
             source={{
-              uri: `${product.pictureUrl}`,
+              uri: `${product.productPictures.edges[0].node.pictureUrl}`,
             }}
             w={"100%"}
           />
