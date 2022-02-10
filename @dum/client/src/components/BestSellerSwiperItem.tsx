@@ -37,7 +37,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
             alt={product.description}
             h={"100%"}
             source={{
-              uri: `${product.pictureUrl}`,
+              uri: `${product.productPictures.edges[0].node.pictureUrl}`,
             }}
             w={"50%"}
           />
