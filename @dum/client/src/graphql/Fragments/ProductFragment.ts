@@ -11,5 +11,6 @@ export default graphql`
     description
     pictureUrl
     price
+    stock
   }
 `;
