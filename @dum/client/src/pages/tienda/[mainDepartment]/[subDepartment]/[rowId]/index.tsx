@@ -22,7 +22,7 @@ function ProductPage({
 
   return (
     <Layout currentUser={productPageQuery.currentUser}>
-      <VStack borderWidth={1} h={"100%"} w={"100%"}>
+      <VStack h={"100%"} w={"100%"}>
         <MainDepartmentsList departments={productPageQuery} />
         <Product product={productPageQuery.product} />
       </VStack>
