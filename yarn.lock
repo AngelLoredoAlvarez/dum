@@ -3176,14 +3176,14 @@
     "@react-types/listbox" "^3.1.1"
     "@react-types/shared" "^3.4.0"
 
-"@react-native-aria/overlays@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@react-native-aria/overlays/-/overlays-0.3.2.tgz#fe3fb983b197738237493c3e5af6b30f6da6be9d"
-  integrity sha512-sc2attCn+stKugBF8ZBz+EIdGoEHU/+NbJc5agS6lZWeemXL5LcgomNf6Tn7RUlpLfWOTEGBQOAiOZxjZnIQmQ==
+"@react-native-aria/overlays@0.3.3-rc.0":
+  version "0.3.3-rc.0"
+  resolved "https://registry.yarnpkg.com/@react-native-aria/overlays/-/overlays-0.3.3-rc.0.tgz#9041ddd6f151e6edb50c971d29920c458aa41459"
+  integrity sha512-RgaIYIHMltt0RdMrVwfXLAVxc22TIUY1Yx07HbQRMdt4LcSmU8pyp5CEtJ/MQCXceuqocnXfsUxyHOSnfhmfpA==
   dependencies:
     "@react-aria/interactions" "^3.3.2"
     "@react-aria/overlays" "^3.7.0"
-    "@react-native-aria/utils" "^0.2.6"
+    "@react-native-aria/utils" "^0.2.8"
     "@react-stately/overlays" "^3.1.1"
     "@react-types/overlays" "^3.4.0"
     dom-helpers "^5.0.0"
@@ -5059,10 +5059,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-sdk@^2.1072.0:
-  version "2.1072.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1072.0.tgz#4fa844765ebb65b78c242b8edcf98a1669d4523b"
-  integrity sha512-b0gEHuC6xTGduPTS+ZCScurw9RTyOned9gf6H0rDagW8hdSMebsFQy84ZreeiZHHChyKyWrNUbUFugOYdw+WXw==
+aws-sdk@^2.1073.0:
+  version "2.1073.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1073.0.tgz#96c0c25c89f814c4aa4262e6eeef20eec9fda0da"
+  integrity sha512-TtyHDL4ZEs8Zh/DqWY/hv745DTWrIwOyBAvfjBJ45RE9h0TjpWqCIowEtb6gRPAKyPPyfGH4s+rEYu07vNK1Hg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -12317,10 +12317,10 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-native-base@3.3.5:
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/native-base/-/native-base-3.3.5.tgz#5f864245d7d04064d94eea53f88244d708c4f511"
-  integrity sha512-lhgm9q2/7pbTUx1I3jLIate2T7246arlirWhm27bfnSEaW5PoMOhC7CF1cP6cXRFlk9B90jhBls7/hh+XvjCDg==
+native-base@3.3.6:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/native-base/-/native-base-3.3.6.tgz#031ab776433b2e8a4fe4f7f525b8319452d4255c"
+  integrity sha512-AR2cB8MOvjEx+kn93habOzHu8odsG1FfOreKkcqEy5HUvCyiWLusE36fGThl3tXduzwdOo9hdRb+ZVFav1EraQ==
   dependencies:
     "@react-aria/focus" "^3.2.3"
     "@react-aria/utils" "^3.6.0"
@@ -12331,7 +12331,7 @@ native-base@3.3.5:
     "@react-native-aria/focus" "^0.2.4"
     "@react-native-aria/interactions" "^0.2.2"
     "@react-native-aria/listbox" "^0.2.4-alpha.3"
-    "@react-native-aria/overlays" "^0.3.2"
+    "@react-native-aria/overlays" "0.3.3-rc.0"
     "@react-native-aria/radio" "^0.2.4"
     "@react-native-aria/slider" "^0.2.5-alpha.1"
     "@react-native-aria/tabs" "^0.2.7"
@@ -14451,10 +14451,10 @@ react-freeze@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.0.tgz#b21c65fe1783743007c8c9a2952b1c8879a77354"
   integrity sha512-yQaiOqDmoKqks56LN9MTgY06O0qQHgV4FUrikH357DydArSZHQhl0BJFqGKIZoTqi8JizF9Dxhuk1FIZD6qCaw==
 
-react-hook-form@^7.26.1:
-  version "7.26.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.26.1.tgz#8f5c0aa81a452f5ebcb6a2d7253800011e735b1c"
-  integrity sha512-/Qw/7IsCCVfYSGryJAMcouEpIDgWZJPeHR15J0IFSgo1BgofcfnY+AeUDcYD1E3yzzXYpR7NHyJehhkBKvjdMg==
+react-hook-form@^7.27.0:
+  version "7.27.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.27.0.tgz#2c05e54ca557f71c55f645311ff612ec936c6c7c"
+  integrity sha512-NEh3Qbz1Rg3w95SRZv0kHorHN3frtMKasplznMBr8RkFrE4pVxjd/zo3clnFXpD0FppUVHBMfsTMtTsa6wyQrA==
 
 react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -14508,7 +14508,15 @@ react-native-safe-area-context@3.3.2:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz#9549a2ce580f2374edb05e49d661258d1b8bcaed"
   integrity sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q==
 
-react-native-screens@3.11.0, react-native-screens@^3.4.0:
+react-native-screens@3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.11.1.tgz#9bca9968986ca9195cb1e7e6fca37543bde64ecb"
+  integrity sha512-ziQqVm97tNtovacyHwNmDwJPb8n9CqwsfttXx2p5Hk7wUWemDcPAX0ZJ/nNnGMSq2p2QPhPjjUpr3qKXuES0sQ==
+  dependencies:
+    react-freeze "^1.0.0"
+    warn-once "^0.1.0"
+
+react-native-screens@^3.4.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.11.0.tgz#eeece4a1ba10ce1bfe15160f4ae4073cad34535f"
   integrity sha512-4ml42gzxqcjIoPr0zNeN9AHNRK06v2VrF5McT+QpU1GXipehycJ1BBWfziMEsMKZiUeVy4TU7qFlHUuys2mlzw==
