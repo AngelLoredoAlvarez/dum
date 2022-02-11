@@ -9,7 +9,16 @@ export default graphql`
       brand
     }
     description
-    pictureUrl
+    productPictures {
+      edges {
+        node {
+          id
+          rowId
+          pictureUrl
+        }
+      }
+    }
+    ...ProductPicturesFragment_productPictures
     price
     stock
   }
