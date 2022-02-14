@@ -53,7 +53,7 @@ create trigger _100_timestamps
   execute procedure dum_private.tg__timestamps();
 
 /*
- * Custom Query that returns the price in a users friendly format
+ * Computed Column that returns the price in a users friendly format
  */
 create or replace function dum_public.products_price(product dum_public.products) returns text as $$
   select cast(product.unformated_price as money);
