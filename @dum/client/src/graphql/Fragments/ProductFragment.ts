@@ -18,7 +18,6 @@ export default graphql`
         }
       }
     }
-    ...ProductPicturesFragment_productPictures
     price
     stock
   }
