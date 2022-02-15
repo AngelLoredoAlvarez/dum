@@ -990,7 +990,6 @@ enum ProductsOrderBy {
 
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
-  brand(rowId: UUID!): Brand
   brandByBrand(brand: String!): Brand
 
   """Reads a single `Brand` using its globally unique `ID`."""
@@ -1071,7 +1070,6 @@ type Query implements Node {
     """The method to use when ordering `Lot`."""
     orderBy: [LotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): LotsConnection
-  mainDepartment(rowId: UUID!): MainDepartment
 
   """Reads a single `MainDepartment` using its globally unique `ID`."""
   mainDepartmentById(
@@ -1145,14 +1143,12 @@ type Query implements Node {
     offset: Int
   ): PostsConnection
   product(rowId: UUID!): Product
-  productByDescription(description: String!): Product
 
   """Reads a single `Product` using its globally unique `ID`."""
   productById(
     """The globally unique `ID` to be used in selecting a single `Product`."""
     id: ID!
   ): Product
-  productPicture(rowId: UUID!): ProductPicture
 
   """Reads a single `ProductPicture` using its globally unique `ID`."""
   productPictureById(
@@ -1161,36 +1157,6 @@ type Query implements Node {
     """
     id: ID!
   ): ProductPicture
-  productPictureByPictureUrl(pictureUrl: String!): ProductPicture
-
-  """Reads and enables pagination through a set of `ProductPicture`."""
-  productPictures(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ProductPictureCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `ProductPicture`."""
-    orderBy: [ProductPicturesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ProductPicturesConnection
 
   """Reads and enables pagination through a set of `Product`."""
   products(
@@ -1220,7 +1186,6 @@ type Query implements Node {
     """The method to use when ordering `Product`."""
     orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProductsConnection
-  subDepartment(rowId: UUID!): SubDepartment
 
   """Reads a single `SubDepartment` using its globally unique `ID`."""
   subDepartmentById(
