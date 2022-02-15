@@ -98,6 +98,23 @@
             }
           }
         }
+      },
+      "dum_public.product_pictures": {
+        "tags": {
+          "omit": "all"
+        },
+        "constraint": {
+          "product_pictures_pkey": {
+            "tags": {
+              "omit": true
+            }
+          },
+          "product_pictures_unique_url": {
+            "tags": {
+              "omit": true
+            }
+          }
+        }
       }
     },
     "procedure": {
