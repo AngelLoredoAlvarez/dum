@@ -16,7 +16,10 @@ function Product(props: ProductProps) {
 
   return (
     <HStack flex={1} flexGrow={1} mb={10} ml={48} mr={48} mt={7}>
-      <ProductPicturesViewer productPictures={productPictures} />
+      <ProductPicturesViewer
+        productPicture={product}
+        productPictures={productPictures}
+      />
       <VStack
         alignContent={"center"}
         alignItems={"center"}
