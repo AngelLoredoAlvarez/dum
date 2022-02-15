@@ -83,6 +83,11 @@
       },
       "dum_public.main_departments": {
         "constraint": {
+          "main_departments_pkey": {
+            "tags": {
+              "omit": true
+            }
+          },
           "main_department_unique_name": {
             "tags": {
               "omit": true
