@@ -115,6 +115,15 @@
             }
           }
         }
+      },
+      "dum_public.brands": {
+        "constraint": {
+          "brands_pkey": {
+            "tags": {
+              "omit": true
+            }
+          }
+        }
       }
     },
     "procedure": {
