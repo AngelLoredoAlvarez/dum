@@ -124,6 +124,15 @@
             }
           }
         }
+      },
+      "dum_public.products": {
+        "constraint": {
+          "product_unique_description": {
+            "tags": {
+              "omit": true
+            }
+          }
+        }
       }
     },
     "procedure": {
