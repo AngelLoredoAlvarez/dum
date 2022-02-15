@@ -97,6 +97,11 @@
       },
       "dum_public.sub_departments": {
         "constraint": {
+          "sub_departments_pkey": {
+            "tags": {
+              "omit": true
+            }
+          },
           "sub_department_unique_name": {
             "tags": {
               "omit": true
