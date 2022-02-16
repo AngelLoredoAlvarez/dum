@@ -807,7 +807,6 @@ type Product implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   id: ID!
-  pictureById(pictureId: UUID): ProductPicture
   price: String
 
   """Reads and enables pagination through a set of `ProductPicture`."""
