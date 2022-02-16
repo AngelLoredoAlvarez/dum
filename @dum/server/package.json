@@ -16,7 +16,7 @@
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
     "@graphile/pg-pubsub": "^4.12.2",
     "@graphile/postgis": "^0.1.0",
-    "body-parser": "^1.19.1",
+    "body-parser": "^1.19.2",
     "chalk": "4.1.2",
     "connect-redis": "^6.1.1",
     "csurf": "^1.11.0",
