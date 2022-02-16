@@ -7,7 +7,6 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../../../../components/Layout";
 import Loading from "../../../../../components/Loading";
 import MainDepartmentsList from "../../../../../components/MainDepartmentsList";
-import Product from "../../../../../components/Product";
 import type { ProductPageQuery as ProductPageQueryTypes } from "../../../../../graphql/Queries/__generated__/ProductPageQuery.graphql";
 import ProductPageQuery from "../../../../../graphql/Queries/ProductPageQuery";
 import { getClientEnvironment } from "../../../../../lib/client";
@@ -24,7 +23,6 @@ function ProductPage({
     <Layout currentUser={productPageQuery.currentUser}>
       <VStack h={"100%"} w={"100%"}>
         <MainDepartmentsList departments={productPageQuery} />
-        <Product product={productPageQuery.product} />
       </VStack>
     </Layout>
   );
