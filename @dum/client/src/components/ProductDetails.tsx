@@ -15,7 +15,6 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
     <VStack
       alignContent={"center"}
       alignItems={"center"}
-      borderWidth={1}
       mr={{
         lg: 10,
         xl: 20,

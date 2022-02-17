@@ -49,7 +49,6 @@ function ProductPage({
           space={1}
         >
           <Stack
-            borderWidth={1}
             direction={{
               base: "row",
               sm: "row",

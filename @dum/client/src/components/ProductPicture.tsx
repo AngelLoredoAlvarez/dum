@@ -22,7 +22,6 @@ function ProductPicture(props: ProductPictureProps) {
 
   return (
     <Box
-      borderWidth={1}
       flex={1}
       h={{
         base: "60%",
