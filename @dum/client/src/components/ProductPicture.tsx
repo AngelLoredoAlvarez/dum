@@ -42,9 +42,8 @@ function ProductPicture(props: ProductPictureProps) {
     >
       <Image
         alt={data.productPicture.id}
-        h={"100%"}
+        flex={1}
         source={{ uri: `${data.productPicture.pictureUrl}` }}
-        w={"100%"}
       />
     </Box>
   );
