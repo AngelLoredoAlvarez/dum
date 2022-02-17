@@ -14,9 +14,12 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
   return (
     <VStack
       mr={{
+        base: null,
+        sm: null,
+        md: null,
         lg: 10,
         xl: 20,
-        "2xl": 48,
+        "2xl": 20,
       }}
       space={5}
       w={{
