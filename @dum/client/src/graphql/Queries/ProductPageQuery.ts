@@ -7,7 +7,17 @@ export default graphql`
     }
     ...MainDepartmentsFragment_mainDepartments
     product(rowId: $rowId) {
+      productPictures {
+        edges {
+          node {
+            id
+            rowId
+            pictureUrl
+          }
+        }
+      }
       ...ProductFragment_product
     }
+    ...ProductPictureFragment_productPicture @arguments(productId: $rowId)
   }
 `;
