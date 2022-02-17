@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { Button, Text, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
@@ -37,7 +38,14 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
       </Text>
       <Text textAlign={"center"}>{product.price}</Text>
       <Text textAlign={"center"}>{product.stock}</Text>
-      <Button>Agregar al Carrito</Button>
+      <Button
+        colorScheme="amber"
+        leftIcon={
+          <MaterialIcons color="white" name="add-shopping-cart" size={20} />
+        }
+      >
+        Agregar al Carrito
+      </Button>
     </VStack>
   );
 }
