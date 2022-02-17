@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { Button, Text, VStack } from "native-base";
+import { Button, Input, Text, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -79,8 +79,39 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
       >
         {product.price}
       </Text>
-      <Text
-        fontSize={{
+      <Input
+        InputLeftElement={
+          <Button
+            colorScheme="amber"
+            fontSize={{
+              base: "base",
+              sm: "sm",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
+            }}
+          >
+            +
+          </Button>
+        }
+        InputRightElement={
+          <Button
+            colorScheme="amber"
+            fontSize={{
+              base: "base",
+              sm: "sm",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
+            }}
+          >
+            -
+          </Button>
+        }
+        py="0"
+        size={{
           base: "base",
           sm: "sm",
           md: "md",
@@ -88,10 +119,15 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
           xl: "xl",
           "2xl": "2xl",
         }}
-        textAlign={"center"}
-      >
-        {product.stock}
-      </Text>
+        w={{
+          base: "",
+          sm: "50%",
+          md: "33%",
+          lg: "50%",
+          xl: "50%",
+          "2xl": "44%",
+        }}
+      />
       <Button
         colorScheme="amber"
         leftIcon={
