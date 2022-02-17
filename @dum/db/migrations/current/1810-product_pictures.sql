@@ -31,6 +31,47 @@ create trigger _100_timestamps
   for each row
   execute procedure dum_private.tg__timestamps();
 
+/*
+ * Custom Query that returns a specific Product Picture by it's ID
+ */
+create or replace function dum_public.product_picture(product_id uuid, picture_id uuid default null) returns dum_public.product_pictures as $$
+  declare
+    product_picture dum_public.product_pictures;
+  begin
+    if $2 is null then
+      select
+        *
+      from
+        dum_public.product_pictures
+      where
+        dum_public.product_pictures.product_id = $1
+      order by
+        dum_public.product_pictures.created_at
+      limit
+        1
+      into
+        product_picture;
+    else
+      select
+        *
+      from
+        dum_public.product_pictures
+      where
+        dum_public.product_pictures.product_id = $1
+      and
+        dum_public.product_pictures.id = $2
+      order by
+        dum_public.product_pictures.created_at
+      limit
+        1
+      into
+        product_picture;
+    end if;
+
+    return product_picture;
+  end;
+$$ language plpgsql stable;
+
 -- Inserts mock data in the dum_public.products table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.product_pictures(
   id,
