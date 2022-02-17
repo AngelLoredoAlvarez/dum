@@ -40,15 +40,58 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
         _light={{
           bg: "gray.200",
         }}
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "md",
+          lg: "lg",
+          xl: "xl",
+          "2xl": "2xl",
+        }}
         textAlign={"center"}
       >
         {product.brand.brand}
       </Text>
-      <Text bold textAlign={"center"}>
+      <Text
+        bold
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "md",
+          lg: "lg",
+          xl: "xl",
+          "2xl": "2xl",
+        }}
+        textAlign={"center"}
+      >
         {product.description}
       </Text>
-      <Text textAlign={"center"}>{product.price}</Text>
-      <Text textAlign={"center"}>{product.stock}</Text>
+      <Text
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "md",
+          lg: "lg",
+          xl: "xl",
+          "2xl": "2xl",
+        }}
+        textAlign={"center"}
+      >
+        {product.price}
+      </Text>
+      <Text
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "md",
+          lg: "lg",
+          xl: "xl",
+          "2xl": "2xl",
+        }}
+        textAlign={"center"}
+      >
+        {product.stock}
+      </Text>
       <Button
         colorScheme="amber"
         leftIcon={
