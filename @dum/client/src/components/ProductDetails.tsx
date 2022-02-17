@@ -33,7 +33,17 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
         "2xl": null,
       }}
     >
-      <Text textAlign={"center"}>{product.brand.brand}</Text>
+      <Text
+        _dark={{
+          bg: "gray.700",
+        }}
+        _light={{
+          bg: "gray.200",
+        }}
+        textAlign={"center"}
+      >
+        {product.brand.brand}
+      </Text>
       <Text bold textAlign={"center"}>
         {product.description}
       </Text>
