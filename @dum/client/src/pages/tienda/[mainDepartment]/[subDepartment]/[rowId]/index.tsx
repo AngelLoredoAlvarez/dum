@@ -66,9 +66,12 @@ function ProductPage({
               "2xl": "100%",
             }}
             ml={{
+              base: null,
+              sm: null,
+              md: null,
               lg: 10,
               xl: 20,
-              "2xl": 48,
+              "2xl": 20,
             }}
             w={{
               base: "95%",
