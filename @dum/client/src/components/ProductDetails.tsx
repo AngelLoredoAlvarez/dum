@@ -13,22 +13,12 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
 
   return (
     <VStack
-      alignContent={"center"}
-      alignItems={"center"}
       mr={{
         lg: 10,
         xl: 20,
         "2xl": 48,
       }}
       space={5}
-      h={{
-        base: null,
-        sm: null,
-        md: null,
-        lg: "100%",
-        xl: "100%",
-        "2xl": "100%",
-      }}
       w={{
         base: "95%",
         sm: "95%",
