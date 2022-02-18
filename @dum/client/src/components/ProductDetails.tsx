@@ -122,7 +122,7 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
         }}
         textAlign={"center"}
       >
-        En existencia <Text bold>{product.stock}</Text> pzs.
+        En existencia <Text bold>{product.stock - stockValue}</Text> pzs.
       </Text>
       <Text
         fontSize={{
