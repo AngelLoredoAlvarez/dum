@@ -1,28 +1,16 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input, Text, VStack } from "native-base";
 import * as React from "react";
-import { Controller, useForm } from "react-hook-form";
 import { useFragment } from "react-relay/hooks";
-import * as Yup from "yup";
 
 import type { ProductFragment_product$key } from "../graphql/Fragments/__generated__/ProductFragment_product.graphql";
 import ProductFragment from "../graphql/Fragments/ProductFragment";
-
-const StockValidationSchema = Yup.object().shape({
-  stock: Yup.number().positive().min(1),
-});
 
 function ProductDetails(props: { product: ProductFragment_product$key }) {
   const product = useFragment<ProductFragment_product$key>(
     ProductFragment,
     props.product
   );
-
-  const { control, setValue } = useForm<{ stock: number }>({
-    defaultValues: { stock: 1 },
-    resolver: yupResolver(StockValidationSchema),
-  });
 
   return (
     <VStack
@@ -91,55 +79,15 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
       >
         {product.price}
       </Text>
-      <Controller
-        control={control}
-        name={"stock"}
-        render={({ field: { value } }) => (
-          <Input
-            autoFocus
-            _focus={{
-              borderColor: "yellow.400",
-            }}
-            InputLeftElement={
-              <Button
-                colorScheme="amber"
-                fontSize={{
-                  base: "base",
-                  sm: "sm",
-                  md: "md",
-                  lg: "lg",
-                  xl: "xl",
-                  "2xl": "2xl",
-                }}
-                onPress={() =>
-                  setValue("stock", value + 1, { shouldValidate: true })
-                }
-              >
-                +
-              </Button>
-            }
-            InputRightElement={
-              <Button
-                colorScheme="amber"
-                fontSize={{
-                  base: "base",
-                  sm: "sm",
-                  md: "md",
-                  lg: "lg",
-                  xl: "xl",
-                  "2xl": "2xl",
-                }}
-                onPress={() =>
-                  setValue("stock", value - 1, {
-                    shouldValidate: true,
-                  })
-                }
-              >
-                -
-              </Button>
-            }
-            py="0"
-            size={{
+      <Input
+        autoFocus
+        _focus={{
+          borderColor: "yellow.400",
+        }}
+        InputLeftElement={
+          <Button
+            colorScheme="amber"
+            fontSize={{
               base: "base",
               sm: "sm",
               md: "md",
@@ -147,17 +95,42 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
               xl: "xl",
               "2xl": "2xl",
             }}
-            value={value.toString()}
-            w={{
-              base: "",
-              sm: "50%",
-              md: "33%",
-              lg: "50%",
-              xl: "50%",
-              "2xl": "44%",
+          >
+            +
+          </Button>
+        }
+        InputRightElement={
+          <Button
+            colorScheme="amber"
+            fontSize={{
+              base: "base",
+              sm: "sm",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
             }}
-          />
-        )}
+          >
+            -
+          </Button>
+        }
+        py="0"
+        size={{
+          base: "base",
+          sm: "sm",
+          md: "md",
+          lg: "lg",
+          xl: "xl",
+          "2xl": "2xl",
+        }}
+        w={{
+          base: "",
+          sm: "50%",
+          md: "33%",
+          lg: "50%",
+          xl: "50%",
+          "2xl": "44%",
+        }}
       />
       <Button
         colorScheme="amber"
