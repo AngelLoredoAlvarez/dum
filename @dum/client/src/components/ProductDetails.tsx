@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Button, Input, Text, VStack } from "native-base";
 import * as React from "react";
+import { mask } from "react-native-mask-text";
 import { useFragment } from "react-relay/hooks";
 
 import type { ProductFragment_product$key } from "../graphql/Fragments/__generated__/ProductFragment_product.graphql";
@@ -11,6 +12,37 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
     ProductFragment,
     props.product
   );
+
+  const [stockValue, setStockValue] = React.useState<number>(1);
+
+  const handleIncrease = () => {
+    if (stockValue == product.stock) {
+      setStockValue(stockValue);
+    } else {
+      setStockValue(stockValue + 1);
+    }
+  };
+
+  const handleChange = (val: string) => {
+    const maskedStockValue: string = mask(val, "9999999");
+    const stockValue: number = Number.parseInt(maskedStockValue);
+
+    if (Number.isNaN(stockValue)) {
+      setStockValue(1);
+    } else if (stockValue > product.stock) {
+      setStockValue(product.stock);
+    } else {
+      setStockValue(stockValue);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (stockValue == 1) {
+      setStockValue(1);
+    } else {
+      setStockValue(stockValue - 1);
+    }
+  };
 
   return (
     <VStack
@@ -121,6 +153,7 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
               xl: "xl",
               "2xl": "2xl",
             }}
+            onPress={handleIncrease}
           >
             +
           </Button>
@@ -136,10 +169,12 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
               xl: "xl",
               "2xl": "2xl",
             }}
+            onPress={handleDecrease}
           >
             -
           </Button>
         }
+        onChangeText={(val: string) => handleChange(val)}
         py="0"
         size={{
           base: "base",
@@ -149,6 +184,7 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
           xl: "xl",
           "2xl": "2xl",
         }}
+        value={stockValue.toString()}
         w={{
           base: "",
           sm: "50%",
