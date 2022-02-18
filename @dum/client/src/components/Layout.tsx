@@ -126,33 +126,35 @@ function Layout(props: LayoutProps) {
           />
         </HStack>
         <HStack alignItems="center" space={2}>
-          <VStack>
-            <Badge
-              _text={{
-                fontSize: 12,
-              }}
-              alignSelf="flex-end"
-              bg="amber.600"
-              mb={-4}
-              rounded="999px"
-              variant="solid"
-              zIndex={1}
-            >
-              0
-            </Badge>
-            <IconButton
-              _hover={{
-                bg: "muted",
-              }}
-              _pressed={{
-                bg: "muted",
-              }}
-              icon={
-                <Icon as={<Ionicons name="cart" />} size="sm" color="white" />
-              }
-              mr={2}
-            />
-          </VStack>
+          {currentUser ? (
+            <VStack>
+              <Badge
+                _text={{
+                  fontSize: 12,
+                }}
+                alignSelf="flex-end"
+                bg="amber.600"
+                mb={-4}
+                rounded="999px"
+                variant="solid"
+                zIndex={1}
+              >
+                0
+              </Badge>
+              <IconButton
+                _hover={{
+                  bg: "muted",
+                }}
+                _pressed={{
+                  bg: "muted",
+                }}
+                icon={
+                  <Icon as={<Ionicons name="cart" />} size="sm" color="white" />
+                }
+                mr={2}
+              />
+            </VStack>
+          ) : null}
           {!currentUser &&
           router.pathname !== "/login" &&
           (screenSize === "base" || screenSize === "sm") ? (
