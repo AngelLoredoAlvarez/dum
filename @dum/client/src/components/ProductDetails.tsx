@@ -196,7 +196,7 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
       />
       <Button
         colorScheme="amber"
-        leftIcon={
+        rightIcon={
           <MaterialIcons color="white" name="add-shopping-cart" size={20} />
         }
       >
