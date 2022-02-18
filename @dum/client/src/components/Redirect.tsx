@@ -1,6 +1,7 @@
-import { Container, Text } from "native-base";
 import Router from "next/router";
 import * as React from "react";
+
+import Loading from "./Loading";
 
 interface RedirectProps {
   href: string;
@@ -11,11 +12,7 @@ function Redirect({ href }: RedirectProps) {
     Router.push(href);
   }, [href]);
 
-  return (
-    <Container>
-      <Text>Redirecting...</Text>
-    </Container>
-  );
+  return <Loading />;
 }
 
 export default Redirect;
