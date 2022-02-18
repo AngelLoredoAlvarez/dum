@@ -79,6 +79,32 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
       >
         {product.price}
       </Text>
+      <Text
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "sm",
+          lg: "sm",
+          xl: "md",
+          "2xl": "lg",
+        }}
+        textAlign={"center"}
+      >
+        En existencia <Text bold>{product.stock}</Text> pzs.
+      </Text>
+      <Text
+        fontSize={{
+          base: "base",
+          sm: "sm",
+          md: "sm",
+          lg: "sm",
+          xl: "md",
+          "2xl": "lg",
+        }}
+        textAlign={"center"}
+      >
+        INGRESA UNA CANTIDAD:
+      </Text>
       <Input
         autoFocus
         _focus={{
