@@ -71,7 +71,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
             mt={8}
             textAlign={"center"}
           >
-            ¡ENCUENTRA LAS MEJORES OFERTAS EN NUESTRA TIENDA ONLIE!
+            ¡ENCUENTRA LAS MEJORES OFERTAS EN NUESTRA TIENDA ONLINE!
           </Text>
           <Text
             fontSize={{
