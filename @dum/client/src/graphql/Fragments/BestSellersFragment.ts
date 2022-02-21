@@ -1,18 +1,12 @@
 import { graphql } from "react-relay/hooks";
 
 export default graphql`
-  fragment BestSellersFragment_bestSellers on Query
-  @argumentDefinitions(
-    first: { type: "Int!", defaultValue: 10 }
-    after: { type: "Cursor" }
-  )
-  @refetchable(queryName: "BestSellers") {
-    products(first: $first, after: $after)
-      @connection(key: "BestSellersFragment_products") {
+  fragment BestSellersFragment_bestSellers on Query {
+    products(first: 10) {
       edges {
         node {
           id
-          ...ProductFragment_product
+          ...BestSellerFragment_bestSeller
         }
       }
     }
