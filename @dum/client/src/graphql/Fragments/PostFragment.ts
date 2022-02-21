@@ -6,10 +6,7 @@ export default graphql`
     rowId
     headline
     body
-    topic
-    date
     fullDate
-    time
     age
   }
 `;
