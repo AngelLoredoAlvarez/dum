@@ -148,6 +148,11 @@
         "tags": {
           "omit": "all"
         }
+      },
+      "dum_public.sale_details": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
