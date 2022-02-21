@@ -1,7 +1,7 @@
 import { Pressable, Text } from "native-base";
 import * as React from "react";
 import Swiper from "react-native-web-swiper";
-import { usePaginationFragment } from "react-relay/hooks";
+import { useFragment } from "react-relay/hooks";
 
 import { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
 import BestSellersFragment from "../graphql/Fragments/BestSellersFragment";
@@ -13,10 +13,7 @@ interface BestSellerSwiperProps {
 import BestSellerSwiperItem from "./BestSellerSwiperItem";
 
 function BestSellerSwiper(props: BestSellerSwiperProps) {
-  const { data } = usePaginationFragment(
-    BestSellersFragment,
-    props.bestSellers
-  );
+  const bestSellers = useFragment(BestSellersFragment, props.bestSellers);
 
   return (
     <Swiper
@@ -49,8 +46,8 @@ function BestSellerSwiper(props: BestSellerSwiperProps) {
       loop
       timeout={5}
     >
-      {data.products.edges.map(({ node }) => (
-        <BestSellerSwiperItem key={node.id} product={node} />
+      {bestSellers.products.edges.map(({ node }) => (
+        <BestSellerSwiperItem key={node.id} bestSeller={node} />
       ))}
     </Swiper>
   );
