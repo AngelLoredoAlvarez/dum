@@ -7,9 +7,9 @@ import BestSellerFragment from "../graphql/Fragments/BestSellerFragment";
 
 interface BestSellerSwiperItemProps {
   activeIndex?: number;
+  bestSeller: BestSellerFragment_bestSeller$key;
   index?: number;
   isActive?: boolean;
-  bestSeller: BestSellerFragment_bestSeller$key;
 }
 
 function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
