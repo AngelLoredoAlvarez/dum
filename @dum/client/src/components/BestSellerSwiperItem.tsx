@@ -1,14 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import {
-  Box,
-  Button,
-  HStack,
-  Icon,
-  Image,
-  Text,
-  View,
-  VStack,
-} from "native-base";
+import { Box, HStack, Image, Text, View, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -46,7 +36,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
             alignItems={"center"}
             alignSelf={"center"}
             flex={1}
-            space={3}
+            space={8}
           >
             <Text
               bold
@@ -75,19 +65,6 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
             >
               {product.description}
             </Text>
-            <Text
-              fontSize={{
-                base: "md",
-                sm: "md",
-                md: "lg",
-                lg: "xl",
-                xl: "2xl",
-                "2xl": "3xl",
-              }}
-              strikeThrough
-            >
-              {product.price} MXN
-            </Text>
             <Box
               _dark={{
                 backgroundColor: "gray.800",
@@ -112,14 +89,6 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
                 {product.price} MXN
               </Text>
             </Box>
-            <Button
-              colorScheme="amber"
-              rightIcon={
-                <Icon as={MaterialIcons} name="add-shopping-cart" size="sm" />
-              }
-            >
-              Agregar al Carrito
-            </Button>
           </VStack>
         </HStack>
       ) : null}
