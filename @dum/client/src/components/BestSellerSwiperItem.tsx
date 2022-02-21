@@ -2,18 +2,18 @@ import { Box, HStack, Image, Text, View, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
-import { ProductFragment_product$key } from "../graphql/Fragments/__generated__/ProductFragment_product.graphql";
-import ProductFragment from "../graphql/Fragments/ProductFragment";
+import type { BestSellerFragment_bestSeller$key } from "../graphql/Fragments/__generated__/BestSellerFragment_bestSeller.graphql";
+import BestSellerFragment from "../graphql/Fragments/BestSellerFragment";
 
 interface BestSellerSwiperItemProps {
   activeIndex?: number;
   index?: number;
   isActive?: boolean;
-  product: ProductFragment_product$key;
+  bestSeller: BestSellerFragment_bestSeller$key;
 }
 
 function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
-  const product = useFragment(ProductFragment, props.product);
+  const bestSeller = useFragment(BestSellerFragment, props.bestSeller);
 
   return (
     <View h={"100%"} w={"100%"}>
@@ -24,10 +24,10 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
           h={"100%"}
         >
           <Image
-            alt={product.description}
+            alt={bestSeller.description}
             h={"100%"}
             source={{
-              uri: `${product.productPictures.edges[0].node.pictureUrl}`,
+              uri: `${bestSeller.productPictures.edges[0].node.pictureUrl}`,
             }}
             w={"50%"}
           />
@@ -50,7 +50,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
               }}
               textAlign={"center"}
             >
-              {product.brand.brand}
+              {bestSeller.brand.brand}
             </Text>
             <Text
               fontSize={{
@@ -63,7 +63,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
               }}
               textAlign={"center"}
             >
-              {product.description}
+              {bestSeller.description}
             </Text>
             <Box
               _dark={{
@@ -86,7 +86,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
                   "2xl": "5xl",
                 }}
               >
-                {product.price} MXN
+                {bestSeller.price} MXN
               </Text>
             </Box>
           </VStack>
