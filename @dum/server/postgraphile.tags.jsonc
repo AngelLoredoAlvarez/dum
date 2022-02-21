@@ -143,6 +143,11 @@
             }
           }
         }
+      },
+      "dum_public.sales": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
