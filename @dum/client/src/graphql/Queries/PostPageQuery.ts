@@ -6,8 +6,6 @@ export default graphql`
       ...CurrentUserFragment_user
     }
     post(rowId: $rowId) {
-      id
-      rowId
       ...PostFragment_post
     }
   }
