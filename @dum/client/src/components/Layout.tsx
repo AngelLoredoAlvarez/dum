@@ -39,7 +39,7 @@ interface LayoutProps {
 function Layout(props: LayoutProps) {
   const router = useRouter();
 
-  const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+  const { currentUser } = useFragment(CurrentUserFragment, props.currentUser);
 
   const { dispatch } = useNavigation();
 
