@@ -20,7 +20,7 @@ function SubDepartmentPage({
   );
 
   return (
-    <Layout currentUser={subDepartmentPageQuery.currentUser}>
+    <Layout currentUser={subDepartmentPageQuery}>
       <Hidden only={["base", "sm", "md", "lg"]}>
         <SubDepartmentProductsList
           amountOfItemsToFetch={5}
