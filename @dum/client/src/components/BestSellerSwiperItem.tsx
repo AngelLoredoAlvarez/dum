@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text, View, VStack } from "native-base";
+import { Box, Button, HStack, Image, Text, View, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -10,6 +10,7 @@ interface BestSellerSwiperItemProps {
   bestSeller: BestSellerFragment_bestSeller$key;
   index?: number;
   isActive?: boolean;
+  isLoggedIn: boolean;
 }
 
 function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
@@ -89,6 +90,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
                 {bestSeller.price} MXN
               </Text>
             </Box>
+            <Button colorScheme="amber">Agregar al Carrito</Button>
           </VStack>
         </HStack>
       ) : null}
