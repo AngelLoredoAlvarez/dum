@@ -19,7 +19,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
   );
 
   return (
-    <Layout currentUser={storePageQuery.currentUser}>
+    <Layout currentUser={storePageQuery}>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
       >
