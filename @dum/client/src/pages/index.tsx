@@ -17,7 +17,7 @@ function IndexPage({ preloadedQuery }: RelayProps<{}, IndexPageQueryTypes>) {
   );
 
   return (
-    <Layout currentUser={indexPageQuery.currentUser}>
+    <Layout currentUser={indexPageQuery}>
       <PostsList posts={indexPageQuery} />
     </Layout>
   );
