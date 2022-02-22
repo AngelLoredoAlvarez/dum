@@ -23,7 +23,7 @@ function MainDepartmentPage({
     );
 
   return (
-    <Layout currentUser={mainDepartmentPageQuery.currentUser}>
+    <Layout currentUser={mainDepartmentPageQuery}>
       <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
         <MainDepartmentsList departments={mainDepartmentPageQuery} />
         <Text
