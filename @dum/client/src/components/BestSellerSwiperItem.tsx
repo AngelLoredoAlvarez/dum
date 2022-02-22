@@ -1,4 +1,14 @@
-import { Box, Button, HStack, Image, Text, View, VStack } from "native-base";
+import { MaterialIcons } from "@expo/vector-icons";
+import {
+  Box,
+  Button,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  View,
+  VStack,
+} from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -90,7 +100,15 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
                 {bestSeller.price} MXN
               </Text>
             </Box>
-            <Button colorScheme="amber">Agregar al Carrito</Button>
+            <Button
+              colorScheme="amber"
+              endIcon={
+                <Icon as={MaterialIcons} name="add-shopping-cart" size="sm" />
+              }
+              fontSize={"lg"}
+            >
+              Agregar al Carrito
+            </Button>
           </VStack>
         </HStack>
       ) : null}
