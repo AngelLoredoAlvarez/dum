@@ -28,7 +28,6 @@ import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__
 import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
 import Avatar from "./Avatar";
 import CustomDrawerContent from "./CustomDrawerContent";
-import Redirect from "./Redirect";
 
 const Drawer = createDrawerNavigator();
 
@@ -54,8 +53,6 @@ function Layout(props: LayoutProps) {
     xl: "xl",
     "2xl": "2xl",
   });
-
-  if (router.pathname === "/login" && currentUser) return <Redirect href="/" />;
 
   return (
     <Box flex={1}>
