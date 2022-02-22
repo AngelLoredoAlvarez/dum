@@ -31,7 +31,7 @@ function ProductPage({
   }, []);
 
   return (
-    <Layout currentUser={productPageQuery.currentUser}>
+    <Layout currentUser={productPageQuery}>
       <VStack h={"100%"} w={"100%"}>
         <MainDepartmentsList departments={productPageQuery} />
         <Stack
