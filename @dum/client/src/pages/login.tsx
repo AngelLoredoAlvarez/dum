@@ -19,7 +19,7 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
   );
 
   return (
-    <Layout currentUser={loginPageQuery.currentUser}>
+    <Layout currentUser={loginPageQuery}>
       <ErrorBoundary FallbackComponent={LoginPageErrors}>
         <LoginForm />
       </ErrorBoundary>
