@@ -29,7 +29,7 @@
     "react-native-web": "^0.17.6",
     "react-native-web-swiper": "^2.2.3",
     "react-relay": "12.0.0",
-    "relay-nextjs": "^0.6.0",
+    "relay-nextjs": "^0.7.0",
     "relay-runtime": "12.0.0",
     "setimmediate": "^1.0.5",
     "slugify": "^1.6.5",
