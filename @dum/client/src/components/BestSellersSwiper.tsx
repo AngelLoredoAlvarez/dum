@@ -15,6 +15,8 @@ import BestSellerSwiperItem from "./BestSellerSwiperItem";
 function BestSellerSwiper(props: BestSellerSwiperProps) {
   const bestSellers = useFragment(BestSellersFragment, props.bestSellers);
 
+  const isLoggedIn = bestSellers.currentUser !== null ? true : false;
+
   return (
     <Swiper
       controlsProps={{
@@ -47,7 +49,11 @@ function BestSellerSwiper(props: BestSellerSwiperProps) {
       timeout={5}
     >
       {bestSellers.products.edges.map(({ node }) => (
-        <BestSellerSwiperItem bestSeller={node} key={node.id} />
+        <BestSellerSwiperItem
+          bestSeller={node}
+          isLoggedIn={isLoggedIn}
+          key={node.id}
+        />
       ))}
     </Swiper>
   );
