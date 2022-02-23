@@ -58,12 +58,16 @@ function LoginForm() {
 
   const handleError = useErrorHandler();
 
+  const redirectOnLogin = React.useCallback(() => {
+    router.push(router.query.next.toString());
+  }, [router]);
+
   const onSubmit = ({ useremail, password }) => {
     login({
       onCompleted: (response, apiErrors) => {
         if (response.login) {
           if (response.login.user) {
-            router.push("/");
+            redirectOnLogin();
           }
         } else if (apiErrors) {
           handleError(apiErrors[0].message);
