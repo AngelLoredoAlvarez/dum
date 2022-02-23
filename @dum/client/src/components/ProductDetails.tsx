@@ -7,7 +7,12 @@ import { useFragment } from "react-relay/hooks";
 import type { ProductFragment_product$key } from "../graphql/Fragments/__generated__/ProductFragment_product.graphql";
 import ProductFragment from "../graphql/Fragments/ProductFragment";
 
-function ProductDetails(props: { product: ProductFragment_product$key }) {
+interface ProductDetailsProps {
+  product: ProductFragment_product$key;
+  isLoggedIn: boolean;
+}
+
+function ProductDetails(props: ProductDetailsProps) {
   const product = useFragment<ProductFragment_product$key>(
     ProductFragment,
     props.product
