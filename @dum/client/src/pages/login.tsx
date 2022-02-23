@@ -7,6 +7,7 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import LoginPageErrors from "../components/LoginPageErrors";
+import Redirect from "../components/Redirect";
 import LoginForm from "../forms/LoginForm";
 import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/Queries/__generated__/LoginPageQuery.graphql";
 import LoginPageQuery from "../graphql/Queries/LoginPageQuery";
@@ -17,6 +18,8 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
     LoginPageQuery,
     preloadedQuery
   );
+
+  if (loginPageQuery.currentUser !== null) return <Redirect href="/" />;
 
   return (
     <Layout currentUser={loginPageQuery}>
