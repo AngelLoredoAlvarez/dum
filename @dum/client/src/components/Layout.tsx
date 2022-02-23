@@ -39,6 +39,8 @@ interface LayoutProps {
 function Layout(props: LayoutProps) {
   const router = useRouter();
 
+  const currentUrl = router.asPath;
+
   const { currentUser } = useFragment(CurrentUserFragment, props.currentUser);
 
   const { dispatch } = useNavigation();
@@ -181,7 +183,9 @@ function Layout(props: LayoutProps) {
             screenSize === "2xl") ? (
             <Link
               _text={{ color: "white" }}
-              onPress={() => router.push("/login")}
+              onPress={() =>
+                router.push(`/login?next=${encodeURIComponent(currentUrl)}`)
+              }
             >
               Iniciar Sesión
             </Link>
