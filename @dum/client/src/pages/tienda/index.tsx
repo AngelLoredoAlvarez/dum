@@ -4,7 +4,7 @@ import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
-import BestSellerSwiper from "../../components/BestSellerSwiper";
+import BestSellersSwiper from "../../components/BestSellersSwiper";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
@@ -56,7 +56,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
               "2xl": "65%",
             }}
           >
-            <BestSellerSwiper bestSellers={storePageQuery} />
+            <BestSellersSwiper bestSellers={storePageQuery} />
           </Box>
           <Text
             bold
@@ -121,7 +121,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
               "2xl": "65%",
             }}
           >
-            <BestSellerSwiper bestSellers={storePageQuery} />
+            <BestSellersSwiper bestSellers={storePageQuery} />
           </Box>
         </VStack>
       </ScrollView>
