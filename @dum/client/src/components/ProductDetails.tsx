@@ -47,6 +47,7 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
   return (
     <VStack
       alignItems={"center"}
+      flex={1}
       mr={{
         base: null,
         sm: null,
@@ -56,14 +57,6 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
         "2xl": 20,
       }}
       space={5}
-      w={{
-        base: "95%",
-        sm: "95%",
-        md: "97%",
-        lg: null,
-        xl: null,
-        "2xl": null,
-      }}
     >
       <Text
         _dark={{
@@ -185,14 +178,6 @@ function ProductDetails(props: { product: ProductFragment_product$key }) {
           "2xl": "2xl",
         }}
         value={stockValue.toString()}
-        w={{
-          base: "",
-          sm: "50%",
-          md: "33%",
-          lg: "50%",
-          xl: "50%",
-          "2xl": "44%",
-        }}
       />
       <Button
         colorScheme="amber"
