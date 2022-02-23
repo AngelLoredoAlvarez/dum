@@ -47,11 +47,7 @@ function BestSellerSwiper(props: BestSellerSwiperProps) {
       timeout={5}
     >
       {bestSellers.products.edges.map(({ node }) => (
-        <BestSellerSwiperItem
-          bestSeller={node}
-          isLoggedIn={bestSellers.currentUser ? true : false}
-          key={node.id}
-        />
+        <BestSellerSwiperItem bestSeller={node} key={node.id} />
       ))}
     </Swiper>
   );
