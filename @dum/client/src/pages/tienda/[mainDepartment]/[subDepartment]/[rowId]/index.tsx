@@ -30,6 +30,8 @@ function ProductPage({
     setMounted(true);
   }, []);
 
+  const isLoggedIn = productPageQuery.currentUser !== null ? true : false;
+
   return (
     <Layout currentUser={productPageQuery}>
       <VStack h={"100%"} w={"100%"}>
@@ -133,7 +135,10 @@ function ProductPage({
               productPicture={productPageQuery}
             />
           )}
-          <ProductDetails product={productPageQuery.product} />
+          <ProductDetails
+            isLoggedIn={isLoggedIn}
+            product={productPageQuery.product}
+          />
         </Stack>
       </VStack>
     </Layout>
