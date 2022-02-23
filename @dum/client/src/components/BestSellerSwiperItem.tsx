@@ -9,6 +9,7 @@ import {
   View,
   VStack,
 } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -24,6 +25,22 @@ interface BestSellerSwiperItemProps {
 
 function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
   const bestSeller = useFragment(BestSellerFragment, props.bestSeller);
+
+  const router = useRouter();
+
+  const handleRouting = () => {
+    router.push(
+      `/tienda/${bestSeller.subDepartment.department.mainDepartment
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase()}/${bestSeller.subDepartment.subDepartment
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase()}/${bestSeller.rowId}`
+    );
+  };
 
   return (
     <View h={"100%"} w={"100%"}>
@@ -105,6 +122,7 @@ function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
                 <Icon as={MaterialIcons} name="add-shopping-cart" size="sm" />
               }
               fontSize={"lg"}
+              onPress={handleRouting}
             >
               Agregar al Carrito
             </Button>
