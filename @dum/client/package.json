@@ -42,7 +42,7 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@expo/next-adapter": "3.1.12",
     "@types/lodash": "^4.14.178",
-    "@types/node": "^17.0.19",
+    "@types/node": "^17.0.20",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.39",
     "@types/react-native": "0.66.16",
