@@ -20,6 +20,7 @@ interface BestSellerSwiperItemProps {
   bestSeller: BestSellerFragment_bestSeller$key;
   index?: number;
   isActive?: boolean;
+  isLoggedIn: boolean;
 }
 
 function BestSellerSwiperItem(props: BestSellerSwiperItemProps) {
