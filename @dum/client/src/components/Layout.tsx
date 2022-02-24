@@ -16,6 +16,7 @@ import {
   Pressable,
   StatusBar,
   Text,
+  Tooltip,
   useBreakpointValue,
   useColorMode,
   VStack,
@@ -140,18 +141,25 @@ function Layout(props: LayoutProps) {
               >
                 0
               </Badge>
-              <IconButton
-                _hover={{
-                  bg: "muted",
-                }}
-                _pressed={{
-                  bg: "muted",
-                }}
-                icon={
-                  <Icon as={<Ionicons name="cart" />} size="sm" color="white" />
-                }
-                mr={2}
-              />
+              <Tooltip label="Ver carrito">
+                <IconButton
+                  _hover={{
+                    bg: "muted",
+                  }}
+                  _pressed={{
+                    bg: "muted",
+                  }}
+                  icon={
+                    <Icon
+                      as={<Ionicons name="cart" />}
+                      size="sm"
+                      color="white"
+                    />
+                  }
+                  mr={2}
+                  onPress={() => router.push("/carrito")}
+                />
+              </Tooltip>
             </VStack>
           ) : null}
           {!currentUser &&
