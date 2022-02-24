@@ -1193,6 +1193,15 @@ type Query implements Node {
     """The globally unique `ID` to be used in selecting a single `Sale`."""
     id: ID!
   ): Sale
+  shoppingList(rowId: UUID!): ShoppingList
+
+  """Reads a single `ShoppingList` using its globally unique `ID`."""
+  shoppingListById(
+    """
+    The globally unique `ID` to be used in selecting a single `ShoppingList`.
+    """
+    id: ID!
+  ): ShoppingList
 
   """Reads a single `SubDepartment` using its globally unique `ID`."""
   subDepartmentById(
@@ -1503,6 +1512,169 @@ enum SalesOrderBy {
   USER_ID_DESC
 }
 
+"""A Shopping List own by a User."""
+type ShoppingList implements Node {
+  createdAt: Datetime!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+
+  """
+  The state of the Shopping List, true if is already sold or false if not.
+  """
+  isSold: Boolean
+
+  """Unique identifier for the Shopping List."""
+  rowId: UUID!
+
+  """Reads and enables pagination through a set of `ShoppingListDetail`."""
+  shoppingListDetails(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ShoppingListDetailCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `ShoppingListDetail`."""
+    orderBy: [ShoppingListDetailsOrderBy!] = [NATURAL]
+  ): ShoppingListDetailsConnection!
+  updatedAt: Datetime!
+
+  """Reads a single `User` that is related to this `ShoppingList`."""
+  user: User
+  userId: UUID!
+}
+
+"""
+A condition to be used against `ShoppingList` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input ShoppingListCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `userId` field."""
+  userId: UUID
+}
+
+"""The details of a specific Shopping List."""
+type ShoppingListDetail {
+  cost: String
+  productId: UUID!
+
+  """The quantity of a specific product."""
+  quantity: Int
+
+  """
+  Reads a single `ShoppingList` that is related to this `ShoppingListDetail`.
+  """
+  shoppingList: ShoppingList
+  shoppingListId: UUID!
+
+  """The cost of the quantity of products."""
+  unformatedCost: BigFloat!
+}
+
+"""
+A condition to be used against `ShoppingListDetail` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input ShoppingListDetailCondition {
+  """Checks for equality with the object’s `shoppingListId` field."""
+  shoppingListId: UUID
+}
+
+"""A connection to a list of `ShoppingListDetail` values."""
+type ShoppingListDetailsConnection {
+  """
+  A list of edges which contains the `ShoppingListDetail` and cursor to aid in pagination.
+  """
+  edges: [ShoppingListDetailsEdge!]!
+
+  """A list of `ShoppingListDetail` objects."""
+  nodes: [ShoppingListDetail!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `ShoppingListDetail` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `ShoppingListDetail` edge in the connection."""
+type ShoppingListDetailsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ShoppingListDetail` at the end of the edge."""
+  node: ShoppingListDetail!
+}
+
+"""Methods to use when ordering `ShoppingListDetail`."""
+enum ShoppingListDetailsOrderBy {
+  NATURAL
+  SHOPPING_LIST_ID_ASC
+  SHOPPING_LIST_ID_DESC
+}
+
+"""A connection to a list of `ShoppingList` values."""
+type ShoppingListsConnection {
+  """
+  A list of edges which contains the `ShoppingList` and cursor to aid in pagination.
+  """
+  edges: [ShoppingListsEdge!]!
+
+  """A list of `ShoppingList` objects."""
+  nodes: [ShoppingList!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `ShoppingList` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `ShoppingList` edge in the connection."""
+type ShoppingListsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `ShoppingList` at the end of the edge."""
+  node: ShoppingList!
+}
+
+"""Methods to use when ordering `ShoppingList`."""
+enum ShoppingListsOrderBy {
+  ID_ASC
+  ID_DESC
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+}
+
 """A Sub - Department that belongs to a Main Department."""
 type SubDepartment implements Node {
   createdAt: Datetime!
@@ -1736,6 +1908,35 @@ type User implements Node {
     orderBy: [SalesOrderBy!] = [PRIMARY_KEY_ASC]
   ): SalesConnection!
   secondSurname: String
+
+  """Reads and enables pagination through a set of `ShoppingList`."""
+  shoppingLists(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ShoppingListCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `ShoppingList`."""
+    orderBy: [ShoppingListsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ShoppingListsConnection!
   updatedAt: Datetime!
 
   """Reads and enables pagination through a set of `UserAuthentication`."""
