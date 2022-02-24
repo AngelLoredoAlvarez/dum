@@ -18,8 +18,6 @@ function ShoppingListPage({
     preloadedQuery
   );
 
-  console.log(shoppingListPageQuery);
-
   return (
     <Layout currentUser={shoppingListPageQuery}>
       <Box>
