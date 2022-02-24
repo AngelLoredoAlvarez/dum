@@ -4,11 +4,11 @@ import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
-import Layout from "../components/Layout";
-import Loading from "../components/Loading";
-import type { ShoppingListPageQuery as ShoppingListQueryTypes } from "../graphql/Queries/__generated__/ShoppingListPageQuery.graphql";
-import ShoppingListPageQuery from "../graphql/Queries/ShoppingListPageQuery";
-import { getClientEnvironment } from "../lib/client";
+import Layout from "../../components/Layout";
+import Loading from "../../components/Loading";
+import type { ShoppingListPageQuery as ShoppingListQueryTypes } from "../../graphql/Queries/__generated__/ShoppingListPageQuery.graphql";
+import ShoppingListPageQuery from "../../graphql/Queries/ShoppingListPageQuery";
+import { getClientEnvironment } from "../../lib/client";
 
 function ShoppingListPage({
   preloadedQuery,
@@ -30,7 +30,7 @@ function ShoppingListPage({
 export default withRelay(ShoppingListPage, ShoppingListPageQuery, {
   createClientEnvironment: () => getClientEnvironment(),
   createServerEnvironment: async (_ctx, { cookies }) => {
-    const { createServerEnvironment } = await import("../lib/server/server");
+    const { createServerEnvironment } = await import("../../lib/server/server");
 
     return createServerEnvironment(cookies);
   },
