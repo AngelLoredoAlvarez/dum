@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Button, Input, Text, VStack } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { mask } from "react-native-mask-text";
 import { useFragment } from "react-relay/hooks";
@@ -46,6 +47,20 @@ function ProductDetails(props: ProductDetailsProps) {
       setStockValue(1);
     } else {
       setStockValue(stockValue - 1);
+    }
+  };
+
+  const router = useRouter();
+
+  const handleLoginRouting = React.useCallback(() => {
+    router.push(`/login?next=${encodeURIComponent(`/carrito`)}`);
+  }, [router]);
+
+  const handleRouting = () => {
+    if (props.isLoggedIn) {
+      console.log("Logged In");
+    } else {
+      handleLoginRouting();
     }
   };
 
@@ -186,6 +201,7 @@ function ProductDetails(props: ProductDetailsProps) {
       />
       <Button
         colorScheme="amber"
+        onPress={handleRouting}
         rightIcon={
           <MaterialIcons color="white" name="add-shopping-cart" size={20} />
         }
