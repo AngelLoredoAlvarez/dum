@@ -4032,10 +4032,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.10.tgz#774f43868964f3cfe4ced1f5417fe15818a4eaea"
   integrity sha512-6iihJ/Pp5fsFJ/aEDGyvT4pHGmCpq7ToQ/yf4bl5SbVAvwpspYJ+v3jO7n8UyjhQVHTy+KNszOozDdv+O6sovQ==
 
-"@types/node@^17.0.20":
-  version "17.0.20"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.20.tgz#29626bd9c9119df5b8194353d34044c895fe56e3"
-  integrity sha512-Q15Clj3lZSLnhVA6yKw1G7SQz46DeL9gO1TEgfK1OQGvMdQ6TUWmCeWf1QBUNkw2BDfV52i2YuYd9OF3ZwGhjw==
+"@types/node@^17.0.21":
+  version "17.0.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
+  integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
 "@types/nodemailer@^6.4.4":
   version "6.4.4"
@@ -5144,10 +5144,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-sdk@^2.1079.0:
-  version "2.1079.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1079.0.tgz#41ede54aa4ba5ce77d4ffe202f9a1ee7869da2a8"
-  integrity sha512-WHYWiye9f2XYQ33Rj/uVw4VF/Qq/xrB9NDnGlRhgK8Ga7T20+8/iZD5/Z8wICVNZTsfUZ3g6LfkeZ1l+LZhHKw==
+aws-sdk@^2.1080.0:
+  version "2.1080.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1080.0.tgz#90aca78e159f8ad04fb77fc6740a54ec0981b977"
+  integrity sha512-CI3ovrQ7WarYuSliDCihpA5w+LoBWEvgBayRMgrZzGmAIEP9pNtXYWQ/wSjVYOyYtU1ilOFyhQBNExX3Kz1pXw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -14680,10 +14680,10 @@ react-native-reanimated@2.4.1:
     react-native-screens "^3.4.0"
     string-hash-64 "^1.0.3"
 
-react-native-safe-area-context@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.4.1.tgz#c967a52903d55fe010b2428e5368b42f1debc0a7"
-  integrity sha512-xfpVd0CiZR7oBhuwJ2HcZMehg5bjha1Ohu1XHpcT+9ykula0TgovH2BNU0R5Krzf/jBR1LMjR6VabxdlUjqxcA==
+react-native-safe-area-context@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.0.1.tgz#b8413ad703088d8c36d2e56202a28b17aa0df79b"
+  integrity sha512-N8xvlDrcdQ8FBtS/jIvsxm7Wwb5ZRnYjQpoQR2CfFTN1AwIHG80ZACteeLFQ8ErGBRTPBgXNBPoFCppCDHbnyg==
 
 react-native-screens@3.12.0:
   version "3.12.0"
