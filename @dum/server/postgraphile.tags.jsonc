@@ -158,6 +158,11 @@
         "tags": {
           "omit": "all"
         }
+      },
+      "dum_public.shopping_list_details": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
