@@ -1,4 +1,4 @@
-import { Box, Text } from "native-base";
+import { ScrollView, Text, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -6,6 +6,7 @@ import { withRelay } from "relay-nextjs";
 
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
+import MainDepartmentsList from "../../components/MainDepartmentsList";
 import type { ShoppingListPageQuery as ShoppingListQueryTypes } from "../../graphql/Queries/__generated__/ShoppingListPageQuery.graphql";
 import ShoppingListPageQuery from "../../graphql/Queries/ShoppingListPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -20,9 +21,28 @@ function ShoppingListPage({
 
   return (
     <Layout currentUser={shoppingListPageQuery}>
-      <Box>
-        <Text>Shopping Cart Page</Text>
-      </Box>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          justifyContent: "center",
+        }}
+      >
+        <VStack alignItems={"center"} borderWidth={1} space={3}>
+          <MainDepartmentsList departments={shoppingListPageQuery} />
+          <Text
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "3xl",
+              "2xl": "4xl",
+            }}
+          >
+            Los Productos en tu Carrito
+          </Text>
+        </VStack>
+      </ScrollView>
     </Layout>
   );
 }
