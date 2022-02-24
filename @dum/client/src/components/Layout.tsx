@@ -269,6 +269,35 @@ function Layout(props: LayoutProps) {
               </Text>
             </Center>
           </Pressable>
+          {currentUser !== null ? (
+            <Pressable
+              cursor="pointer"
+              flex={1}
+              opacity={router.pathname.includes("/carrito") ? 1 : 0.6}
+              onPress={() => router.push("/carrito")}
+              py="2"
+            >
+              <Center>
+                <Icon
+                  mb="1"
+                  as={
+                    <MaterialCommunityIcons
+                      name={
+                        router.pathname.includes("/carrito")
+                          ? "cart"
+                          : "cart-outline"
+                      }
+                    />
+                  }
+                  color="white"
+                  size="sm"
+                />
+                <Text color="white" fontSize="12">
+                  Carrito
+                </Text>
+              </Center>
+            </Pressable>
+          ) : null}
         </HStack>
       ) : null}
     </Box>
