@@ -59,7 +59,7 @@ function LoginForm() {
   const handleError = useErrorHandler();
 
   const redirectOnLogin = React.useCallback(() => {
-    router.push(router.query.next.toString());
+    router.push(`${router.query.next}`);
   }, [router]);
 
   const onSubmit = ({ useremail, password }) => {
