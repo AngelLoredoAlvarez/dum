@@ -160,6 +160,13 @@
         }
       },
       "dum_public.shopping_list_details": {
+        "constraint": {
+          "shopping_list_details_pkey": {
+            "tags": {
+              "omit": true
+            }
+          }
+        },
         "tags": {
           "omit": "all"
         }
@@ -206,6 +213,16 @@
       "dum_public.verify_email": {
         "tags": {
           "resultFieldName": "success"
+        }
+      },
+      "dum_public.open_shopping_list_id": {
+        "tags": {
+          "omit": true
+        }
+      },
+      "dum_public.shopping_list_detail_id": {
+        "tags": {
+          "omit": true
         }
       }
     }
