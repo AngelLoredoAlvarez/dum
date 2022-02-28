@@ -3,14 +3,14 @@
  */
  create table dum_public.shopping_lists (
    id uuid primary key default gen_random_uuid(),
-   is_sold boolean default false,
+   is_open boolean default true,
    user_id uuid not null references dum_public.users(id),
    created_at timestamptz not null default now(),
    updated_at timestamptz not null default now()
  );
 
  -- Enable ROW lEVEL SECURITY
-alter table dum_public.products enable row level security;
+alter table dum_public.shopping_lists enable row level security;
 
 -- Grant the SELECT permission to all the columns in the table
 grant select on dum_public.shopping_lists to :DATABASE_VISITOR;
@@ -27,10 +27,17 @@ comment on table dum_public.shopping_lists is
 
 comment on column dum_public.shopping_lists.id is
   E'Unique identifier for the Shopping List.';
-comment on column dum_public.shopping_lists.is_sold is
-  E'The state of the Shopping List, true if is already sold or false if not.';
+comment on column dum_public.shopping_lists.is_open is
+  E'The state of the Shopping List, true if is open or false if is already closed and sold.';
 
 create trigger _100_timestamps
   before insert or update on dum_public.shopping_lists
   for each row
   execute procedure dum_private.tg__timestamps();
+
+/*
+ * Function that returns the id from an open Shopping List
+ */
+ create or replace function dum_public.open_shopping_list_id() returns uuid as $$
+  select id from dum_public.shopping_lists where is_open = true and user_id = dum_public.current_user_id();
+ $$ language sql stable;
