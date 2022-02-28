@@ -59,7 +59,12 @@ function LoginForm() {
   const handleError = useErrorHandler();
 
   const redirectOnLogin = React.useCallback(() => {
-    router.push(`${router.query.next}`);
+    if (router.query.next.includes("producto-agregado")) {
+      const { next, product_id, quantity } = router.query;
+      router.push(`${next}?&product_id=${product_id}&quantity=${quantity}`);
+    } else {
+      router.push(`${router.query.next}`);
+    }
   }, [router]);
 
   const onSubmit = ({ useremail, password }) => {
