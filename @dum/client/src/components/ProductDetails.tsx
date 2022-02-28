@@ -53,8 +53,12 @@ function ProductDetails(props: ProductDetailsProps) {
   const router = useRouter();
 
   const handleLoginRouting = React.useCallback(() => {
-    router.push(`/login?next=${encodeURIComponent(`/carrito`)}`);
-  }, [router]);
+    router.push(
+      `/login?next=${encodeURIComponent(`/carrito`)}&product_id=${
+        product.rowId
+      }&quantity=${stockValue}`
+    );
+  }, [product.rowId, router, stockValue]);
 
   const handleRouting = () => {
     if (props.isLoggedIn) {
