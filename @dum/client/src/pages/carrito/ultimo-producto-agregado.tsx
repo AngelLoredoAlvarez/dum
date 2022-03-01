@@ -22,31 +22,19 @@ function AddedProductPage({
   );
 
   const router = useRouter();
-  console.log("Variables: ", router.query);
-
   React.useEffect(() => {
-    console.log("Mounted");
-    createShoppingList({
-      onCompleted: (response, apiErrors) => {
-        console.log(response);
-        console.log(apiErrors);
-      },
-      onError: () => {},
-      variables: {
-        CreateShoppingListInput: {
-          productId: router.query.product_id,
-          quantity: Number.parseInt(`${router.query.quantity}`),
-        },
-      },
-    });
-  }, [createShoppingList, router.query.product_id, router.query.quantity]);
+    const { product_id, quantity } = router.query;
+    if (product_id !== undefined && quantity !== undefined) {
+      console.log("No Vacias: " + product_id + " " + quantity);
+    } else {
+      console.log("Vacias");
+    }
+  }, [router.query]);
 
   const addedProductPageQuery = usePreloadedQuery<AddedProductPageQueryTypes>(
     AddedProductPageQuery,
     preloadedQuery
   );
-
-  console.log(addedProductPageQuery);
 
   return (
     <Layout currentUser={addedProductPageQuery}>
