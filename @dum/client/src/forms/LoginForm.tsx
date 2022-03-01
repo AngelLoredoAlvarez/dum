@@ -61,7 +61,10 @@ function LoginForm() {
   const redirectOnLogin = React.useCallback(() => {
     if (router.query.next.includes("producto-agregado")) {
       const { next, product_id, quantity } = router.query;
-      router.push(`${next}?&product_id=${product_id}&quantity=${quantity}`);
+      router.push(
+        `${next}?product_id=${product_id}&quantity=${quantity}`,
+        `${next}`
+      );
     } else {
       router.push(`${router.query.next}`);
     }
