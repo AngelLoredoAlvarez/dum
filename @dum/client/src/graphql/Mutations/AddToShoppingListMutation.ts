@@ -1,10 +1,10 @@
 import { graphql } from "react-relay/hooks";
 
 export default graphql`
-  mutation CreateShoppingListMutation(
-    $CreateShoppingListInput: CreateShoppingListInput!
+  mutation AddToShoppingListMutation(
+    $AddToShoppingListInput: AddToShoppingListInput!
   ) {
-    createShoppingList(input: $CreateShoppingListInput) {
+    addToShoppingList(input: $AddToShoppingListInput) {
       shoppingListDetail {
         id
         rowId
