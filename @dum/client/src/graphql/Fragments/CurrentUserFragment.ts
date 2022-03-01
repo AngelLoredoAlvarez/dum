@@ -7,6 +7,7 @@ export default graphql`
       rowId
       avatarUrl
       fullName
+      shoppingListProductsCount
     }
   }
 `;
