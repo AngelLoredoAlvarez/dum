@@ -55,7 +55,7 @@ function ProductDetails(props: ProductDetailsProps) {
   const handleLoginRouting = React.useCallback(() => {
     router.push(
       `/login?next=${encodeURIComponent(
-        `/carrito/producto-agregado`
+        `/carrito/ultimo-producto-agregado`
       )}&product_id=${product.rowId}&quantity=${stockValue}`
     );
   }, [product.rowId, router, stockValue]);
