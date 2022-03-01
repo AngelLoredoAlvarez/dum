@@ -1,7 +1,7 @@
 import { graphql } from "react-relay/hooks";
 
 export default graphql`
-  query AddedProductPageQuery {
+  query LastAddedProductPageQuery {
     ...CurrentUserFragment_user
     ...MainDepartmentsFragment_mainDepartments
   }
