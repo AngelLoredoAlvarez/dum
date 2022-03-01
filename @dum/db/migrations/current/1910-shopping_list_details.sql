@@ -57,7 +57,7 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
 
     -- We check if there's a shopping list already
     if dum_public.open_shopping_list_id() is not null then
-      -- If it does, we have to check if the product was already added to the dum_public.shopping_list_details table
+      -- If it does, we only insert in the dum_public.shopping_list_details table
       insert into dum_public.shopping_list_details (
         quantity,
         unformated_cost,
