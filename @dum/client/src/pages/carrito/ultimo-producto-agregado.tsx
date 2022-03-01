@@ -8,13 +8,13 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
-import type { AddedProductPageQuery as AddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/AddedProductPageQuery.graphql";
-import AddedProductPageQuery from "../../graphql/Queries/AddedProductPageQuery";
+import type { LastAddedProductPageQuery as LastAddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/LastAddedProductPageQuery.graphql";
+import LastAddedProductPageQuery from "../../graphql/Queries/LastAddedProductPageQuery";
 import { getClientEnvironment } from "../../lib/client";
 
 function LastAddedProductPage({
   preloadedQuery,
-}: RelayProps<{}, AddedProductPageQueryTypes>) {
+}: RelayProps<{}, LastAddedProductPageQueryTypes>) {
   const router = useRouter();
   React.useEffect(() => {
     const { product_id, quantity } = router.query;
@@ -25,10 +25,11 @@ function LastAddedProductPage({
     }
   }, [router.query]);
 
-  const addedProductPageQuery = usePreloadedQuery<AddedProductPageQueryTypes>(
-    AddedProductPageQuery,
-    preloadedQuery
-  );
+  const addedProductPageQuery =
+    usePreloadedQuery<LastAddedProductPageQueryTypes>(
+      LastAddedProductPageQuery,
+      preloadedQuery
+    );
 
   return (
     <Layout currentUser={addedProductPageQuery}>
@@ -39,7 +40,7 @@ function LastAddedProductPage({
   );
 }
 
-export default withRelay(LastAddedProductPage, AddedProductPageQuery, {
+export default withRelay(LastAddedProductPage, LastAddedProductPageQuery, {
   createClientEnvironment: () => getClientEnvironment(),
   createServerEnvironment: async (_ctx, { cookies }) => {
     const { createServerEnvironment } = await import("../../lib/server/server");
