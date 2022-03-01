@@ -96,3 +96,25 @@ $$ language plpgsql security definer volatile set search_path to pg_catalog, pub
 
 comment on function dum_public.add_to_shopping_list(product_id uuid, quantity integer) is
   E'Add a Product to a New or to an Already created Shopping List and returns the created `ShoppingListDetail`.';
+
+/*
+ * Computed column that returns the total count of all products in a Open Shopping List
+ */
+create or replace function dum_public.users_shopping_list_products_count(u dum_public.users) returns integer as $$
+  select
+    count(*)
+  from
+    dum_public.shopping_list_details
+  inner join
+    dum_public.shopping_lists
+  on
+    (dum_public.shopping_list_details.shopping_list_id = dum_public.shopping_lists.id)
+  inner join
+    dum_public.users
+  on
+    (dum_public.shopping_lists.user_id = dum_public.users.id)
+  where
+    dum_public.shopping_lists.is_open = true
+  and
+    dum_public.users.id = u.id;
+$$ language sql stable;

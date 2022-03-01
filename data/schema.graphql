@@ -2015,6 +2015,7 @@ type User implements Node {
     orderBy: [SalesOrderBy!] = [PRIMARY_KEY_ASC]
   ): SalesConnection!
   secondSurname: String
+  shoppingListProductsCount: Int
 
   """Reads and enables pagination through a set of `ShoppingList`."""
   shoppingLists(
