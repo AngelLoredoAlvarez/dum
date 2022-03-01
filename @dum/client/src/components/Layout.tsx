@@ -139,7 +139,7 @@ function Layout(props: LayoutProps) {
                 variant="solid"
                 zIndex={1}
               >
-                0
+                {currentUser.shoppingListProductsCount}
               </Badge>
               <Tooltip label="Ver carrito">
                 <IconButton
