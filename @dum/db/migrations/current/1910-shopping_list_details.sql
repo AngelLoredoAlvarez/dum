@@ -46,7 +46,7 @@ $$ language sql stable;
 /*
  * Function that inserts into the dum_public.shopping_list and dum_public.shopping_list_details tables
  */
-create or replace function dum_public.create_shopping_list(product_id uuid, quantity integer) returns dum_public.shopping_list_details as $$
+create or replace function dum_public.add_to_shopping_list(product_id uuid, quantity integer) returns dum_public.shopping_list_details as $$
   declare
     created_shopping_list dum_public.shopping_lists;
     calculated_unformated_cost numeric(8,2);
@@ -94,5 +94,5 @@ create or replace function dum_public.create_shopping_list(product_id uuid, quan
   end;
 $$ language plpgsql security definer volatile set search_path to pg_catalog, public, pg_temp;
 
-comment on function dum_public.create_shopping_list(product_id uuid, quantity integer) is
-  E'Creates the shopping list will all the products that the user want to buy.';
+comment on function dum_public.add_to_shopping_list(product_id uuid, quantity integer) is
+  E'Add a Product to a New or to an Already created Shopping List and returns the created `ShoppingListDetail`.';

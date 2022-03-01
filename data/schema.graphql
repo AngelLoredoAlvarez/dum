@@ -1,3 +1,43 @@
+"""All input for the `addToShoppingList` mutation."""
+input AddToShoppingListInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  productId: UUID!
+  quantity: Int!
+}
+
+"""The output of our `addToShoppingList` mutation."""
+type AddToShoppingListPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """Reads a single `Product` that is related to this `ShoppingListDetail`."""
+  product: Product
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `ShoppingList` that is related to this `ShoppingListDetail`.
+  """
+  shoppingList: ShoppingList
+  shoppingListDetail: ShoppingListDetail
+
+  """An edge for our `ShoppingListDetail`. May be used by Relay 1."""
+  shoppingListDetailEdge(
+    """The method to use when ordering `ShoppingListDetail`."""
+    orderBy: [ShoppingListDetailsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ShoppingListDetailsEdge
+}
+
 """
 A floating point number that requires more precision than IEEE 754 binary 64
 """
@@ -145,46 +185,6 @@ type ConfirmAccountDeletionPayload {
   """
   query: Query
   success: Boolean
-}
-
-"""All input for the `createShoppingList` mutation."""
-input CreateShoppingListInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  productId: UUID!
-  quantity: Int!
-}
-
-"""The output of our `createShoppingList` mutation."""
-type CreateShoppingListPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """Reads a single `Product` that is related to this `ShoppingListDetail`."""
-  product: Product
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """
-  Reads a single `ShoppingList` that is related to this `ShoppingListDetail`.
-  """
-  shoppingList: ShoppingList
-  shoppingListDetail: ShoppingListDetail
-
-  """An edge for our `ShoppingListDetail`. May be used by Relay 1."""
-  shoppingListDetailEdge(
-    """The method to use when ordering `ShoppingListDetail`."""
-    orderBy: [ShoppingListDetailsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ShoppingListDetailsEdge
 }
 
 """All input for the create `UserEmail` mutation."""
@@ -592,6 +592,16 @@ type MakeEmailPrimaryPayload {
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
+  """
+  Add a Product to a New or to an Already created Shopping List and returns the created `ShoppingListDetail`.
+  """
+  addToShoppingList(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: AddToShoppingListInput!
+  ): AddToShoppingListPayload
+
   """Enter your old password and a new password to change your password."""
   changePassword(
     """
@@ -609,16 +619,6 @@ type Mutation {
     """
     input: ConfirmAccountDeletionInput!
   ): ConfirmAccountDeletionPayload
-
-  """
-  Creates the shopping list will all the products that the user want to buy.
-  """
-  createShoppingList(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateShoppingListInput!
-  ): CreateShoppingListPayload
 
   """Creates a single `UserEmail`."""
   createUserEmail(
