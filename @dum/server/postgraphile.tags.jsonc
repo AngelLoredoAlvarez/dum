@@ -155,6 +155,13 @@
         }
       },
       "dum_public.shopping_lists": {
+        "constraint": {
+          "shopping_lists_pkey": {
+            "tags": {
+              "omit": true
+            }
+          }
+        },
         "tags": {
           "omit": "all"
         }
