@@ -1,13 +1,15 @@
 import { ScrollView } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { usePreloadedQuery } from "react-relay";
+import { useMutation, usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
+import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
+import AddToShoppingListMutation from "../../graphql/Mutations/AddToShoppingListMutation";
 import type { LastAddedProductPageQuery as LastAddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/LastAddedProductPageQuery.graphql";
 import LastAddedProductPageQuery from "../../graphql/Queries/LastAddedProductPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -15,15 +17,33 @@ import { getClientEnvironment } from "../../lib/client";
 function LastAddedProductPage({
   preloadedQuery,
 }: RelayProps<{}, LastAddedProductPageQueryTypes>) {
+  const [addToShoppingList] = useMutation<AddToShoppingListMutationTypes>(
+    AddToShoppingListMutation
+  );
+
   const router = useRouter();
+
   React.useEffect(() => {
     const { product_id, quantity } = router.query;
     if (product_id !== undefined && quantity !== undefined) {
       console.log("No Vacias: " + product_id + " " + quantity);
+      addToShoppingList({
+        onCompleted: (response, apiErros) => {
+          console.log(response);
+          console.error(apiErros);
+        },
+        onError: () => {},
+        variables: {
+          AddToShoppingListInput: {
+            productId: `${product_id}`,
+            quantity: Number.parseInt(`${quantity}`),
+          },
+        },
+      });
     } else {
       console.log("Vacias");
     }
-  }, [router.query]);
+  }, [addToShoppingList, router.query]);
 
   const addedProductPageQuery =
     usePreloadedQuery<LastAddedProductPageQueryTypes>(
