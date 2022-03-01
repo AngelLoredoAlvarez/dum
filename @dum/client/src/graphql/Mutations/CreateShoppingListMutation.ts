@@ -6,6 +6,8 @@ export default graphql`
   ) {
     createShoppingList(input: $CreateShoppingListInput) {
       shoppingListDetail {
+        id
+        rowId
         product {
           description
         }
