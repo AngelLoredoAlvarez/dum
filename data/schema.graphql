@@ -1265,6 +1265,27 @@ type Query implements Node {
     """The method to use when ordering `Product`."""
     orderBy: [ProductsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ProductsConnection
+
+  """Reads and enables pagination through a set of `ShoppingListDetail`."""
+  productsInTheShoppingList(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+  ): ShoppingListDetailsConnection
   sale(rowId: UUID!): Sale
 
   """Reads a single `Sale` using its globally unique `ID`."""
@@ -1665,6 +1686,7 @@ input ShoppingListCondition {
 """The details of a specific Shopping List."""
 type ShoppingListDetail implements Node {
   cost: String
+  createdAt: Datetime!
 
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -1687,6 +1709,7 @@ type ShoppingListDetail implements Node {
 
   """The cost of the quantity of products."""
   unformatedCost: BigFloat!
+  updatedAt: Datetime!
 }
 
 """
