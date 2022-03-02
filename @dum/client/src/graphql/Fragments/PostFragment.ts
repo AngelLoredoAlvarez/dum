@@ -7,6 +7,7 @@ export default graphql`
     headline
     body
     fullDate
+    date
     age
   }
 `;
