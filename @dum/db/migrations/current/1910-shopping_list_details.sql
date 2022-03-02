@@ -30,8 +30,8 @@ create index idx_product_shopping_list_details on dum_public.shopping_list_detai
 create index idx_user_shopping_list_details on dum_public.shopping_list_details(shopping_list_id);
 
 -- Users may only manage their own Shopping Lists Details.
-create policy select_own on dum_public.shopping_list_details for select using (shopping_list_id = dum_public.open_shopping_list_id());
-create policy insert_own on dum_public.shopping_list_details for insert with check (shopping_list_id = dum_public.open_shopping_list_id());
+create policy select_own on dum_public.shopping_list_details for select using (shopping_list_id = dum_public.opened_shopping_list_id());
+create policy insert_own on dum_public.shopping_list_details for insert with check (shopping_list_id = dum_public.opened_shopping_list_id());
 
 /*
  * Computed Column that returns the cost of a quantity of a specific product
@@ -44,7 +44,7 @@ $$ language sql stable;
  * Function that return the id from a specific Shipping List Detail
  */
  create or replace function dum_public.shopping_list_detail_id(product_id uuid) returns uuid as $$
-  select id from dum_public.shopping_list_details where product_id = $1 and shopping_list_id = dum_public.open_shopping_list_id();
+  select id from dum_public.shopping_list_details where product_id = $1 and shopping_list_id = dum_public.opened_shopping_list_id();
  $$ language sql stable;
 
 /*
@@ -64,7 +64,7 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
     added_product dum_public.shopping_list_details;
   begin
     -- We check if there's a shopping list already
-    if dum_public.open_shopping_list_id() is not null then
+    if dum_public.opened_shopping_list_id() is not null then
       -- If it does, that means that a product was already added, we need to verify if the product that the user want's to save exists alreadt in the Shopping List Details
       if dum_public.shopping_list_detail_id($1) is not null then
         update
@@ -85,7 +85,7 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
           $2,
           dum_public.shopping_list_detail_unformated_cost($1, $2),
           $1,
-          dum_public.open_shopping_list_id()
+          dum_public.opened_shopping_list_id()
         ) returning * into added_product;
       end if;
     else
@@ -151,7 +151,7 @@ create or replace function dum_public.products_in_the_shopping_list() returns se
   on
     (dum_public.shopping_list_details.shopping_list_id = dum_public.shopping_lists.id)
   where
-    dum_public.shopping_lists.id = dum_public.open_shopping_list_id()
+    dum_public.shopping_lists.id = dum_public.opened_shopping_list_id()
   and
     dum_public.shopping_lists.user_id = dum_public.current_user_id();
 $$ language sql stable;
