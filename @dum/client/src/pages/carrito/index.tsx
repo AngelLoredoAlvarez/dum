@@ -1,4 +1,4 @@
-import { ScrollView, Text, VStack } from "native-base";
+import { ScrollView, VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -7,6 +7,8 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
+import ProductsInTheShoppingList from "../../components/ProductsInTheShoppingList";
+import Redirect from "../../components/Redirect";
 import type { ShoppingListPageQuery as ShoppingListQueryTypes } from "../../graphql/Queries/__generated__/ShoppingListPageQuery.graphql";
 import ShoppingListPageQuery from "../../graphql/Queries/ShoppingListPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -19,6 +21,12 @@ function ShoppingListPage({
     preloadedQuery
   );
 
+  if (
+    shoppingListPageQuery.currentUser === null ||
+    shoppingListPageQuery.currentUser === undefined
+  )
+    return <Redirect href="/" />;
+
   return (
     <Layout currentUser={shoppingListPageQuery}>
       <ScrollView
@@ -29,18 +37,11 @@ function ShoppingListPage({
       >
         <VStack alignItems={"center"} flex={1} space={3}>
           <MainDepartmentsList departments={shoppingListPageQuery} />
-          <Text
-            fontSize={{
-              base: "lg",
-              sm: "lg",
-              md: "xl",
-              lg: "2xl",
-              xl: "3xl",
-              "2xl": "4xl",
-            }}
-          >
-            Los Productos en tu Carrito
-          </Text>
+          <ProductsInTheShoppingList
+            amountOfItemsToFetch={10}
+            mainDepartments={shoppingListPageQuery}
+            productsInTheShoppingList={shoppingListPageQuery}
+          />
         </VStack>
       </ScrollView>
     </Layout>
