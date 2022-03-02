@@ -205,7 +205,7 @@ function Layout(props: LayoutProps) {
         _light={{ bg: "warmGray.50" }}
         flex={1}
       >
-        <Center flex={1}>{props.children}</Center>
+        <Box flex={1}>{props.children}</Box>
       </Box>
       {router.pathname !== "/login" && !router.pathname.includes("/blog") ? (
         <HStack
