@@ -26,7 +26,6 @@ function LastAddedProductPage({
   React.useEffect(() => {
     const { product_id, quantity } = router.query;
     if (product_id !== undefined && quantity !== undefined) {
-      console.log("No Vacias: " + product_id + " " + quantity);
       addToShoppingList({
         onCompleted: (response, apiErros) => {
           console.log(response);
@@ -40,8 +39,6 @@ function LastAddedProductPage({
           },
         },
       });
-    } else {
-      console.log("Vacias");
     }
   }, [addToShoppingList, router.query]);
 
