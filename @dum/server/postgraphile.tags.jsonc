@@ -231,6 +231,11 @@
         "tags": {
           "omit": true
         }
+      },
+      "dum_public.shopping_list_detail_unformated_cost": {
+        "tags": {
+          "omit": true
+        }
       }
     }
   }
