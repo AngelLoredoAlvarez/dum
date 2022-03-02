@@ -222,7 +222,7 @@
           "resultFieldName": "success"
         }
       },
-      "dum_public.open_shopping_list_id": {
+      "dum_public.opened_shopping_list_id": {
         "tags": {
           "omit": true
         }
