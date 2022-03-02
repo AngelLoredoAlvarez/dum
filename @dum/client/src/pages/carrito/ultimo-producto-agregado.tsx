@@ -1,4 +1,4 @@
-import { ScrollView } from "native-base";
+import { ScrollView, VStack } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useMutation, usePreloadedQuery } from "react-relay";
@@ -47,8 +47,15 @@ function LastAddedProductPage({
 
   return (
     <Layout currentUser={addedProductPageQuery}>
-      <ScrollView>
-        <MainDepartmentsList departments={addedProductPageQuery} />
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+        }}
+      >
+        <VStack alignItems={"center"} flex={1} space={3}>
+          <MainDepartmentsList departments={addedProductPageQuery} />
+        </VStack>
       </ScrollView>
     </Layout>
   );
