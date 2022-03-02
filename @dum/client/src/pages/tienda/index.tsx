@@ -23,7 +23,7 @@ function StorePage({ preloadedQuery }: RelayProps<{}, StorePageQueryTypes>) {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
       >
-        <VStack alignItems={"center"} flex={1} space={3} w={"100%"}>
+        <VStack alignItems={"center"} flex={1} space={3}>
           <MainDepartmentsList departments={storePageQuery} />
           <Text
             bold
