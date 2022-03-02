@@ -29,6 +29,10 @@ create index idx_product_shopping_list_details on dum_public.shopping_list_detai
 -- Allow efficient retrieval of all the Shopping Lists associated to a Shopping Detail.
 create index idx_user_shopping_list_details on dum_public.shopping_list_details(shopping_list_id);
 
+-- Users may only manage their own Shopping Lists Details.
+create policy select_own on dum_public.shopping_list_details for select using (shopping_list_id = dum_public.open_shopping_list_id());
+create policy insert_own on dum_public.shopping_list_details for insert with check (shopping_list_id = dum_public.open_shopping_list_id());
+
 /*
  * Computed Column that returns the cost of a quantity of a specific product
  */
