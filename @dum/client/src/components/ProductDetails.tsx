@@ -3,10 +3,12 @@ import { Button, Input, Text, VStack } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { mask } from "react-native-mask-text";
-import { useFragment } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 
 import type { ProductFragment_product$key } from "../graphql/Fragments/__generated__/ProductFragment_product.graphql";
 import ProductFragment from "../graphql/Fragments/ProductFragment";
+import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
+import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
 
 interface ProductDetailsProps {
   product: ProductFragment_product$key;
@@ -17,6 +19,10 @@ function ProductDetails(props: ProductDetailsProps) {
   const product = useFragment<ProductFragment_product$key>(
     ProductFragment,
     props.product
+  );
+
+  const [addToShoppingList] = useMutation<AddToShoppingListMutationTypes>(
+    AddToShoppingListMutation
   );
 
   const [stockValue, setStockValue] = React.useState<number>(1);
@@ -53,16 +59,36 @@ function ProductDetails(props: ProductDetailsProps) {
   const router = useRouter();
 
   const handleLoginRouting = React.useCallback(() => {
-    router.push(
-      `/login?next=${encodeURIComponent(
-        `/carrito/ultimo-producto-agregado`
-      )}&product_id=${product.rowId}&quantity=${stockValue}`
-    );
-  }, [product.rowId, router, stockValue]);
-
-  const handleRouting = () => {
     if (props.isLoggedIn) {
-      console.log("Logged In");
+      router.push("/carrito/ultimo-producto-agregado");
+    } else {
+      router.push(
+        `/login?next=${encodeURIComponent(
+          `/carrito/ultimo-producto-agregado`
+        )}&product_id=${product.rowId}&quantity=${stockValue}`
+      );
+    }
+  }, [product.rowId, props.isLoggedIn, router, stockValue]);
+
+  const handleAddToShoppingList = () => {
+    if (props.isLoggedIn) {
+      addToShoppingList({
+        onCompleted: (response) => {
+          if (
+            response.addToShoppingList.shoppingListDetail !== null &&
+            response.addToShoppingList.shoppingListDetail !== undefined
+          ) {
+            handleLoginRouting();
+          }
+        },
+        onError: () => {},
+        variables: {
+          AddToShoppingListInput: {
+            productId: product.rowId,
+            quantity: stockValue,
+          },
+        },
+      });
     } else {
       handleLoginRouting();
     }
@@ -205,7 +231,7 @@ function ProductDetails(props: ProductDetailsProps) {
       />
       <Button
         colorScheme="amber"
-        onPress={handleRouting}
+        onPress={handleAddToShoppingList}
         rightIcon={
           <MaterialIcons color="white" name="add-shopping-cart" size={20} />
         }
