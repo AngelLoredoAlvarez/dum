@@ -6,16 +6,10 @@ create table dum_public.shopping_list_details (
   quantity integer,
   unformated_cost numeric(8,2) not null,
   product_id uuid not null references dum_public.products(id),
-  shopping_list_id uuid not null references dum_public.shopping_lists(id)
+  shopping_list_id uuid not null references dum_public.shopping_lists(id),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
-
-comment on table dum_public.shopping_list_details is
-  E'The details of a specific Shopping List.';
-
-comment on column dum_public.shopping_list_details.quantity is
-  E'The quantity of a specific product.';
-comment on column dum_public.shopping_list_details.unformated_cost is
-  E'The cost of the quantity of products.';
 
 -- Enable ROW lEVEL SECURITY
 alter table dum_public.shopping_list_details enable row level security;
@@ -32,6 +26,19 @@ create index idx_user_shopping_list_details on dum_public.shopping_list_details(
 -- Users may only manage their own Shopping Lists Details.
 create policy select_own on dum_public.shopping_list_details for select using (shopping_list_id = dum_public.opened_shopping_list_id());
 create policy insert_own on dum_public.shopping_list_details for insert with check (shopping_list_id = dum_public.opened_shopping_list_id());
+
+comment on table dum_public.shopping_list_details is
+  E'The details of a specific Shopping List.';
+
+comment on column dum_public.shopping_list_details.quantity is
+  E'The quantity of a specific product.';
+comment on column dum_public.shopping_list_details.unformated_cost is
+  E'The cost of the quantity of products.';
+
+create trigger _100_timestamps
+  before insert or update on dum_public.shopping_list_details
+  for each row
+  execute procedure dum_private.tg__timestamps();
 
 /*
  * Computed Column that returns the cost of a quantity of a specific product
@@ -153,5 +160,8 @@ create or replace function dum_public.products_in_the_shopping_list() returns se
   where
     dum_public.shopping_lists.id = dum_public.opened_shopping_list_id()
   and
-    dum_public.shopping_lists.user_id = dum_public.current_user_id();
+    dum_public.shopping_lists.user_id = dum_public.current_user_id()
+  order by
+    dum_public.shopping_list_details.updated_at
+  asc;
 $$ language sql stable;
