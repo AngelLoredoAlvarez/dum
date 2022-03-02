@@ -27,10 +27,7 @@ function LastAddedProductPage({
     const { product_id, quantity } = router.query;
     if (product_id !== undefined && quantity !== undefined) {
       addToShoppingList({
-        onCompleted: (response, apiErros) => {
-          console.log(response);
-          console.error(apiErros);
-        },
+        onCompleted: () => {},
         onError: () => {},
         variables: {
           AddToShoppingListInput: {
