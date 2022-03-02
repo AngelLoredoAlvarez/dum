@@ -23,11 +23,11 @@ function ShoppingListPage({
     <Layout currentUser={shoppingListPageQuery}>
       <ScrollView
         contentContainerStyle={{
-          flex: 1,
+          flexGrow: 1,
           justifyContent: "center",
         }}
       >
-        <VStack alignItems={"center"} borderWidth={1} space={3}>
+        <VStack alignItems={"center"} flex={1} space={3}>
           <MainDepartmentsList departments={shoppingListPageQuery} />
           <Text
             fontSize={{
