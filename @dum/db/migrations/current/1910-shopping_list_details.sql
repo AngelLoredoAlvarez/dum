@@ -48,6 +48,13 @@ $$ language sql stable;
  $$ language sql stable;
 
 /*
+ * Function that returns the unformated_cost for a Shopping List Detail
+ */
+create or replace function dum_public.shopping_list_detail_unformated_cost(product_id uuid, quantity integer) returns numeric(8,2) as $$
+  select unformated_price * $2 from dum_public.products where id = $1;
+$$ language sql stable;
+
+/*
  * Function that inserts into the dum_public.shopping_list and dum_public.shopping_list_details tables
  */
 create or replace function dum_public.add_to_shopping_list(product_id uuid, quantity integer) returns dum_public.shopping_list_details as $$
@@ -56,23 +63,31 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
     calculated_unformated_cost numeric(8,2);
     added_product dum_public.shopping_list_details;
   begin
-    -- We calculate the unformated_cost, multiplying the unformated_price by the quantity
-    select unformated_price * $2 from dum_public.products where id = $1 into calculated_unformated_cost;
-
     -- We check if there's a shopping list already
     if dum_public.open_shopping_list_id() is not null then
-      -- If it does, we only insert in the dum_public.shopping_list_details table
-      insert into dum_public.shopping_list_details (
-        quantity,
-        unformated_cost,
-        product_id,
-        shopping_list_id
-      ) values (
-        $2,
-        calculated_unformated_cost,
-        $1,
-        dum_public.open_shopping_list_id()
-      ) returning * into added_product;
+      -- If it does, that means that a product was already added, we need to verify if the product that the user want's to save exists alreadt in the Shopping List Details
+      if dum_public.shopping_list_detail_id($1) is not null then
+        update
+          dum_public.shopping_list_details
+        set
+          quantity = $2,
+          unformated_cost = dum_public.shopping_list_detail_unformated_cost($1, $2)
+        where
+          id = dum_public.shopping_list_detail_id($1);
+      else
+        -- If the product does not exists in the table, we insert a new row
+        insert into dum_public.shopping_list_details (
+          quantity,
+          unformated_cost,
+          product_id,
+          shopping_list_id
+        ) values (
+          $2,
+          dum_public.shopping_list_detail_unformated_cost($1, $2),
+          $1,
+          dum_public.open_shopping_list_id()
+        ) returning * into added_product;
+      end if;
     else
       -- If it does not, we insert in the dum_public.shopping_lists and the dum_public.shopping_list_details tables
       insert into dum_public.shopping_lists (
@@ -88,7 +103,7 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
         shopping_list_id
       ) values (
         $2,
-        calculated_unformated_cost,
+        dum_public.shopping_list_detail_unformated_cost($1, $2),
         $1,
         created_shopping_list.id
       ) returning * into added_product;
