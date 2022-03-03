@@ -6,7 +6,6 @@ import { withRelay } from "relay-nextjs";
 
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
-import MainDepartmentsList from "../../components/MainDepartmentsList";
 import ProductsInTheShoppingList from "../../components/ProductsInTheShoppingList";
 import Redirect from "../../components/Redirect";
 import type { ShoppingListPageQuery as ShoppingListQueryTypes } from "../../graphql/Queries/__generated__/ShoppingListPageQuery.graphql";
@@ -36,7 +35,6 @@ function ShoppingListPage({
         }}
       >
         <VStack alignItems={"center"} flex={1} space={3}>
-          <MainDepartmentsList departments={shoppingListPageQuery} />
           <ProductsInTheShoppingList
             amountOfItemsToFetch={10}
             mainDepartments={shoppingListPageQuery}
