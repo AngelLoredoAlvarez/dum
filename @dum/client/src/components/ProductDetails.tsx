@@ -85,7 +85,7 @@ function ProductDetails(props: ProductDetailsProps) {
         variables: {
           AddToShoppingListInput: {
             productId: product.rowId,
-            quantity: stockValue,
+            selectedQuantity: stockValue,
           },
         },
       });
