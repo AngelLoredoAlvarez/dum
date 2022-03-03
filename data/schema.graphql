@@ -6,7 +6,7 @@ input AddToShoppingListInput {
   """
   clientMutationId: String
   productId: UUID!
-  quantity: Int!
+  selectedQuantity: Int!
 }
 
 """The output of our `addToShoppingList` mutation."""

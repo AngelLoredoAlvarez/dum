@@ -64,7 +64,7 @@ $$ language sql stable;
 /*
  * Function that inserts into the dum_public.shopping_list and dum_public.shopping_list_details tables
  */
-create or replace function dum_public.add_to_shopping_list(product_id uuid, quantity integer) returns dum_public.shopping_list_details as $$
+create or replace function dum_public.add_to_shopping_list(product_id uuid, selected_quantity integer) returns dum_public.shopping_list_details as $$
   declare
     created_shopping_list dum_public.shopping_lists;
     calculated_unformated_cost numeric(8,2);
@@ -77,10 +77,11 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, quan
         update
           dum_public.shopping_list_details
         set
-          quantity = $2,
+          quantity = quantity + $2,
           unformated_cost = dum_public.shopping_list_detail_unformated_cost($1, $2)
         where
-          id = dum_public.shopping_list_detail_id($1);
+          id = dum_public.shopping_list_detail_id($1)
+        returning * into added_product;
       else
         -- If the product does not exists in the table, we insert a new row
         insert into dum_public.shopping_list_details (
