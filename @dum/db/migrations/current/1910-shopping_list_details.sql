@@ -163,5 +163,5 @@ create or replace function dum_public.products_in_the_shopping_list() returns se
     dum_public.shopping_lists.user_id = dum_public.current_user_id()
   order by
     dum_public.shopping_list_details.updated_at
-  asc;
+  desc;
 $$ language sql stable;
