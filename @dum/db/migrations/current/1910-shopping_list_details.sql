@@ -165,3 +165,10 @@ create or replace function dum_public.products_in_the_shopping_list() returns se
     dum_public.shopping_list_details.updated_at
   desc;
 $$ language sql stable;
+
+/*
+ * Function that returns the last added product to the shopping list
+ */
+create or replace function dum_public.last_added_product_in_the_shopping_list() returns dum_public.shopping_list_details as $$
+  select * from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc limit 1;
+$$ language sql stable;

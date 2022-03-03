@@ -1112,6 +1112,7 @@ type Query implements Node {
   The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
   """
   id: ID!
+  lastAddedProductInTheShoppingList: ShoppingListDetail
   lot(rowId: UUID!): Lot
 
   """Reads a single `Lot` using its globally unique `ID`."""
