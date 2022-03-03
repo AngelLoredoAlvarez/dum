@@ -5,9 +5,11 @@ import { useMutation, usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
+import LastAddedProductInTheShoppingList from "../../components/LastAddedProductInTheShoppingList";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import MainDepartmentsList from "../../components/MainDepartmentsList";
+import Redirect from "../../components/Redirect";
 import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import AddToShoppingListMutation from "../../graphql/Mutations/AddToShoppingListMutation";
 import type { LastAddedProductPageQuery as LastAddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/LastAddedProductPageQuery.graphql";
@@ -39,14 +41,20 @@ function LastAddedProductPage({
     }
   }, [addToShoppingList, router.query]);
 
-  const addedProductPageQuery =
+  const lastAddedProductPageQuery =
     usePreloadedQuery<LastAddedProductPageQueryTypes>(
       LastAddedProductPageQuery,
       preloadedQuery
     );
 
+  if (
+    lastAddedProductPageQuery.currentUser === null ||
+    lastAddedProductPageQuery.currentUser === undefined
+  )
+    return <Redirect href="/" />;
+
   return (
-    <Layout currentUser={addedProductPageQuery}>
+    <Layout currentUser={lastAddedProductPageQuery}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -54,7 +62,12 @@ function LastAddedProductPage({
         }}
       >
         <VStack alignItems={"center"} flex={1} space={3}>
-          <MainDepartmentsList departments={addedProductPageQuery} />
+          <MainDepartmentsList departments={lastAddedProductPageQuery} />
+          <LastAddedProductInTheShoppingList
+            lastAddedProductInTheShoppingList={
+              lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+            }
+          />
         </VStack>
       </ScrollView>
     </Layout>
