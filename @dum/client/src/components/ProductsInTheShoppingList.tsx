@@ -10,7 +10,6 @@ import ProductInShoppingListItem from "./ProductInShoppingListItem";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
-  amountOfItemsToFetch: number;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   productsInTheShoppingList: ProductsInTheShoppingListFragment_productsInTheShoppingList$key;
 }
@@ -42,7 +41,7 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
         />
       }
       onEndReached={() => {
-        loadNext(props.amountOfItemsToFetch);
+        loadNext(3);
       }}
       onEndReachedThreshold={0}
       renderItem={({ item }) => (
