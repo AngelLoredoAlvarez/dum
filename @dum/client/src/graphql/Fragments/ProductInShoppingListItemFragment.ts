@@ -6,6 +6,15 @@ export default graphql`
     rowId
     product {
       description
+      productPictures {
+        edges {
+          node {
+            id
+            rowId
+            pictureUrl
+          }
+        }
+      }
     }
     quantity
     cost
