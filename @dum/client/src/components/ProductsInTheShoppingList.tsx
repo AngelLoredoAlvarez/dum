@@ -22,11 +22,6 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
 
   return (
     <FlatList
-      contentContainerStyle={{
-        alignItems: "center",
-        flex: 1,
-        flexGrow: 1,
-      }}
       data={data.productsInTheShoppingList.edges}
       flex={1}
       keyExtractor={(item) => item.node.id}
