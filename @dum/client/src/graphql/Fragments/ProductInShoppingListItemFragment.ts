@@ -15,6 +15,7 @@ export default graphql`
           }
         }
       }
+      stock
     }
     quantity
     cost
