@@ -1,4 +1,4 @@
-import { ScrollView, VStack } from "native-base";
+import { VStack } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -28,20 +28,13 @@ function ShoppingListPage({
 
   return (
     <Layout currentUser={shoppingListPageQuery}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-        }}
-      >
-        <VStack alignItems={"center"} flex={1} space={3}>
-          <ProductsInTheShoppingList
-            amountOfItemsToFetch={10}
-            mainDepartments={shoppingListPageQuery}
-            productsInTheShoppingList={shoppingListPageQuery}
-          />
-        </VStack>
-      </ScrollView>
+      <VStack alignItems={"center"} flex={1} space={3}>
+        <ProductsInTheShoppingList
+          amountOfItemsToFetch={10}
+          mainDepartments={shoppingListPageQuery}
+          productsInTheShoppingList={shoppingListPageQuery}
+        />
+      </VStack>
     </Layout>
   );
 }
