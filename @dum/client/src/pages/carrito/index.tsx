@@ -30,7 +30,6 @@ function ShoppingListPage({
     <Layout currentUser={shoppingListPageQuery}>
       <VStack alignItems={"center"} flex={1} space={3}>
         <ProductsInTheShoppingList
-          amountOfItemsToFetch={10}
           mainDepartments={shoppingListPageQuery}
           productsInTheShoppingList={shoppingListPageQuery}
         />
