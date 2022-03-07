@@ -5,6 +5,8 @@ export default graphql`
     id
     rowId
     product {
+      id
+      rowId
       description
       productPictures {
         edges {
@@ -16,6 +18,12 @@ export default graphql`
         }
       }
       stock
+      subDepartment {
+        subDepartment
+        department {
+          mainDepartment
+        }
+      }
     }
     quantity
     cost
