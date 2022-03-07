@@ -134,7 +134,7 @@ comment on function dum_public.add_to_shopping_list(product_id uuid, quantity in
  */
 create or replace function dum_public.users_shopping_list_products_count(u dum_public.users) returns integer as $$
   select
-    count(*)
+    coalesce(sum(quantity), 0)
   from
     dum_public.shopping_list_details
   inner join
