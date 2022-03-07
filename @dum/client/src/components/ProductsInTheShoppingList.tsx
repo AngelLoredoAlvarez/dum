@@ -1,4 +1,4 @@
-import { FlatList } from "native-base";
+import { FlatList, Text } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
@@ -25,6 +25,21 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
       data={data.productsInTheShoppingList.edges}
       flex={1}
       keyExtractor={(item) => item.node.id}
+      ListEmptyComponent={
+        <Text
+          fontSize={{
+            base: "md",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
+          }}
+          textAlign={"center"}
+        >
+          Tu Carrito esta vacio :'(
+        </Text>
+      }
       ListHeaderComponentStyle={{
         alignItems: "stretch",
         width: "100%",
