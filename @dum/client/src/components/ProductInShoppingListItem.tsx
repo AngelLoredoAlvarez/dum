@@ -101,7 +101,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
         ConnectionHandler.deleteNode(connection, productInShoppingList.id);
 
         const currentUser = store.get(props.currentUserID);
-        const currentShoppingListCount = currentUser.getValue(
+        const currentShoppingListCount: number = +currentUser.getValue(
           "shoppingListProductsCount"
         );
         currentUser.setValue(
