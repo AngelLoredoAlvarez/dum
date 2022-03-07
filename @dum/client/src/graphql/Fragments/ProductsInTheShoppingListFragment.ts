@@ -11,6 +11,7 @@ export default graphql`
       @connection(
         key: "ProductsInTheShoppingListFragment_productsInTheShoppingList"
       ) {
+      __id
       edges {
         node {
           id
