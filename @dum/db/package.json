@@ -16,7 +16,7 @@
     "graphile-migrate": "^1.2.0"
   },
   "devDependencies": {
-    "@types/pg": "^8.6.4",
+    "@types/pg": "^8.6.5",
     "cross-env": "^7.0.3",
     "graphile-worker": "^0.12.2",
     "jest": "^27.5.1",
