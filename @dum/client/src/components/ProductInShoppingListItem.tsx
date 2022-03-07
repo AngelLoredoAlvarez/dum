@@ -21,6 +21,7 @@ import type { DeleteFromShoppingListMutation as DeleteFromShoppingListMutationTy
 import DeleteFromShoppingListMutation from "../graphql/Mutations/DeleteFromShoppingListMutation";
 
 interface ProductInShoppingListItemProps {
+  currentUserID: string;
   productInShoppingList: ProductInShoppingListItemFragment_productInShoppingList$key;
   productsInTheShoppingListID: string;
 }
@@ -98,6 +99,15 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
       updater: (store: RecordSourceSelectorProxy) => {
         const connection = store.get(props.productsInTheShoppingListID);
         ConnectionHandler.deleteNode(connection, productInShoppingList.id);
+
+        const currentUser = store.get(props.currentUserID);
+        const currentShoppingListCount = currentUser.getValue(
+          "shoppingListProductsCount"
+        );
+        currentUser.setValue(
+          currentShoppingListCount - 1,
+          "shoppingListProductsCount"
+        );
       },
       variables: {
         DeleteFromShoppingListInput: {
