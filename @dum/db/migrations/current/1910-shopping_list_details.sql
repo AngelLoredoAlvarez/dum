@@ -63,7 +63,7 @@ $$ language sql stable;
  * Function that returns the unformated_cost for a Shopping List Detail
  */
 create or replace function dum_public.shopping_list_detail_unformated_cost(product_id uuid, quantity integer) returns numeric(8,2) as $$
-  select ceil(((unformated_price * tax) + unformated_price) * 2) from dum_public.products where id = $1;
+  select ceil((unformated_price * tax) + unformated_price) * quantity from dum_public.products where id = $1;
 $$ language sql stable;
 
 /*
