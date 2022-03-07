@@ -12,10 +12,12 @@ import {
 import { useRouter } from "next/router";
 import * as React from "react";
 import { mask } from "react-native-mask-text";
-import { useFragment } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 
 import type { ProductInShoppingListItemFragment_productInShoppingList$key } from "../graphql/Fragments/__generated__/ProductInShoppingListItemFragment_productInShoppingList.graphql";
 import ProductInShoppingListItemFragment from "../graphql/Fragments/ProductInShoppingListItemFragment";
+import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
+import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
 
 interface ProductInShoppingListItemProps {
   productInShoppingList: ProductInShoppingListItemFragment_productInShoppingList$key;
@@ -28,14 +30,33 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
       props.productInShoppingList
     );
 
+  const [addToShoppingList, isInFlight] =
+    useMutation<AddToShoppingListMutationTypes>(AddToShoppingListMutation);
+
   const [selectedQuantity, setSelectedQuantity] = React.useState<number>(
     productInShoppingList.quantity
   );
 
+  React.useEffect(() => {
+    addToShoppingList({
+      onCompleted: () => {},
+      onError: () => {},
+      variables: {
+        AddToShoppingListInput: {
+          productId: `${productInShoppingList.product.rowId}`,
+          selectedQuantity: selectedQuantity,
+        },
+      },
+    });
+  }, [
+    addToShoppingList,
+    productInShoppingList.product.rowId,
+    selectedQuantity,
+  ]);
+
   const router = useRouter();
 
   const handleRouting = React.useCallback(() => {
-    console.log("ROUTING");
     router.push(
       `/tienda/${productInShoppingList.product.subDepartment.department.mainDepartment
         .normalize("NFD")
@@ -177,6 +198,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
             _focus={{
               borderColor: "yellow.400",
             }}
+            isDisabled={isInFlight}
             InputLeftElement={
               <Button
                 colorScheme="amber"
