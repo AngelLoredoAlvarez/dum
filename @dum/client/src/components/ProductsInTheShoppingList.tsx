@@ -55,7 +55,10 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
       }}
       onEndReachedThreshold={0}
       renderItem={({ item }) => (
-        <ProductInShoppingListItem productInShoppingList={item.node} />
+        <ProductInShoppingListItem
+          productInShoppingList={item.node}
+          productsInTheShoppingListID={data.productsInTheShoppingList.__id}
+        />
       )}
       w={"100%"}
     />
