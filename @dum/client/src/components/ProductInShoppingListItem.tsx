@@ -13,14 +13,16 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { mask } from "react-native-mask-text";
 import { useFragment, useMutation } from "react-relay/hooks";
+import { ConnectionHandler, RecordSourceSelectorProxy } from "relay-runtime";
 
 import type { ProductInShoppingListItemFragment_productInShoppingList$key } from "../graphql/Fragments/__generated__/ProductInShoppingListItemFragment_productInShoppingList.graphql";
 import ProductInShoppingListItemFragment from "../graphql/Fragments/ProductInShoppingListItemFragment";
-import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
-import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
+import type { DeleteFromShoppingListMutation as DeleteFromShoppingListMutationTypes } from "../graphql/Mutations/__generated__/DeleteFromShoppingListMutation.graphql";
+import DeleteFromShoppingListMutation from "../graphql/Mutations/DeleteFromShoppingListMutation";
 
 interface ProductInShoppingListItemProps {
   productInShoppingList: ProductInShoppingListItemFragment_productInShoppingList$key;
+  productsInTheShoppingListID: string;
 }
 
 function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
@@ -30,29 +32,14 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
       props.productInShoppingList
     );
 
-  const [addToShoppingList, isInFlight] =
-    useMutation<AddToShoppingListMutationTypes>(AddToShoppingListMutation);
+  const [deleteFromShoppingList] =
+    useMutation<DeleteFromShoppingListMutationTypes>(
+      DeleteFromShoppingListMutation
+    );
 
   const [selectedQuantity, setSelectedQuantity] = React.useState<number>(
-    productInShoppingList.quantity
+    productInShoppingList?.quantity
   );
-
-  React.useEffect(() => {
-    addToShoppingList({
-      onCompleted: () => {},
-      onError: () => {},
-      variables: {
-        AddToShoppingListInput: {
-          productId: `${productInShoppingList.product.rowId}`,
-          selectedQuantity: selectedQuantity,
-        },
-      },
-    });
-  }, [
-    addToShoppingList,
-    productInShoppingList.product.rowId,
-    selectedQuantity,
-  ]);
 
   const router = useRouter();
 
@@ -102,6 +89,22 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
     } else {
       setSelectedQuantity(selectedQuantity - 1);
     }
+  };
+
+  const handleDeleteFromShoppingList = () => {
+    deleteFromShoppingList({
+      onCompleted: () => {},
+      onError: () => {},
+      updater: (store: RecordSourceSelectorProxy) => {
+        const connection = store.get(props.productsInTheShoppingListID);
+        ConnectionHandler.deleteNode(connection, productInShoppingList.id);
+      },
+      variables: {
+        DeleteFromShoppingListInput: {
+          productId: `${productInShoppingList.product.rowId}`,
+        },
+      },
+    });
   };
 
   return (
@@ -198,7 +201,6 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
             _focus={{
               borderColor: "yellow.400",
             }}
-            isDisabled={isInFlight}
             InputLeftElement={
               <Button
                 colorScheme="amber"
@@ -291,6 +293,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
           rightIcon={
             <MaterialCommunityIcons color="white" name="trash-can" size={20} />
           }
+          onPress={handleDeleteFromShoppingList}
         >
           Eliminar del Carrito
         </Button>
