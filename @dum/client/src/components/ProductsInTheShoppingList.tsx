@@ -10,6 +10,7 @@ import ProductInShoppingListItem from "./ProductInShoppingListItem";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
+  currentUserID: string;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   productsInTheShoppingList: ProductsInTheShoppingListFragment_productsInTheShoppingList$key;
 }
@@ -56,6 +57,7 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
       onEndReachedThreshold={0}
       renderItem={({ item }) => (
         <ProductInShoppingListItem
+          currentUserID={props.currentUserID}
           productInShoppingList={item.node}
           productsInTheShoppingListID={data.productsInTheShoppingList.__id}
         />
