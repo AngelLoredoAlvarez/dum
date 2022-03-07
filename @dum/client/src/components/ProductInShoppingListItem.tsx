@@ -105,7 +105,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
           "shoppingListProductsCount"
         );
         currentUser.setValue(
-          currentShoppingListCount - 1,
+          currentShoppingListCount - productInShoppingList.quantity,
           "shoppingListProductsCount"
         );
       },
