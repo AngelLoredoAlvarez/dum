@@ -16,6 +16,9 @@ alter table dum_public.shopping_list_details enable row level security;
 
 -- Grant the SELECT permission to all the columns in the table
 grant select on dum_public.shopping_list_details to :DATABASE_VISITOR;
+grant insert on dum_public.user_emails to :DATABASE_VISITOR;
+grant update on dum_public.user_emails to :DATABASE_VISITOR;
+grant delete on dum_public.user_emails to :DATABASE_VISITOR;
 
 -- Allow efficient retrieval of all the Products in a Shopping List from a specific User.
 create index idx_product_shopping_list_details on dum_public.shopping_list_details(product_id);
@@ -26,6 +29,8 @@ create index idx_user_shopping_list_details on dum_public.shopping_list_details(
 -- Users may only manage their own Shopping Lists Details.
 create policy select_own on dum_public.shopping_list_details for select using (shopping_list_id = dum_public.opened_shopping_list_id());
 create policy insert_own on dum_public.shopping_list_details for insert with check (shopping_list_id = dum_public.opened_shopping_list_id());
+create policy update_own on dum_public.shopping_list_details for update using (shopping_list_id = dum_public.opened_shopping_list_id());
+create policy delete_own on dum_public.shopping_list_details for delete using (shopping_list_id = dum_public.opened_shopping_list_id());
 
 comment on table dum_public.shopping_list_details is
   E'The details of a specific Shopping List.';
@@ -173,3 +178,17 @@ $$ language sql stable;
 create or replace function dum_public.last_added_product_in_the_shopping_list() returns dum_public.shopping_list_details as $$
   select * from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc limit 1;
 $$ language sql stable;
+
+/*
+ * Funtion that Deletes a Product from the Opened Shopping List
+ */
+create or replace function dum_public.delete_from_shopping_list(product_id uuid) returns dum_public.shopping_list_details as $$
+  delete from
+    dum_public.shopping_list_details
+  where
+    shopping_list_id = dum_public.opened_shopping_list_id()
+  and
+    product_id = $1
+  returning
+    *;
+$$ language sql security definer volatile set search_path to pg_catalog, public, pg_temp;
