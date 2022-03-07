@@ -4,6 +4,7 @@ export default graphql`
   query ShoppingListPageQuery {
     ...CurrentUserFragment_user
     currentUser {
+      __id
       id
       rowId
       fullName
