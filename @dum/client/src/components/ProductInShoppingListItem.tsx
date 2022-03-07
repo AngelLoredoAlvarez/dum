@@ -11,6 +11,7 @@ import {
 } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { mask } from "react-native-mask-text";
 import { useFragment } from "react-relay/hooks";
 
 import type { ProductInShoppingListItemFragment_productInShoppingList$key } from "../graphql/Fragments/__generated__/ProductInShoppingListItemFragment_productInShoppingList.graphql";
@@ -27,7 +28,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
       props.productInShoppingList
     );
 
-  const [selectedQuantity, setSelectedQuantity] = React.useState<Number>(
+  const [selectedQuantity, setSelectedQuantity] = React.useState<number>(
     productInShoppingList.quantity
   );
 
@@ -54,11 +55,32 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
   ]);
 
   const handleIncrease = () => {
-    console.log("Increase");
+    if (selectedQuantity == productInShoppingList.product.stock) {
+      setSelectedQuantity(selectedQuantity);
+    } else {
+      setSelectedQuantity(selectedQuantity + 1);
+    }
+  };
+
+  const handleChange = (val: string) => {
+    const maskedStockValue: string = mask(val, "9999999");
+    const stockValue: number = Number.parseInt(maskedStockValue);
+
+    if (Number.isNaN(stockValue)) {
+      setSelectedQuantity(1);
+    } else if (stockValue > productInShoppingList.product.stock) {
+      setSelectedQuantity(productInShoppingList.product.stock);
+    } else {
+      setSelectedQuantity(stockValue);
+    }
   };
 
   const handleDecrease = () => {
-    console.log("Decrease");
+    if (selectedQuantity == 1) {
+      setSelectedQuantity(1);
+    } else {
+      setSelectedQuantity(selectedQuantity - 1);
+    }
   };
 
   return (
@@ -187,6 +209,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
                 -
               </Button>
             }
+            onChangeText={(val: string) => handleChange(val)}
             py="0"
             size={{
               base: "base",
@@ -224,7 +247,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
               }}
               textAlign={"center"}
             >
-              {productInShoppingList.product.stock}
+              {productInShoppingList.product.stock - selectedQuantity}
             </Text>
           </HStack>
         </VStack>
