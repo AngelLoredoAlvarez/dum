@@ -1,4 +1,4 @@
-import { ScrollView, VStack } from "native-base";
+import { VStack } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useMutation, usePreloadedQuery } from "react-relay";
@@ -34,7 +34,7 @@ function LastAddedProductPage({
         variables: {
           AddToShoppingListInput: {
             productId: `${product_id}`,
-            quantity: Number.parseInt(`${quantity}`),
+            selectedQuantity: Number.parseInt(`${quantity}`),
           },
         },
       });
