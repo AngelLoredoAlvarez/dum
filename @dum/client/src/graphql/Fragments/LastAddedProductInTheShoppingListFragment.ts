@@ -15,6 +15,7 @@ export default graphql`
           }
         }
       }
+      subDepartmentId
     }
     quantity
     cost
