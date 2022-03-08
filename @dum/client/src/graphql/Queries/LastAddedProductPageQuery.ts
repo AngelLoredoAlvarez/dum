@@ -12,5 +12,6 @@ export default graphql`
     lastAddedProductInTheShoppingList {
       ...LastAddedProductInTheShoppingListFragment_lastAddedProduct
     }
+    ...ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList
   }
 `;
