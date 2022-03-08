@@ -55,21 +55,14 @@ function LastAddedProductPage({
 
   return (
     <Layout currentUser={lastAddedProductPageQuery}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-        }}
-      >
-        <VStack alignItems={"center"} flex={1} space={3}>
-          <MainDepartmentsList departments={lastAddedProductPageQuery} />
-          <LastAddedProductInTheShoppingList
-            lastAddedProductInTheShoppingList={
-              lastAddedProductPageQuery.lastAddedProductInTheShoppingList
-            }
-          />
-        </VStack>
-      </ScrollView>
+      <VStack alignItems={"center"} flex={1} space={3}>
+        <MainDepartmentsList departments={lastAddedProductPageQuery} />
+        <LastAddedProductInTheShoppingList
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+        />
+      </VStack>
     </Layout>
   );
 }
