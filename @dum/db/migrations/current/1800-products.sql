@@ -59,6 +59,17 @@ create or replace function dum_public.products_price(product dum_public.products
   select cast(ceil((product.unformated_price * product.tax) + product.unformated_price) as money);
 $$ language sql stable;
 
+/*
+ * Custom Query that returns all the products in a specific Sub Department by it's ID
+ */
+create or replace function dum_public.products_by_sub_department_id(sub_department_id uuid) returns setof dum_public.products as $$
+  select * from dum_public.products where sub_department_id = $1;
+$$ language sql stable;
+
+comment on function dum_public.products_by_sub_department_id(sub_department_id uuid) is
+  E'Query that returns all the products in a specific Sub Department.';
+
+
 -- Inserts mock data in the dum_public.products table ¡¡¡REMOVE THIS WHEN YOU LAUNCH TO PROD!!!
 insert into dum_public.products(
   id,
