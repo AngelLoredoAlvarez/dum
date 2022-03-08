@@ -1,14 +1,12 @@
-import { VStack } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useMutation, usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
-import LastAddedProductInTheShoppingList from "../../components/LastAddedProductInTheShoppingList";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
-import MainDepartmentsList from "../../components/MainDepartmentsList";
+import ProductsLikeTheLastAddedProductList from "../../components/ProductsLikeTheLastAddedProductList";
 import Redirect from "../../components/Redirect";
 import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import AddToShoppingListMutation from "../../graphql/Mutations/AddToShoppingListMutation";
@@ -55,14 +53,13 @@ function LastAddedProductPage({
 
   return (
     <Layout currentUser={lastAddedProductPageQuery}>
-      <VStack alignItems={"center"} flex={1} space={3}>
-        <MainDepartmentsList departments={lastAddedProductPageQuery} />
-        <LastAddedProductInTheShoppingList
-          lastAddedProductInTheShoppingList={
-            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
-          }
-        />
-      </VStack>
+      <ProductsLikeTheLastAddedProductList
+        lastAddedProductInTheShoppingList={
+          lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+        }
+        mainDepartments={lastAddedProductPageQuery}
+        productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+      />
     </Layout>
   );
 }
