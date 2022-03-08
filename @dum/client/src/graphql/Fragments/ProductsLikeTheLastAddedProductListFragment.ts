@@ -1,0 +1,22 @@
+import { graphql } from "react-relay/hooks";
+
+export default graphql`
+  fragment ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList on Query
+  @argumentDefinitions(
+    first: { type: "Int!", defaultValue: 5 }
+    after: { type: "Cursor" }
+  )
+  @refetchable(queryName: "ProductsLikeTheLastAddedProduct") {
+    productsLikeTheLastAddedProduct(first: $first, after: $after)
+      @connection(
+        key: "ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProduct"
+      ) {
+      edges {
+        node {
+          id
+          ...ProductLikeTheLastAddedProductFragment_productLikeTheLastAddedProduct
+        }
+      }
+    }
+  }
+`;
