@@ -72,7 +72,7 @@ function LastAddedProductInTheShoppingList(
         md: "12",
         lg: "20",
         xl: "40",
-        "2xl": "64",
+        "2xl": "56",
       }}
       mt="2"
       overflow="hidden"
