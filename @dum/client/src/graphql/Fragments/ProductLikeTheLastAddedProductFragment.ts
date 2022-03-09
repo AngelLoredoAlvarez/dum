@@ -8,6 +8,12 @@ export default graphql`
       id
       brand
     }
+    subDepartment {
+      subDepartment
+      department {
+        mainDepartment
+      }
+    }
     description
     productPictures {
       edges {
