@@ -1,4 +1,5 @@
 import { Heading, Image, Pressable, Text, VStack } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -18,8 +19,29 @@ function ProductLikeTheLastAddedProductItem(
       props.productLikeTheLastAddedProduct
     );
 
+  const router = useRouter();
+
+  const handleRouting = React.useCallback(() => {
+    router.push(
+      `/tienda/${productLikeTheLastAddedProduct.subDepartment.department.mainDepartment
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase()}/${productLikeTheLastAddedProduct.subDepartment.subDepartment
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, "-")
+        .toLowerCase()}/${productLikeTheLastAddedProduct.rowId}`
+    );
+  }, [
+    productLikeTheLastAddedProduct.rowId,
+    productLikeTheLastAddedProduct.subDepartment.department.mainDepartment,
+    productLikeTheLastAddedProduct.subDepartment.subDepartment,
+    router,
+  ]);
+
   return (
-    <Pressable>
+    <Pressable onPress={handleRouting}>
       {({ isHovered }) => (
         <VStack
           _dark={{ backgroundColor: "gray.700" }}
