@@ -238,7 +238,9 @@ function LoginForm() {
                 }}
                 onPress={() =>
                   router.push(
-                    `/registrate?next=${router.query.next.toString()}`
+                    `/registrate?next=${encodeURIComponent(
+                      router.query.next.toString()
+                    )}`
                   )
                 }
               >
