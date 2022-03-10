@@ -181,7 +181,9 @@ function Layout(props: LayoutProps) {
                 />
               }
               mr={2}
-              onPress={() => router.push("/login")}
+              onPress={() =>
+                router.push(`/login?next=${encodeURIComponent(currentUrl)}`)
+              }
             />
           ) : null}
           {!currentUser &&
