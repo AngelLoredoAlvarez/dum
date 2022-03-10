@@ -1,8 +1,18 @@
 import { withHydrateDatetime } from "relay-nextjs/date";
-import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import {
+  Environment,
+  Network,
+  RecordSource,
+  RequestParameters,
+  Store,
+  Variables,
+} from "relay-runtime";
 
-export function createServerNetwork(cookie) {
-  return Network.create(async (params, variables) => {
+export function createServerEnvironment(cookie) {
+  const fetchFunction = async (
+    params: RequestParameters,
+    variables: Variables
+  ) => {
     const response = await fetch("http://localhost:5678/graphql", {
       credentials: "include",
       method: "POST",
@@ -18,12 +28,10 @@ export function createServerNetwork(cookie) {
 
     const json = await response.text();
     return JSON.parse(json, withHydrateDatetime);
-  });
-}
+  };
 
-export function createServerEnvironment(cookie) {
   return new Environment({
-    network: createServerNetwork(cookie),
+    network: Network.create(fetchFunction),
     store: new Store(new RecordSource()),
     isServer: true,
   });
