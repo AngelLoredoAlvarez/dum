@@ -163,7 +163,8 @@ function Layout(props: LayoutProps) {
             </VStack>
           ) : null}
           {!currentUser &&
-          router.pathname !== "/login" &&
+          !router.pathname.includes("/login") &&
+          !router.pathname.includes("/registrar") &&
           (screenSize === "base" || screenSize === "sm") ? (
             <IconButton
               _hover={{
@@ -184,7 +185,8 @@ function Layout(props: LayoutProps) {
             />
           ) : null}
           {!currentUser &&
-          router.pathname !== "/login" &&
+          !router.pathname.includes("/login") &&
+          !router.pathname.includes("/registrar") &&
           (screenSize === "md" ||
             screenSize === "lg" ||
             screenSize === "xl" ||
@@ -207,7 +209,9 @@ function Layout(props: LayoutProps) {
       >
         <Box flex={1}>{props.children}</Box>
       </Box>
-      {router.pathname !== "/login" && !router.pathname.includes("/blog") ? (
+      {!router.pathname.includes("/login") &&
+      !router.pathname.includes("/blog") &&
+      !router.pathname.includes("/registrar") ? (
         <HStack
           _dark={{
             bg: "coolGray.800",
