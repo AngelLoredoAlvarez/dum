@@ -164,7 +164,7 @@ function Layout(props: LayoutProps) {
           ) : null}
           {!currentUser &&
           !router.pathname.includes("/login") &&
-          !router.pathname.includes("/registrar") &&
+          !router.pathname.includes("/registrate") &&
           (screenSize === "base" || screenSize === "sm") ? (
             <IconButton
               _hover={{
@@ -186,7 +186,7 @@ function Layout(props: LayoutProps) {
           ) : null}
           {!currentUser &&
           !router.pathname.includes("/login") &&
-          !router.pathname.includes("/registrar") &&
+          !router.pathname.includes("/registrate") &&
           (screenSize === "md" ||
             screenSize === "lg" ||
             screenSize === "xl" ||
@@ -211,7 +211,7 @@ function Layout(props: LayoutProps) {
       </Box>
       {!router.pathname.includes("/login") &&
       !router.pathname.includes("/blog") &&
-      !router.pathname.includes("/registrar") ? (
+      !router.pathname.includes("/registrate") ? (
         <HStack
           _dark={{
             bg: "coolGray.800",
