@@ -236,7 +236,11 @@ function LoginForm() {
                   fontWeight: "medium",
                   fontSize: "sm",
                 }}
-                href="#"
+                onPress={() =>
+                  router.push(
+                    `/registrate?next=${router.query.next.toString()}`
+                  )
+                }
               >
                 ¡Registrate!
               </Link>
