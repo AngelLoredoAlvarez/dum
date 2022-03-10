@@ -41,7 +41,7 @@ function getCharactersFromName(fullName: string) {
 }
 
 function CustomDrawerContent(props: CustomDrawerContentProps) {
-  const currentUser = useFragment(CurrentUserFragment, props.currentUser);
+  const { currentUser } = useFragment(CurrentUserFragment, props.currentUser);
 
   const [logout] = useMutation<LogoutMutationTypes>(LogoutMutation);
 
