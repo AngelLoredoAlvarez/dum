@@ -32,7 +32,7 @@ function RegisterForm() {
       space={10}
     >
       <VStack
-        borderColor="coolGray.200"
+        borderColor="coolGray.500"
         borderRadius="md"
         borderWidth="1"
         rounded="lg"
@@ -83,7 +83,13 @@ function RegisterForm() {
               </Text>
               Nombre(s):{" "}
             </Text>
-            <Input autoFocus flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              autoFocus
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -102,7 +108,12 @@ function RegisterForm() {
               </Text>
               Apellido Paterno:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -119,7 +130,12 @@ function RegisterForm() {
               {" "}
               Apellido Materno:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
         </Stack>
         <Stack
@@ -160,7 +176,12 @@ function RegisterForm() {
               </Text>
               Municipio:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack
             alignItems={"center"}
@@ -189,7 +210,12 @@ function RegisterForm() {
               </Text>
               Colonia:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -208,7 +234,12 @@ function RegisterForm() {
               </Text>
               Calle:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
             <Text
               bold
               fontSize={{
@@ -226,7 +257,12 @@ function RegisterForm() {
               </Text>
               No. Ext.:{" "}
             </Text>
-            <Input w={"10%"} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              w={"10%"}
+            />
             <Text
               bold
               fontSize={{
@@ -241,7 +277,12 @@ function RegisterForm() {
               {" "}
               No. Int.:{" "}
             </Text>
-            <Input w={"10%"} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              w={"10%"}
+            />
           </HStack>
         </Stack>
         <Stack
@@ -269,7 +310,12 @@ function RegisterForm() {
             >
               Teléfono 1:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -285,7 +331,12 @@ function RegisterForm() {
             >
               Teléfono 2:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -301,12 +352,17 @@ function RegisterForm() {
             >
               Teléfono 3:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
         </Stack>
       </VStack>
       <VStack
-        borderColor="coolGray.200"
+        borderColor="coolGray.500"
         borderRadius="md"
         borderWidth="1"
         rounded="lg"
@@ -358,7 +414,12 @@ function RegisterForm() {
               </Text>
               Correo Electrónico:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
           <HStack alignItems={"center"} flex={1}>
             <Text
@@ -378,12 +439,17 @@ function RegisterForm() {
               </Text>
               Contraseña:{" "}
             </Text>
-            <Input flex={1} />
+            <Input
+              _focus={{
+                borderColor: "yellow.400",
+              }}
+              flex={1}
+            />
           </HStack>
         </Stack>
       </VStack>
       <Stack
-        borderColor="coolGray.200"
+        borderColor="coolGray.500"
         borderRadius="md"
         borderWidth="1"
         direction={{
@@ -420,7 +486,7 @@ function RegisterForm() {
             <Link href="#">Declaración de Privacidad</Link>.
           </Text>
         </Stack>
-        <Button colorScheme="amber" isDisabled={true}>
+        <Button colorScheme="amber" isDisabled={true} size={"lg"}>
           Continuar
         </Button>
       </Stack>
