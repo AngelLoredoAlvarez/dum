@@ -1,4 +1,13 @@
-import { HStack, Input, Stack, Text, VStack } from "native-base";
+import {
+  Button,
+  Checkbox,
+  HStack,
+  Input,
+  Link,
+  Stack,
+  Text,
+  VStack,
+} from "native-base";
 import * as React from "react";
 
 function RegisterForm() {
@@ -7,18 +16,18 @@ function RegisterForm() {
       ml={{
         base: 3,
         sm: 3,
-        md: 3,
-        lg: 3,
-        xl: 3,
-        "2xl": 96,
+        md: 6,
+        lg: 10,
+        xl: 24,
+        "2xl": 48,
       }}
       mr={{
         base: 3,
         sm: 3,
-        md: 3,
-        lg: 3,
-        xl: 3,
-        "2xl": 96,
+        md: 6,
+        lg: 10,
+        xl: 24,
+        "2xl": 48,
       }}
       space={10}
     >
@@ -28,9 +37,9 @@ function RegisterForm() {
         borderWidth="1"
         rounded="lg"
         safeArea
-        space={3}
-        px={"3"}
-        py={"3"}
+        space={10}
+        px={"5"}
+        py={"5"}
       >
         <Text
           bold
@@ -55,9 +64,9 @@ function RegisterForm() {
             xl: "row",
             "2xl": "row",
           }}
-          space={3}
+          space={5}
         >
-          <HStack flex={1}>
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -76,7 +85,7 @@ function RegisterForm() {
             </Text>
             <Input autoFocus flex={1} />
           </HStack>
-          <HStack flex={1}>
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -95,7 +104,7 @@ function RegisterForm() {
             </Text>
             <Input flex={1} />
           </HStack>
-          <HStack flex={1}>
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -113,44 +122,6 @@ function RegisterForm() {
             <Input flex={1} />
           </HStack>
         </Stack>
-      </VStack>
-      <VStack
-        borderColor="coolGray.200"
-        borderRadius="md"
-        borderWidth="1"
-        rounded="lg"
-        safeArea
-        space={5}
-        px={"3"}
-        py={"3"}
-      >
-        <Text
-          bold
-          fontSize={{
-            base: "md",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "3xl",
-          }}
-          textAlign={"center"}
-        >
-          Información de Contacto:
-        </Text>
-        <Text
-          bold
-          fontSize={{
-            base: "md",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "3xl",
-          }}
-        >
-          Dirección:
-        </Text>
         <Stack
           direction={{
             base: "column",
@@ -160,9 +131,19 @@ function RegisterForm() {
             xl: "row",
             "2xl": "row",
           }}
-          space={3}
+          space={5}
         >
-          <HStack flex={1}>
+          <HStack
+            alignItems={"center"}
+            w={{
+              base: "100%",
+              sm: "100%",
+              md: "100%",
+              lg: "25%",
+              xl: "25%",
+              "2xl": "25%",
+            }}
+          >
             <Text
               bold
               fontSize={{
@@ -181,7 +162,17 @@ function RegisterForm() {
             </Text>
             <Input flex={1} />
           </HStack>
-          <HStack flex={1}>
+          <HStack
+            alignItems={"center"}
+            w={{
+              base: "100%",
+              sm: "100%",
+              md: "100%",
+              lg: "25%",
+              xl: "25%",
+              "2xl": "25%",
+            }}
+          >
             <Text
               bold
               fontSize={{
@@ -200,16 +191,7 @@ function RegisterForm() {
             </Text>
             <Input flex={1} />
           </HStack>
-          <HStack
-            w={{
-              base: "100%",
-              sm: "100%",
-              md: "",
-              lg: "",
-              xl: "",
-              "2xl": "50%",
-            }}
-          >
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -262,19 +244,6 @@ function RegisterForm() {
             <Input w={"10%"} />
           </HStack>
         </Stack>
-        <Text
-          bold
-          fontSize={{
-            base: "md",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "3xl",
-          }}
-        >
-          Teléfonos y/o Correo Electrónico:
-        </Text>
         <Stack
           direction={{
             base: "column",
@@ -284,18 +253,9 @@ function RegisterForm() {
             xl: "row",
             "2xl": "row",
           }}
-          space={3}
+          space={5}
         >
-          <HStack
-            w={{
-              base: "100%",
-              sm: "100%",
-              md: "",
-              lg: "",
-              xl: "",
-              "2xl": "25%",
-            }}
-          >
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -311,16 +271,7 @@ function RegisterForm() {
             </Text>
             <Input flex={1} />
           </HStack>
-          <HStack
-            w={{
-              base: "100%",
-              sm: "100%",
-              md: "",
-              lg: "",
-              xl: "",
-              "2xl": "25%",
-            }}
-          >
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -336,7 +287,7 @@ function RegisterForm() {
             </Text>
             <Input flex={1} />
           </HStack>
-          <HStack flex={1}>
+          <HStack alignItems={"center"} flex={1}>
             <Text
               bold
               fontSize={{
@@ -348,12 +299,131 @@ function RegisterForm() {
                 "2xl": "xl",
               }}
             >
-              Correo Electrónico:{" "}
+              Teléfono 3:{" "}
             </Text>
             <Input flex={1} />
           </HStack>
         </Stack>
       </VStack>
+      <VStack
+        borderColor="coolGray.200"
+        borderRadius="md"
+        borderWidth="1"
+        rounded="lg"
+        safeArea
+        space={5}
+        px={"5"}
+        py={"5"}
+      >
+        <Text
+          bold
+          fontSize={{
+            base: "md",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
+          }}
+          textAlign={"center"}
+        >
+          Información para Inicio de Sesión:
+        </Text>
+        <Stack
+          direction={{
+            base: "column",
+            sm: "column",
+            md: "column",
+            lg: "row",
+            xl: "row",
+            "2xl": "row",
+          }}
+          space={5}
+        >
+          <HStack alignItems={"center"} flex={1}>
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+            >
+              <Text bold color={"red.500"}>
+                {" "}
+                *{" "}
+              </Text>
+              Correo Electrónico:{" "}
+            </Text>
+            <Input flex={1} />
+          </HStack>
+          <HStack alignItems={"center"} flex={1}>
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+            >
+              <Text bold color={"red.500"}>
+                {" "}
+                *{" "}
+              </Text>
+              Contraseña:{" "}
+            </Text>
+            <Input flex={1} />
+          </HStack>
+        </Stack>
+      </VStack>
+      <Stack
+        borderColor="coolGray.200"
+        borderRadius="md"
+        borderWidth="1"
+        direction={{
+          base: "column",
+          sm: "column",
+          md: "column",
+          lg: "row",
+          xl: "row",
+          "2xl": "row",
+        }}
+        rounded="lg"
+        safeArea
+        space={5}
+        px={"5"}
+        py={"5"}
+      >
+        <Stack flex={1}>
+          <Text
+            flex={1}
+            fontSize={{
+              base: "sm",
+              sm: "sm",
+              md: "sm",
+              lg: "md",
+              xl: "lg",
+              "2xl": "xl",
+            }}
+            textAlign={"justify"}
+          >
+            <Checkbox colorScheme={"amber"} value={"yes"} /> Declaro que soy
+            mayor de edad, que acepto los{" "}
+            <Link href="#">Términos y Condiciones</Link> y autorizo el uso de
+            mis datos de acuerdo a la{" "}
+            <Link href="#">Declaración de Privacidad</Link>.
+          </Text>
+        </Stack>
+        <Button colorScheme="amber" isDisabled={true}>
+          Continuar
+        </Button>
+      </Stack>
     </VStack>
   );
 }
