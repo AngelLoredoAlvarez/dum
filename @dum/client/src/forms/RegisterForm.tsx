@@ -120,7 +120,7 @@ function RegisterForm() {
         borderWidth="1"
         rounded="lg"
         safeArea
-        space={3}
+        space={5}
         px={"3"}
         py={"3"}
       >
@@ -137,6 +137,19 @@ function RegisterForm() {
           textAlign={"center"}
         >
           Información de Contacto:
+        </Text>
+        <Text
+          bold
+          fontSize={{
+            base: "md",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
+          }}
+        >
+          Dirección:
         </Text>
         <Stack
           direction={{
@@ -247,6 +260,97 @@ function RegisterForm() {
               No. Int.:{" "}
             </Text>
             <Input w={"10%"} />
+          </HStack>
+        </Stack>
+        <Text
+          bold
+          fontSize={{
+            base: "md",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
+          }}
+        >
+          Teléfonos y/o Correo Electrónico:
+        </Text>
+        <Stack
+          direction={{
+            base: "column",
+            sm: "column",
+            md: "column",
+            lg: "row",
+            xl: "row",
+            "2xl": "row",
+          }}
+          space={3}
+        >
+          <HStack
+            w={{
+              base: "100%",
+              sm: "100%",
+              md: "",
+              lg: "",
+              xl: "",
+              "2xl": "25%",
+            }}
+          >
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+            >
+              Teléfono 1:{" "}
+            </Text>
+            <Input flex={1} />
+          </HStack>
+          <HStack
+            w={{
+              base: "100%",
+              sm: "100%",
+              md: "",
+              lg: "",
+              xl: "",
+              "2xl": "25%",
+            }}
+          >
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+            >
+              Teléfono 2:{" "}
+            </Text>
+            <Input flex={1} />
+          </HStack>
+          <HStack flex={1}>
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+            >
+              Correo Electrónico:{" "}
+            </Text>
+            <Input flex={1} />
           </HStack>
         </Stack>
       </VStack>
