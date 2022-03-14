@@ -25,7 +25,7 @@ grant select on dum_public.sales to :DATABASE_VISITOR;
 -- Allow efficient retrieval of all the Sales owned by a particular User.
 create index idx_user_sales on dum_public.sales(user_id);
 
--- Users may only manage their own emails.
+-- Users may only manage their own sales.
 create policy select_own on dum_public.sales for select using (user_id = dum_public.current_user_id());
 create policy insert_own on dum_public.sales for insert with check (user_id = dum_public.current_user_id());
 

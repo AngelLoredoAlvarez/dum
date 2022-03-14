@@ -16,9 +16,9 @@ alter table dum_public.shopping_list_details enable row level security;
 
 -- Grant the SELECT permission to all the columns in the table
 grant select on dum_public.shopping_list_details to :DATABASE_VISITOR;
-grant insert on dum_public.user_emails to :DATABASE_VISITOR;
-grant update on dum_public.user_emails to :DATABASE_VISITOR;
-grant delete on dum_public.user_emails to :DATABASE_VISITOR;
+grant insert on dum_public.shopping_list_details to :DATABASE_VISITOR;
+grant update on dum_public.shopping_list_details to :DATABASE_VISITOR;
+grant delete on dum_public.shopping_list_details to :DATABASE_VISITOR;
 
 -- Allow efficient retrieval of all the Products in a Shopping List from a specific User.
 create index idx_product_shopping_list_details on dum_public.shopping_list_details(product_id);
