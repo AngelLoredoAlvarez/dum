@@ -851,21 +851,15 @@ function RegisterForm() {
             {errors.acceptTermsAndConditions?.message}
           </FormControl.ErrorMessage>
         </FormControl>
-        <Button
-          colorScheme="amber"
-          h={{
-            base: "30%",
-            sm: "30%",
-            md: "30%",
-            lg: "70%",
-            xl: "70%",
-            "2xl": "70%",
-          }}
-          onPress={handleSubmit(onSubmit)}
-          size={"lg"}
-        >
-          Continuar
-        </Button>
+        <Box>
+          <Button
+            colorScheme="amber"
+            onPress={handleSubmit(onSubmit)}
+            size={"lg"}
+          >
+            Continuar
+          </Button>
+        </Box>
       </Stack>
     </VStack>
   );
