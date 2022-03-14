@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  Box,
   Button,
   Checkbox,
   FormControl,
@@ -14,47 +15,39 @@ import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-const RegisterValidationSchema = Yup.object().shape({
-  name: Yup.string().required("Ingresa tu Nombre(s)"),
-  firstSurname: Yup.string().required("Ingresa tu Apellido Paterno"),
-  town: Yup.string().required("Selecciona el Municipio"),
-  suburb: Yup.string().required("Selecciona la Colonia"),
-  street: Yup.string().required("Ingresa la Calle"),
-  exteriorNumber: Yup.string().required("Ingresa el Número Exterior"),
-  firstNumber: Yup.string().test(
-    "oneIsRequired",
-    "One of Field1, Field2, Field3 or Field4 must be entered",
-    (_item, testContext) => {
-      return (
-        testContext.parent.firstNumber ||
-        testContext.parent.secondNumber ||
-        testContext.parent.thirdNumber
-      );
-    }
-  ),
-  secondNumber: Yup.string().test(
-    "oneIsRequired",
-    "One of Field1, Field2, Field3 or Field4 must be entered",
-    (_item, testContext) => {
-      return (
-        testContext.parent.firstNumber ||
-        testContext.parent.secondNumber ||
-        testContext.parent.thirdNumber
-      );
-    }
-  ),
-  thirdNumber: Yup.string().test(
-    "oneIsRequired",
-    "One of Field1, Field2, Field3 or Field4 must be entered",
-    (_item, testContext) => {
-      return (
-        testContext.parent.firstNumber ||
-        testContext.parent.secondNumber ||
-        testContext.parent.thirdNumber
-      );
-    }
-  ),
-});
+const RegisterValidationSchema = Yup.object().shape(
+  {
+    name: Yup.string().required("Ingresa tu Nombre(s)"),
+    firstSurname: Yup.string().required("Ingresa tu Apellido Paterno"),
+    town: Yup.string().required("Selecciona el Municipio"),
+    suburb: Yup.string().required("Selecciona la Colonia"),
+    street: Yup.string().required("Ingresa la Calle"),
+    exteriorNumber: Yup.string().required("Ingresa el Número Exterior"),
+    firstNumber: Yup.string().when(["secondNumber", "thirdNumber"], {
+      is: (secondNumber, thirdNumber) => !secondNumber && !thirdNumber,
+      then: Yup.string().required("Ingresa un Número de Contacto"),
+    }),
+    secondNumber: Yup.string().when(["firstNumber", "thirdNumber"], {
+      is: (firstNumber, thirdNumber) => !firstNumber && !thirdNumber,
+      then: Yup.string().required("Ingresa un Número de Contacto"),
+    }),
+    thirdNumber: Yup.string().when(["firstNumber", "secondNumber"], {
+      is: (firstNumber, secondNumber) => !firstNumber && !secondNumber,
+      then: Yup.string().required("Ingresa un Número de Contacto"),
+    }),
+    email: Yup.string().required("Ingresa un Correo Electrónico"),
+    password: Yup.string().required("Ingresa una Contraseña"),
+    acceptTermsAndConditions: Yup.boolean().oneOf(
+      [true],
+      "Debes Aceptar los Terminos y Condiciones"
+    ),
+  },
+  [
+    ["firstNumber", "secondNumber"],
+    ["firstNumber", "thirdNumber"],
+    ["secondNumber", "thirdNumber"],
+  ]
+);
 
 interface RegisterFormProps {
   name: string;
@@ -68,6 +61,9 @@ interface RegisterFormProps {
   firstNumber?: string;
   secondNumber?: string;
   thirdNumber?: string;
+  email: string;
+  password: string;
+  acceptTermsAndConditions: boolean;
 }
 
 function RegisterForm() {
@@ -88,9 +84,12 @@ function RegisterForm() {
       firstNumber: "",
       secondNumber: "",
       thirdNumber: "",
+      acceptTermsAndConditions: false,
     },
     resolver: yupResolver(RegisterValidationSchema),
   });
+
+  console.log(errors);
 
   const onSubmit = ({ name }) => {
     console.log(name);
@@ -183,8 +182,6 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
-                    autoFocus
-                    flex={1}
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -562,69 +559,126 @@ function RegisterForm() {
           }}
           space={5}
         >
-          <HStack alignItems={"center"} flex={1}>
-            <Text
-              bold
-              fontSize={{
-                base: "sm",
-                sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
-              }}
-            >
-              Teléfono 1:{" "}
-            </Text>
-            <Input
-              _focus={{
-                borderColor: "yellow.400",
-              }}
-              flex={1}
-            />
-          </HStack>
-          <HStack alignItems={"center"} flex={1}>
-            <Text
-              bold
-              fontSize={{
-                base: "sm",
-                sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
-              }}
-            >
-              Teléfono 2:{" "}
-            </Text>
-            <Input
-              _focus={{
-                borderColor: "yellow.400",
-              }}
-              flex={1}
-            />
-          </HStack>
-          <HStack alignItems={"center"} flex={1}>
-            <Text
-              bold
-              fontSize={{
-                base: "sm",
-                sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
-              }}
-            >
-              Teléfono 3:{" "}
-            </Text>
-            <Input
-              _focus={{
-                borderColor: "yellow.400",
-              }}
-              flex={1}
-            />
-          </HStack>
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.firstNumber?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                Teléfono 1:{" "}
+              </Text>
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"firstNumber"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.firstNumber?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.secondNumber?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                Teléfono 2:{" "}
+              </Text>
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"secondNumber"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.secondNumber?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.thirdNumber?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                Teléfono 3:{" "}
+              </Text>
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"thirdNumber"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.thirdNumber?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
         </Stack>
       </VStack>
       <VStack
@@ -662,56 +716,93 @@ function RegisterForm() {
           }}
           space={5}
         >
-          <HStack alignItems={"center"} flex={1}>
-            <Text
-              bold
-              fontSize={{
-                base: "sm",
-                sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
-              }}
-            >
-              <Text bold color={"red.500"}>
-                {" "}
-                *{" "}
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.email?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                <Text bold color={"red.500"}>
+                  *{" "}
+                </Text>
+                Correo Electrónico:
               </Text>
-              Correo Electrónico:{" "}
-            </Text>
-            <Input
-              _focus={{
-                borderColor: "yellow.400",
-              }}
-              flex={1}
-            />
-          </HStack>
-          <HStack alignItems={"center"} flex={1}>
-            <Text
-              bold
-              fontSize={{
-                base: "sm",
-                sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
-              }}
-            >
-              <Text bold color={"red.500"}>
-                {" "}
-                *{" "}
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"email"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.email?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.password?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                <Text bold color={"red.500"}>
+                  *{" "}
+                </Text>
+                Contraseña:
               </Text>
-              Contraseña:{" "}
-            </Text>
-            <Input
-              _focus={{
-                borderColor: "yellow.400",
-              }}
-              flex={1}
-            />
-          </HStack>
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"name"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    autoFocus
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.password?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
         </Stack>
       </VStack>
       <Stack
@@ -732,29 +823,44 @@ function RegisterForm() {
         px={"5"}
         py={"5"}
       >
-        <Stack flex={1}>
-          <Text
-            flex={1}
-            fontSize={{
-              base: "sm",
-              sm: "sm",
-              md: "sm",
-              lg: "md",
-              xl: "lg",
-              "2xl": "xl",
-            }}
-            textAlign={"justify"}
-          >
-            <Checkbox colorScheme={"amber"} value={"yes"} /> Declaro que soy
-            mayor de edad, que acepto los{" "}
-            <Link href="#">Términos y Condiciones</Link> y autorizo el uso de
-            mis datos de acuerdo a la{" "}
-            <Link href="#">Declaración de Privacidad</Link>.
-          </Text>
-        </Stack>
+        <FormControl
+          flex={1}
+          isInvalid={errors.acceptTermsAndConditions?.message && true}
+        >
+          <HStack alignContent={"center"} alignItems={"center"} flex={1}>
+            <Checkbox colorScheme={"amber"} value={"yes"} />
+            <Box mr={3} />
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+              textAlign={"justify"}
+            >
+              Declaro que soy mayor de edad, que acepto los{" "}
+              <Link href="#">Términos y Condiciones</Link> y autorizo el uso de
+              mis datos de acuerdo a la{" "}
+              <Link href="#">Declaración de Privacidad</Link>.
+            </Text>
+          </HStack>
+          <FormControl.ErrorMessage>
+            {errors.acceptTermsAndConditions?.message}
+          </FormControl.ErrorMessage>
+        </FormControl>
         <Button
           colorScheme="amber"
-          //isDisabled={true}
+          h={{
+            base: "30%",
+            sm: "30%",
+            md: "30%",
+            lg: "70%",
+            xl: "70%",
+            "2xl": "70%",
+          }}
           onPress={handleSubmit(onSubmit)}
           size={"lg"}
         >
