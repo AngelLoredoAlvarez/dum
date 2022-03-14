@@ -182,6 +182,7 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
+                    autoFocus
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -791,7 +792,6 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
-                    autoFocus
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
