@@ -13,7 +13,11 @@ import {
 } from "native-base";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { mask } from "react-native-mask-text";
 import * as Yup from "yup";
+
+const phoneRegExp = /^(([0-9]{3}) |[0-9]{3}-)[0-9]{3} |[0-9]{4}$/;
+const emailRegExp = /[^@]+@[^@]+\.[^@]+/;
 
 const RegisterValidationSchema = Yup.object().shape(
   {
@@ -25,7 +29,9 @@ const RegisterValidationSchema = Yup.object().shape(
     exteriorNumber: Yup.string().required("Ingresa el Número Exterior"),
     firstNumber: Yup.string().when(["secondNumber", "thirdNumber"], {
       is: (secondNumber, thirdNumber) => !secondNumber && !thirdNumber,
-      then: Yup.string().required("Ingresa un Número de Contacto"),
+      then: Yup.string()
+        .required("Ingresa un Número de Contacto")
+        .matches(phoneRegExp, "Ingresa un Número Teléfonico valido"),
     }),
     secondNumber: Yup.string().when(["firstNumber", "thirdNumber"], {
       is: (firstNumber, thirdNumber) => !firstNumber && !thirdNumber,
@@ -35,7 +41,9 @@ const RegisterValidationSchema = Yup.object().shape(
       is: (firstNumber, secondNumber) => !firstNumber && !secondNumber,
       then: Yup.string().required("Ingresa un Número de Contacto"),
     }),
-    email: Yup.string().required("Ingresa un Correo Electrónico"),
+    email: Yup.string()
+      .required("Ingresa un Correo Electrónico")
+      .matches(emailRegExp, "Ingresa un Correo Electrónico Valido"),
     password: Yup.string().required("Ingresa una Contraseña"),
     acceptTermsAndConditions: Yup.boolean().oneOf(
       [true],
@@ -71,6 +79,7 @@ function RegisterForm() {
     control,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm<RegisterFormProps>({
     defaultValues: {
       name: "",
@@ -89,7 +98,20 @@ function RegisterForm() {
     resolver: yupResolver(RegisterValidationSchema),
   });
 
-  console.log(errors);
+  const handleExteriorNumberChange = (val: string) => {
+    const formated: string = mask(val, "9999");
+    setValue("exteriorNumber", formated);
+  };
+
+  const handleInteriorNumberChange = (val: string) => {
+    const formated: string = mask(val, "9999");
+    setValue("interiorNumber", formated);
+  };
+
+  const handlePhoneFieldChange = (val: string) => {
+    const formatedText: string = mask(val, "(999) 999 9999");
+    setValue("firstNumber", formatedText);
+  };
 
   const onSubmit = ({ name }) => {
     console.log(name);
@@ -329,7 +351,6 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
-                    flex={1}
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -380,7 +401,6 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
-                    flex={1}
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -442,7 +462,6 @@ function RegisterForm() {
                       _focus={{
                         borderColor: "yellow.400",
                       }}
-                      flex={1}
                       onBlur={onBlur}
                       onChange={onChange}
                       value={value}
@@ -495,6 +514,9 @@ function RegisterForm() {
                       }}
                       onBlur={onBlur}
                       onChange={onChange}
+                      onChangeText={(val: string) =>
+                        handleExteriorNumberChange(val)
+                      }
                       value={value}
                     />
                   )}
@@ -541,6 +563,9 @@ function RegisterForm() {
                       }}
                       onBlur={onBlur}
                       onChange={onChange}
+                      onChangeText={(val: string) =>
+                        handleInteriorNumberChange(val)
+                      }
                       value={value}
                     />
                   )}
@@ -591,6 +616,8 @@ function RegisterForm() {
                     }}
                     onBlur={onBlur}
                     onChange={onChange}
+                    onChangeText={(val: string) => handlePhoneFieldChange(val)}
+                    placeholder={"(___) ___ ____"}
                     value={value}
                   />
                 )}
@@ -631,6 +658,8 @@ function RegisterForm() {
                     }}
                     onBlur={onBlur}
                     onChange={onChange}
+                    onChangeText={(val: string) => handlePhoneFieldChange(val)}
+                    placeholder={"(___) ___ ____"}
                     value={value}
                   />
                 )}
@@ -671,6 +700,8 @@ function RegisterForm() {
                     }}
                     onBlur={onBlur}
                     onChange={onChange}
+                    onChangeText={(val: string) => handlePhoneFieldChange(val)}
+                    placeholder={"(___) ___ ____"}
                     value={value}
                   />
                 )}
@@ -786,7 +817,7 @@ function RegisterForm() {
             <VStack flex={1}>
               <Controller
                 control={control}
-                name={"name"}
+                name={"password"}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
                     _focus={{
