@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  Box,
   Button,
   Checkbox,
   FormControl,
@@ -266,7 +265,6 @@ function RegisterForm() {
                     _focus={{
                       borderColor: "yellow.400",
                     }}
-                    flex={1}
                     onBlur={onBlur}
                     onChange={onChange}
                     value={value}
@@ -534,7 +532,7 @@ function RegisterForm() {
                   No. Int:
                 </Text>
               </FormControl.Label>
-              <VStack flex={1}>
+              <VStack flex={1} h={"100%"}>
                 <Controller
                   control={control}
                   name={"interiorNumber"}
