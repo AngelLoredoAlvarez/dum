@@ -18,6 +18,7 @@ import * as Yup from "yup";
 
 const phoneRegExp = /^(([0-9]{3}) |[0-9]{3}-)[0-9]{3} |[0-9]{4}$/;
 const emailRegExp = /[^@]+@[^@]+\.[^@]+/;
+const acceptTermsAndConditionsRegExp = /\byes\b/g;
 
 const RegisterValidationSchema = Yup.object().shape(
   {
@@ -50,10 +51,12 @@ const RegisterValidationSchema = Yup.object().shape(
     confirmPassword: Yup.string()
       .required("Confirma tu Contraseña")
       .oneOf([Yup.ref("password")], "Tus contraseñas no concuerdan"),
-    acceptTermsAndConditions: Yup.boolean().oneOf(
-      [true],
-      "Debes Aceptar los Terminos y Condiciones"
-    ),
+    acceptTermsAndConditions: Yup.string()
+      .required()
+      .matches(
+        acceptTermsAndConditionsRegExp,
+        "Debes aceptar los Teminos y Condiciones"
+      ),
   },
   [
     ["firstNumber", "secondNumber"],
@@ -77,7 +80,7 @@ interface RegisterFormProps {
   email: string;
   password: string;
   confirmPassword: string;
-  acceptTermsAndConditions: boolean;
+  acceptTermsAndConditions: string;
 }
 
 function RegisterForm() {
@@ -99,7 +102,7 @@ function RegisterForm() {
       firstNumber: "",
       secondNumber: "",
       thirdNumber: "",
-      acceptTermsAndConditions: false,
+      acceptTermsAndConditions: "no",
     },
     resolver: yupResolver(RegisterValidationSchema),
   });
@@ -119,8 +122,8 @@ function RegisterForm() {
     setValue("firstNumber", formatedText);
   };
 
-  const onSubmit = ({ name }) => {
-    console.log(name);
+  const onSubmit = (data: RegisterFormProps) => {
+    console.log(data);
   };
 
   return (
@@ -910,7 +913,21 @@ function RegisterForm() {
           isInvalid={errors.acceptTermsAndConditions?.message && true}
         >
           <HStack alignContent={"center"} alignItems={"center"} flex={1}>
-            <Checkbox colorScheme={"amber"} value={"yes"} />
+            <Controller
+              control={control}
+              name={"acceptTermsAndConditions"}
+              render={({ field: { value } }) => (
+                <Checkbox
+                  accessibilityLabel="acceptTermsAndConditions"
+                  colorScheme={"amber"}
+                  onChange={(isSelected: boolean) => {
+                    if (isSelected) setValue("acceptTermsAndConditions", "yes");
+                    else setValue("acceptTermsAndConditions", "no");
+                  }}
+                  value={value}
+                />
+              )}
+            />
             <Box mr={3} />
             <Text
               fontSize={{
