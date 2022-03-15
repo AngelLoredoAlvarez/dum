@@ -177,6 +177,11 @@
         "tags": {
           "omit": "all"
         }
+      },
+      "dum_public.suburbs": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
