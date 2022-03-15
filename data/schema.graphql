@@ -1551,6 +1551,64 @@ type Query implements Node {
     """The method to use when ordering `SubDepartment`."""
     orderBy: [SubDepartmentsOrderBy!] = [PRIMARY_KEY_ASC]
   ): SubDepartmentsConnection
+  town(rowId: UUID!): Town
+
+  """Reads a single `Town` using its globally unique `ID`."""
+  townById(
+    """The globally unique `ID` to be used in selecting a single `Town`."""
+    id: ID!
+  ): Town
+
+  """Reads and enables pagination through a set of `Town`."""
+  townByName(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+    name: String!
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+  ): TownsConnection
+
+  """Reads and enables pagination through a set of `Town`."""
+  towns(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TownCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `Town`."""
+    orderBy: [TownsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TownsConnection
   user(rowId: UUID!): User
   userAuthentication(rowId: UUID!): UserAuthentication
 
@@ -2155,6 +2213,64 @@ The root subscription type: contains realtime events you can subscribe to with t
 type Subscription {
   """Triggered when the logged in user's record is updated in some way."""
   currentUserUpdated: UserSubscriptionPayload
+}
+
+"""A Town registered to allow a user to set their address."""
+type Town implements Node {
+  createdAt: Datetime!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+
+  """The name of the town."""
+  name: String
+  rowId: UUID!
+  updatedAt: Datetime!
+}
+
+"""
+A condition to be used against `Town` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input TownCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+}
+
+"""A connection to a list of `Town` values."""
+type TownsConnection {
+  """
+  A list of edges which contains the `Town` and cursor to aid in pagination.
+  """
+  edges: [TownsEdge!]!
+
+  """A list of `Town` objects."""
+  nodes: [Town!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Town` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Town` edge in the connection."""
+type TownsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Town` at the end of the edge."""
+  node: Town!
+}
+
+"""Methods to use when ordering `Town`."""
+enum TownsOrderBy {
+  ID_ASC
+  ID_DESC
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """
