@@ -30,10 +30,3 @@ create trigger _100_timestamps
 -- Inserts the Default Values in the dum_public.towns table
 insert into dum_public.towns(id, name) values('84673058-eca2-42b1-bd94-84b1ece47c0c', 'Rioverde'),
                                              ('0adb7363-baf9-4fb1-aeb8-18977861bd1b', 'Ciudad Fernández');
-
-/*
- * Custom Query that returns all the Towns that matchs a specific Text
- */
-create or replace function dum_public.town_by_name(name text) returns setof dum_public.towns as $$
-  select * from dum_public.towns where unaccent(dum_public.towns.name) ilike '%' || unaccent(name) || '%';
-$$ language sql stable;
