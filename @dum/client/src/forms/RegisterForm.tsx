@@ -3,10 +3,12 @@ import {
   Box,
   Button,
   Checkbox,
+  CheckIcon,
   FormControl,
   HStack,
   Input,
   Link,
+  Select,
   Stack,
   Text,
   VStack,
@@ -14,7 +16,11 @@ import {
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { mask } from "react-native-mask-text";
+import { usePaginationFragment } from "react-relay/hooks";
 import * as Yup from "yup";
+
+import type { TownsFragment_towns$key } from "../graphql/Fragments/__generated__/TownsFragment_towns.graphql";
+import TownsFragment from "../graphql/Fragments/TownsFragment";
 
 const phoneRegExp = /^(([0-9]{3}) |[0-9]{3}-)[0-9]{3} |[0-9]{4}$/;
 const emailRegExp = /[^@]+@[^@]+\.[^@]+/;
@@ -66,6 +72,10 @@ const RegisterValidationSchema = Yup.object().shape(
 );
 
 interface RegisterFormProps {
+  towns: TownsFragment_towns$key;
+}
+
+interface UseFormProps {
   name: string;
   firstSurname: string;
   secondSurname?: string;
@@ -83,13 +93,15 @@ interface RegisterFormProps {
   acceptTermsAndConditions: string;
 }
 
-function RegisterForm() {
+function RegisterForm(props: RegisterFormProps) {
+  const { data } = usePaginationFragment(TownsFragment, props.towns);
+
   const {
     control,
     formState: { errors },
     handleSubmit,
     setValue,
-  } = useForm<RegisterFormProps>({
+  } = useForm<UseFormProps>({
     defaultValues: {
       name: "",
       firstSurname: "",
@@ -122,7 +134,7 @@ function RegisterForm() {
     setValue("firstNumber", formatedText);
   };
 
-  const onSubmit = (data: RegisterFormProps) => {
+  const onSubmit = (data: UseFormProps) => {
     console.log(data);
   };
 
@@ -355,15 +367,25 @@ function RegisterForm() {
               <Controller
                 control={control}
                 name={"town"}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <Input
-                    _focus={{
-                      borderColor: "yellow.400",
+                render={({ field: { value } }) => (
+                  <Select
+                    _selectedItem={{
+                      bg: "teal.600",
+                      endIcon: <CheckIcon size={5} />,
                     }}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                  />
+                    defaultValue={""}
+                    onValueChange={(itemValue) => setValue("town", itemValue)}
+                    placeholder="Selecciona..."
+                    selectedValue={value}
+                  >
+                    {data.towns.edges.map(({ node }) => (
+                      <Select.Item
+                        key={node.id}
+                        label={node.name}
+                        value={node.rowId.toString()}
+                      />
+                    ))}
+                  </Select>
                 )}
               />
               <FormControl.ErrorMessage>
