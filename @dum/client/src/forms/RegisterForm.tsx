@@ -831,6 +831,7 @@ function RegisterForm() {
                     }}
                     onBlur={onBlur}
                     onChange={onChange}
+                    type="password"
                     value={value}
                   />
                 )}
@@ -874,6 +875,7 @@ function RegisterForm() {
                     }}
                     onBlur={onBlur}
                     onChange={onChange}
+                    type="password"
                     value={value}
                   />
                 )}
