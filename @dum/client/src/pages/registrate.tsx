@@ -59,7 +59,7 @@ function RegisterPage({
             </Text>{" "}
             son OBLIGATORIOS
           </Text>
-          <RegisterForm />
+          <RegisterForm towns={registerPageQuery} />
         </VStack>
       </ScrollView>
     </Layout>
