@@ -44,7 +44,12 @@ const RegisterValidationSchema = Yup.object().shape(
     email: Yup.string()
       .required("Ingresa un Correo Electrónico")
       .matches(emailRegExp, "Ingresa un Correo Electrónico Valido"),
-    password: Yup.string().required("Ingresa una Contraseña"),
+    password: Yup.string()
+      .required("Ingresa una Contraseña")
+      .min(8, "Tu contraseña debe de ser igual o mayor a 8 digitos"),
+    confirmPassword: Yup.string()
+      .required("Confirma tu Contraseña")
+      .oneOf([Yup.ref("password")], "Tus contraseñas no concuerdan"),
     acceptTermsAndConditions: Yup.boolean().oneOf(
       [true],
       "Debes Aceptar los Terminos y Condiciones"
@@ -71,6 +76,7 @@ interface RegisterFormProps {
   thirdNumber?: string;
   email: string;
   password: string;
+  confirmPassword: string;
   acceptTermsAndConditions: boolean;
 }
 
@@ -831,6 +837,49 @@ function RegisterForm() {
               />
               <FormControl.ErrorMessage>
                 {errors.password?.message}
+              </FormControl.ErrorMessage>
+            </VStack>
+          </FormControl>
+          <FormControl
+            flex={1}
+            flexDir={"row"}
+            isInvalid={errors.confirmPassword?.message && true}
+          >
+            <FormControl.Label>
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                <Text bold color={"red.500"}>
+                  *{" "}
+                </Text>
+                Confirmar Contraseña:
+              </Text>
+            </FormControl.Label>
+            <VStack flex={1}>
+              <Controller
+                control={control}
+                name={"confirmPassword"}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    _focus={{
+                      borderColor: "yellow.400",
+                    }}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
+              <FormControl.ErrorMessage>
+                {errors.confirmPassword?.message}
               </FormControl.ErrorMessage>
             </VStack>
           </FormControl>
