@@ -31,8 +31,16 @@ create trigger _100_timestamps
   for each row
   execute procedure dum_private.tg__timestamps();
 
+/*
+ * Custom Query that returns all Suburs in a Specific Town
+ */
+create or replace function dum_public.suburbs_by_town_id(town_id uuid default null) returns setof dum_public.suburbs as $$
+  select * from dum_public.suburbs where dum_public.suburbs.town_id = $1;
+$$ language sql stable;
+
 -- Inserts the default suburbs associated to a specific town
-insert into dum_public.suburbs(name, town_id) values('REGULARIZACION  DANIEL DIAZ CORPUS', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
+insert into dum_public.suburbs(name, town_id) values('CENTRO', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
+                                                    ('REGULARIZACION  DANIEL DIAZ CORPUS', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
                                                     ('FRACC. TIERRA BLANCA', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
                                                     ('FRACC. VALLE DEL RIO', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
                                                     ('REGULARIZACION JULIANA MARGARITA', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
