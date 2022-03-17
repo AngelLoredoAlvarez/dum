@@ -26,6 +26,7 @@ import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import SuburbsList from "../components/SuburbsList";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -112,15 +113,6 @@ function RegisterPage({
     preloadedQuery
   );
 
-  // useState() hook to re - render the <SuburbsSelect /> component when the Towns <Select /> changes
-  const [townId, setTownId] = React.useState<any>("");
-
-  // Mix of useState() and useEffect() hooks to use Suspense with the useRefetchableFragment hook
-  const [isMounted, setMounted] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Handles all that is needed for the Form State
   const {
     control,
@@ -146,6 +138,15 @@ function RegisterPage({
     resolver: yupResolver(RegisterValidationSchema),
   });
 
+  // useState() hook to sets the town value
+  const [townId, setTownId] = React.useState<any>("");
+
+  // Mix of useState() and useEffect() hooks to use Suspense with the useRefetchableFragment hook
+  const [isMounted, setMounted] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Callback that handles the mask of the Exterior Number TextField
   const handleExteriorNumberChange = (val: string) => {
     const formated: string = mask(val, "9999");
@@ -159,9 +160,15 @@ function RegisterPage({
   };
 
   // Callback that handles the mask of the Phone Number TextField
-  const handlePhoneFieldChange = (val: string) => {
+  const handlePhoneFieldChange = (val: string, phoneField: string) => {
     const formatedText: string = mask(val, "(999) 999 9999");
-    setValue("firstNumber", formatedText);
+
+    if (phoneField.includes("firstNumber"))
+      setValue("firstNumber", formatedText);
+    else if (phoneField.includes("secondNumber"))
+      setValue("secondNumber", formatedText);
+    else if (phoneField.includes("thirdNumber"))
+      setValue("thirdNumber", formatedText);
   };
 
   // Callback that will handle the Submit of the Form
@@ -447,7 +454,7 @@ function RegisterPage({
                           defaultValue={""}
                           onValueChange={(itemValue) => {
                             setValue("town", itemValue);
-                            setTownId(itemValue);
+                            setTownId(getValues("town"));
                           }}
                           placeholder="Selecciona..."
                           selectedValue={value}
@@ -498,31 +505,20 @@ function RegisterPage({
                     </Text>
                   </FormControl.Label>
                   <VStack flex={1}>
-                    {getValues("town") === "" ? (
-                      <Popover
-                        trigger={(triggerProps) => (
-                          <Pressable {...triggerProps}>
-                            <Input
-                              autoComplete="off"
-                              placeholder={"Selecciona..."}
-                            />
-                          </Pressable>
-                        )}
-                      >
-                        <Popover.Content>
-                          <Popover.Body>
-                            This will remove all data relating to Alex. This
-                            action cannot be reversed. Deleted data can not be
-                            recovered.
-                          </Popover.Body>
-                        </Popover.Content>
-                      </Popover>
+                    {townId === "" ? (
+                      <Input isDisabled={true} placeholder={"Buscar..."} />
                     ) : (
                       <Controller
                         control={control}
                         name={"suburb"}
-                        render={({ field: { value } }) => (
-                          <Text>Component</Text>
+                        render={({ field: { onBlur, onChange, value } }) => (
+                          <Input
+                            autoComplete="off"
+                            onBlur={onBlur}
+                            onChange={onChange}
+                            placeholder="Buscar..."
+                            value={value}
+                          />
                         )}
                       />
                     )}
@@ -736,7 +732,7 @@ function RegisterPage({
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
-                            handlePhoneFieldChange(val)
+                            handlePhoneFieldChange(val, "firstNumber")
                           }
                           placeholder={"(___) ___ ____"}
                           value={value}
@@ -780,7 +776,7 @@ function RegisterPage({
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
-                            handlePhoneFieldChange(val)
+                            handlePhoneFieldChange(val, "secondNumber")
                           }
                           placeholder={"(___) ___ ____"}
                           value={value}
@@ -824,7 +820,7 @@ function RegisterPage({
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
-                            handlePhoneFieldChange(val)
+                            handlePhoneFieldChange(val, "thirdNumber")
                           }
                           placeholder={"(___) ___ ____"}
                           value={value}
