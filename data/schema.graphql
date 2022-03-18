@@ -1560,7 +1560,7 @@ type Query implements Node {
   ): Suburb
 
   """Reads and enables pagination through a set of `Suburb`."""
-  suburbsBySearch(
+  suburbsByTownId(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1578,7 +1578,6 @@ type Query implements Node {
     based pagination. May not be used with `last`.
     """
     offset: Int
-    search: String
     townId: UUID
   ): SuburbsConnection
   town(rowId: UUID!): Town

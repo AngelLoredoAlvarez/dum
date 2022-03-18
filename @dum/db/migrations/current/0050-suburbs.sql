@@ -34,17 +34,8 @@ create trigger _100_timestamps
 /*
  * Custom Query that returns all Suburs in a Specific Town
  */
-create or replace function dum_public.suburbs_by_search(town_id uuid default null, search text default null) returns setof dum_public.suburbs as $$
-  select
-    *
-  from
-    dum_public.suburbs
-  where
-    dum_public.suburbs.town_id = $1
-  and
-    unaccent(dum_public.suburbs.name)
-  ilike
-    '%' || unaccent($2) || '%';
+create or replace function dum_public.suburbs_by_town_id(town_id uuid default null) returns setof dum_public.suburbs as $$
+  select * from dum_public.suburbs where dum_public.suburbs.town_id = $1;
 $$ language sql stable;
 
 -- Inserts the default suburbs associated to a specific town
