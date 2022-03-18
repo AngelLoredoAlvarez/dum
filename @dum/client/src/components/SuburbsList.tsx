@@ -38,7 +38,7 @@ function SuburbsList(props: SuburbsListProps) {
         <Popover.Arrow />
         <Popover.Body>
           <ScrollView maxW="300" h="80">
-            {data.suburbsBySearch.edges.map(({ node }) => (
+            {data.suburbsByTownId.edges.map(({ node }) => (
               <Text key={node.id}>{node.name}</Text>
             ))}
           </ScrollView>
