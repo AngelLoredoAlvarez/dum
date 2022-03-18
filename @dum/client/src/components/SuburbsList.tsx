@@ -1,4 +1,4 @@
-import { FlatList, Text } from "native-base";
+import { Pressable, ScrollView, Text, VStack } from "native-base";
 import * as React from "react";
 import { useRefetchableFragment } from "react-relay/hooks";
 
@@ -22,12 +22,15 @@ function SuburbsList(props: SuburbsListProps) {
   }, [props.search, props.townId, refetch]);
 
   return (
-    <FlatList
-      data={data.suburbsBySearch.edges}
-      keyExtractor={(item) => item.node.id}
-      renderItem={({ item }) => <Text>{item.node.name}</Text>}
-      ListEmptyComponent={<Text>No hay nada para mostrar</Text>}
-    />
+    <VStack h={"1%"} w={"100%"}>
+      <ScrollView borderWidth={1}>
+        {data.suburbsBySearch.edges.map(({ node }) => (
+          <Pressable key={node.id}>
+            <Text>{node.name}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
+    </VStack>
   );
 }
 
