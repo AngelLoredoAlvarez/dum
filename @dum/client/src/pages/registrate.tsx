@@ -24,6 +24,7 @@ import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import SuburbsList from "../components/SuburbsList";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -504,8 +505,18 @@ function RegisterPage({
                   <VStack flex={1}>
                     {townId === "" ? (
                       <Input isDisabled={true} placeholder={"Buscar..."} />
+                    ) : isMounted ? (
+                      <React.Suspense fallback={<Loading />}>
+                        <SuburbsList
+                          suburbs={registerPageQuery}
+                          townId={townId}
+                        />
+                      </React.Suspense>
                     ) : (
-                      <Input autoComplete="off" placeholder="Buscar..." />
+                      <SuburbsList
+                        suburbs={registerPageQuery}
+                        townId={townId}
+                      />
                     )}
                     <FormControl.ErrorMessage>
                       {errors.suburb?.message}
