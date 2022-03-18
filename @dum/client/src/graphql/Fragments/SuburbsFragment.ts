@@ -3,8 +3,8 @@ import { graphql } from "react-relay/hooks";
 export default graphql`
   fragment SuburbsFragment_suburbs on Query
   @refetchable(queryName: "SuburbsRefetchableQuery")
-  @argumentDefinitions(townId: { type: "UUID" }, search: { type: "String" }) {
-    suburbsBySearch(townId: $townId, search: $search) {
+  @argumentDefinitions(townId: { type: "UUID" }) {
+    suburbsBySearch(townId: $townId) {
       edges {
         node {
           id
