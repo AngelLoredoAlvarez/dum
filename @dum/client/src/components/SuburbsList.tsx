@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, Text, VStack } from "native-base";
+import { Input, Popover, Pressable, ScrollView, Text } from "native-base";
 import * as React from "react";
 import { useRefetchableFragment } from "react-relay/hooks";
 
@@ -6,7 +6,6 @@ import type { SuburbsFragment_suburbs$key } from "../graphql/Fragments/__generat
 import SuburbsFragment from "../graphql/Fragments/SuburbsFragment";
 
 interface SuburbsListProps {
-  search: string;
   suburbs: SuburbsFragment_suburbs$key;
   townId: any;
 }
@@ -18,19 +17,34 @@ function SuburbsList(props: SuburbsListProps) {
   );
 
   React.useEffect(() => {
-    refetch({ townId: props.townId, search: props.search });
-  }, [props.search, props.townId, refetch]);
+    refetch({ townId: props.townId });
+  }, [props.townId, refetch]);
 
   return (
-    <VStack h={"1%"} w={"100%"}>
-      <ScrollView borderWidth={1}>
-        {data.suburbsBySearch.edges.map(({ node }) => (
-          <Pressable key={node.id}>
-            <Text>{node.name}</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
-    </VStack>
+    <Popover
+      trigger={(triggerProps) => (
+        <Pressable {...triggerProps}>
+          <Input
+            _focus={{
+              borderColor: "yellow.400",
+            }}
+            autoComplete={"off"}
+            placeholder={"Buscar..."}
+          />
+        </Pressable>
+      )}
+    >
+      <Popover.Content>
+        <Popover.Arrow />
+        <Popover.Body>
+          <ScrollView maxW="300" h="80">
+            {data.suburbsBySearch.edges.map(({ node }) => (
+              <Text key={node.id}>{node.name}</Text>
+            ))}
+          </ScrollView>
+        </Popover.Body>
+      </Popover.Content>
+    </Popover>
   );
 }
 
