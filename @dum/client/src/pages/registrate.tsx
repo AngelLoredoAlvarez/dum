@@ -8,8 +8,6 @@ import {
   HStack,
   Input,
   Link,
-  Popover,
-  Pressable,
   ScrollView,
   Select,
   Stack,
@@ -26,7 +24,6 @@ import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
-import SuburbsList from "../components/SuburbsList";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -508,19 +505,7 @@ function RegisterPage({
                     {townId === "" ? (
                       <Input isDisabled={true} placeholder={"Buscar..."} />
                     ) : (
-                      <Controller
-                        control={control}
-                        name={"suburb"}
-                        render={({ field: { onBlur, onChange, value } }) => (
-                          <Input
-                            autoComplete="off"
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            placeholder="Buscar..."
-                            value={value}
-                          />
-                        )}
-                      />
+                      <Input autoComplete="off" placeholder="Buscar..." />
                     )}
                     <FormControl.ErrorMessage>
                       {errors.suburb?.message}
