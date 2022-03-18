@@ -4,7 +4,7 @@ export default graphql`
   fragment SuburbsFragment_suburbs on Query
   @refetchable(queryName: "SuburbsRefetchableQuery")
   @argumentDefinitions(townId: { type: "UUID" }) {
-    suburbsBySearch(townId: $townId) {
+    suburbsByTownId(townId: $townId) {
       edges {
         node {
           id
