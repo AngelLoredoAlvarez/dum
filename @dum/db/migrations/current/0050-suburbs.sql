@@ -40,5 +40,5 @@ create or replace function dum_public.suburbs_by_town_id(town_id uuid default nu
 $$ language sql stable;
 
 -- Inserts the default suburbs associated to a specific town
-insert into dum_public.suburbs(name, town_id, zip_code) values('CENTRO', '84673058-eca2-42b1-bd94-84b1ece47c0c', '79610'),
-                                                              ('CENTRO', '0adb7363-baf9-4fb1-aeb8-18977861bd1b', '79650');
+insert into dum_public.suburbs(id, name, town_id, zip_code) values('c5ef579f-61d5-4441-82a5-108247ec4058', 'CENTRO', '84673058-eca2-42b1-bd94-84b1ece47c0c', '79610'),
+                                                                  ('a86ee345-7012-4eb4-b97c-7513ea7be919', 'CENTRO', '0adb7363-baf9-4fb1-aeb8-18977861bd1b', '79650');
