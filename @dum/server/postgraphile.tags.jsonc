@@ -182,6 +182,11 @@
         "tags": {
           "omit": "all"
         }
+      },
+      "dum_public.streets": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
