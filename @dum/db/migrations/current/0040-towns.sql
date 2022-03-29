@@ -28,5 +28,5 @@ create trigger _100_timestamps
   execute procedure dum_private.tg__timestamps();
 
 -- Inserts the Default Values in the dum_public.towns table
-insert into dum_public.towns(id, name) values('84673058-eca2-42b1-bd94-84b1ece47c0c', 'Rioverde'),
-                                             ('0adb7363-baf9-4fb1-aeb8-18977861bd1b', 'Ciudad Fernández');
+insert into dum_public.towns(id, name) values('84673058-eca2-42b1-bd94-84b1ece47c0c', 'RIOVERDE'),
+                                             ('0adb7363-baf9-4fb1-aeb8-18977861bd1b', 'CIUDAD FERNANDEZ');
