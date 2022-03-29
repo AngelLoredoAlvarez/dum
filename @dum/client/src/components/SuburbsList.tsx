@@ -7,6 +7,7 @@ import SuburbsFragment from "../graphql/Fragments/SuburbsFragment";
 
 interface SuburbsListProps {
   selectedValue: string;
+  setSuburbId: (suburbId: any) => void;
   setValue: (field: string, value: string) => void;
   suburbs: SuburbsFragment_suburbs$key;
   townId: any;
@@ -27,6 +28,7 @@ function SuburbsList(props: SuburbsListProps) {
       defaultValue={""}
       onValueChange={(value: string) => {
         props.setValue("suburb", value);
+        props.setSuburbId(value);
       }}
       placeholder={"Selecciona..."}
       selectedValue={props.selectedValue}
