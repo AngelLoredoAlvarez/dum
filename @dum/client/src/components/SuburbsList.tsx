@@ -1,4 +1,4 @@
-import { Input, Popover, Pressable, ScrollView, Text } from "native-base";
+import { Select } from "native-base";
 import * as React from "react";
 import { useRefetchableFragment } from "react-relay/hooks";
 
@@ -6,6 +6,8 @@ import type { SuburbsFragment_suburbs$key } from "../graphql/Fragments/__generat
 import SuburbsFragment from "../graphql/Fragments/SuburbsFragment";
 
 interface SuburbsListProps {
+  selectedValue: string;
+  setValue: (field: string, value: string) => void;
   suburbs: SuburbsFragment_suburbs$key;
   townId: any;
 }
@@ -21,30 +23,22 @@ function SuburbsList(props: SuburbsListProps) {
   }, [props.townId, refetch]);
 
   return (
-    <Popover
-      trigger={(triggerProps) => (
-        <Pressable {...triggerProps}>
-          <Input
-            _focus={{
-              borderColor: "yellow.400",
-            }}
-            autoComplete={"off"}
-            placeholder={"Buscar..."}
-          />
-        </Pressable>
-      )}
+    <Select
+      defaultValue={""}
+      onValueChange={(value: string) => {
+        props.setValue("suburb", value);
+      }}
+      placeholder={"Selecciona..."}
+      selectedValue={props.selectedValue}
     >
-      <Popover.Content>
-        <Popover.Arrow />
-        <Popover.Body>
-          <ScrollView maxW="300" h="80">
-            {data.suburbsByTownId.edges.map(({ node }) => (
-              <Text key={node.id}>{node.name}</Text>
-            ))}
-          </ScrollView>
-        </Popover.Body>
-      </Popover.Content>
-    </Popover>
+      {data.suburbsByTownId.edges.map(({ node }) => (
+        <Select.Item
+          key={node.id}
+          label={node.name}
+          value={node.rowId.toString()}
+        />
+      ))}
+    </Select>
   );
 }
 
