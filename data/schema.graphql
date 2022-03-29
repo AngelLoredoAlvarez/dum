@@ -1578,6 +1578,7 @@ type Query implements Node {
     based pagination. May not be used with `last`.
     """
     offset: Int
+    search: String
     townId: UUID
   ): SuburbsConnection
   town(rowId: UUID!): Town
