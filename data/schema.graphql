@@ -2240,6 +2240,7 @@ type Suburb implements Node {
   town: Town
   townId: UUID!
   updatedAt: Datetime!
+  zipCode: String
 }
 
 """
