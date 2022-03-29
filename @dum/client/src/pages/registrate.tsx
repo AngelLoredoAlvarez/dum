@@ -111,6 +111,17 @@ function RegisterPage({
     preloadedQuery
   );
 
+  // useState() hook that sets the townId value
+  const [townId, setTownId] = React.useState<any>("");
+
+  // useState() hook that sets the isMounted value
+  const [isMounted, setIsMounted] = React.useState<boolean>(false);
+
+  // useEffect() hook used with the Suspense component
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Handles all that is needed for the Form State
   const {
     control,
@@ -135,15 +146,6 @@ function RegisterPage({
     },
     resolver: yupResolver(RegisterValidationSchema),
   });
-
-  // useState() hook to sets the town value
-  const [townId, setTownId] = React.useState<any>("");
-
-  // Mix of useState() and useEffect() hooks to use Suspense with the useRefetchableFragment hook
-  const [isMounted, setMounted] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Callback that handles the mask of the Exterior Number TextField
   const handleExteriorNumberChange = (val: string) => {
@@ -302,6 +304,7 @@ function RegisterPage({
                             borderColor: "yellow.400",
                           }}
                           autoFocus
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           value={value}
@@ -345,6 +348,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           flex={1}
                           onBlur={onBlur}
                           onChange={onChange}
@@ -382,6 +386,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           value={value}
@@ -504,18 +509,30 @@ function RegisterPage({
                   </FormControl.Label>
                   <VStack flex={1}>
                     {townId === "" ? (
-                      <Input isDisabled={true} placeholder={"Buscar..."} />
-                    ) : isMounted ? (
-                      <React.Suspense fallback={<Loading />}>
-                        <SuburbsList
-                          suburbs={registerPageQuery}
-                          townId={townId}
-                        />
-                      </React.Suspense>
+                      <Select isDisabled={true} placeholder={"Selecciona..."} />
                     ) : (
-                      <SuburbsList
-                        suburbs={registerPageQuery}
-                        townId={townId}
+                      <Controller
+                        control={control}
+                        name={"suburb"}
+                        render={({ field: { value } }) =>
+                          isMounted ? (
+                            <React.Suspense fallback={<Loading />}>
+                              <SuburbsList
+                                selectedValue={value}
+                                setValue={setValue}
+                                suburbs={registerPageQuery}
+                                townId={townId}
+                              />
+                            </React.Suspense>
+                          ) : (
+                            <SuburbsList
+                              selectedValue={value}
+                              setValue={setValue}
+                              suburbs={registerPageQuery}
+                              townId={townId}
+                            />
+                          )
+                        }
                       />
                     )}
                     <FormControl.ErrorMessage>
@@ -573,6 +590,7 @@ function RegisterPage({
                             _focus={{
                               borderColor: "yellow.400",
                             }}
+                            autoComplete={"off"}
                             onBlur={onBlur}
                             onChange={onChange}
                             value={value}
@@ -623,6 +641,7 @@ function RegisterPage({
                             _focus={{
                               borderColor: "yellow.400",
                             }}
+                            autoComplete={"off"}
                             onBlur={onBlur}
                             onChange={onChange}
                             onChangeText={(val: string) =>
@@ -672,6 +691,7 @@ function RegisterPage({
                             _focus={{
                               borderColor: "yellow.400",
                             }}
+                            autoComplete={"off"}
                             onBlur={onBlur}
                             onChange={onChange}
                             onChangeText={(val: string) =>
@@ -725,6 +745,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
@@ -769,6 +790,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
@@ -813,6 +835,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           onChangeText={(val: string) =>
@@ -897,6 +920,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           value={value}
@@ -940,6 +964,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           type="password"
@@ -984,6 +1009,7 @@ function RegisterPage({
                           _focus={{
                             borderColor: "yellow.400",
                           }}
+                          autoComplete={"off"}
                           onBlur={onBlur}
                           onChange={onChange}
                           type="password"
