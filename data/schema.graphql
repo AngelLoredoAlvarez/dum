@@ -1513,6 +1513,35 @@ type Query implements Node {
     """
     id: ID!
   ): ShoppingListDetail
+  street(rowId: UUID!): Street
+
+  """Reads a single `Street` using its globally unique `ID`."""
+  streetById(
+    """The globally unique `ID` to be used in selecting a single `Street`."""
+    id: ID!
+  ): Street
+
+  """Reads and enables pagination through a set of `Street`."""
+  streetsBySuburbId(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    suburbId: UUID
+  ): StreetsConnection
 
   """Reads a single `SubDepartment` using its globally unique `ID`."""
   subDepartmentById(
@@ -2107,6 +2136,73 @@ enum ShoppingListsOrderBy {
   USER_ID_DESC
 }
 
+"""A Street registered to allow a user to set their addresses."""
+type Street implements Node {
+  createdAt: Datetime!
+
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+
+  """The name of the suburb."""
+  name: String
+  rowId: UUID!
+
+  """Reads a single `Suburb` that is related to this `Street`."""
+  suburb: Suburb
+  suburbId: UUID!
+  updatedAt: Datetime!
+}
+
+"""
+A condition to be used against `Street` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input StreetCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `suburbId` field."""
+  suburbId: UUID
+}
+
+"""A connection to a list of `Street` values."""
+type StreetsConnection {
+  """
+  A list of edges which contains the `Street` and cursor to aid in pagination.
+  """
+  edges: [StreetsEdge!]!
+
+  """A list of `Street` objects."""
+  nodes: [Street!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Street` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Street` edge in the connection."""
+type StreetsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Street` at the end of the edge."""
+  node: Street!
+}
+
+"""Methods to use when ordering `Street`."""
+enum StreetsOrderBy {
+  ID_ASC
+  ID_DESC
+  NATURAL
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  SUBURB_ID_ASC
+  SUBURB_ID_DESC
+}
+
 """A Sub - Department that belongs to a Main Department."""
 type SubDepartment implements Node {
   createdAt: Datetime!
@@ -2235,6 +2331,35 @@ type Suburb implements Node {
   """The name of the suburb."""
   name: String
   rowId: UUID!
+
+  """Reads and enables pagination through a set of `Street`."""
+  streets(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StreetCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `Street`."""
+    orderBy: [StreetsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StreetsConnection!
 
   """Reads a single `Town` that is related to this `Suburb`."""
   town: Town
