@@ -13,5 +13,6 @@ export default graphql`
       }
     }
     ...SuburbsFragment_suburbs
+    ...StreetsFragment_streets
   }
 `;
