@@ -37,50 +37,41 @@ const acceptTermsAndConditionsRegExp = /\byes\b/g;
 /* Regular Expression for the Yup Schema Validations */
 
 /* Yup Schema Validation */
-const RegisterValidationSchema = Yup.object().shape(
-  {
-    name: Yup.string().required("Ingresa tu Nombre(s)"),
-    firstSurname: Yup.string().required("Ingresa tu Apellido Paterno"),
-    town: Yup.string().required("Selecciona el Municipio"),
-    suburb: Yup.string().required("Selecciona la Colonia"),
-    street: Yup.string().required("Ingresa la Calle"),
-    exteriorNumber: Yup.string().required("Ingresa el Número Exterior"),
-    firstNumber: Yup.string().when(["secondNumber", "thirdNumber"], {
-      is: (secondNumber, thirdNumber) => !secondNumber && !thirdNumber,
-      then: Yup.string()
-        .required("Ingresa un Número de Contacto")
-        .matches(phoneRegExp, "Ingresa un Número Teléfonico valido"),
+const RegisterValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Ingresa tu Nombre(s)"),
+  firstSurname: Yup.string().required("Ingresa tu Apellido Paterno"),
+  town: Yup.string().required("Selecciona el Municipio"),
+  suburb: Yup.string().required("Selecciona la Colonia"),
+  street: Yup.string().required("Ingresa la Calle"),
+  exteriorNumber: Yup.string().required("Ingresa el Número Exterior"),
+  firstNumber: Yup.string()
+    .required("Ingresa un Número de Contacto")
+    .matches(phoneRegExp, "Ingresa un Número Teléfonico valido"),
+  secondNumber: Yup.string()
+    .required("Ingresa un Número de Contacto")
+    .matches(phoneRegExp, "Ingresa un Número Teléfonico valido"),
+  thirdNumber: Yup.string()
+    .notRequired()
+    .matches(phoneRegExp, {
+      message: "Ingresa un Número Teléfonico valido",
+      excludeEmptyString: true,
     }),
-    secondNumber: Yup.string().when(["firstNumber", "thirdNumber"], {
-      is: (firstNumber, thirdNumber) => !firstNumber && !thirdNumber,
-      then: Yup.string().required("Ingresa un Número de Contacto"),
-    }),
-    thirdNumber: Yup.string().when(["firstNumber", "secondNumber"], {
-      is: (firstNumber, secondNumber) => !firstNumber && !secondNumber,
-      then: Yup.string().required("Ingresa un Número de Contacto"),
-    }),
-    email: Yup.string()
-      .required("Ingresa un Correo Electrónico")
-      .matches(emailRegExp, "Ingresa un Correo Electrónico Valido"),
-    password: Yup.string()
-      .required("Ingresa una Contraseña")
-      .min(8, "Tu contraseña debe de ser igual o mayor a 8 digitos"),
-    confirmPassword: Yup.string()
-      .required("Confirma tu Contraseña")
-      .oneOf([Yup.ref("password")], "Tus contraseñas no concuerdan"),
-    acceptTermsAndConditions: Yup.string()
-      .required()
-      .matches(
-        acceptTermsAndConditionsRegExp,
-        "Debes aceptar los Teminos y Condiciones"
-      ),
-  },
-  [
-    ["firstNumber", "secondNumber"],
-    ["firstNumber", "thirdNumber"],
-    ["secondNumber", "thirdNumber"],
-  ]
-);
+  email: Yup.string()
+    .required("Ingresa un Correo Electrónico")
+    .matches(emailRegExp, "Ingresa un Correo Electrónico Valido"),
+  password: Yup.string()
+    .required("Ingresa una Contraseña")
+    .min(8, "Tu contraseña debe de ser igual o mayor a 8 digitos"),
+  confirmPassword: Yup.string()
+    .required("Confirma tu Contraseña")
+    .oneOf([Yup.ref("password")], "Tus contraseñas no concuerdan"),
+  acceptTermsAndConditions: Yup.string()
+    .required()
+    .matches(
+      acceptTermsAndConditionsRegExp,
+      "Debes aceptar los Teminos y Condiciones"
+    ),
+});
 /* Yup Schema Validation */
 
 /* Types Definitions for the useForm() hook */
