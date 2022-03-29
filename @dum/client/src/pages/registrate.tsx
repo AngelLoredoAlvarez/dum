@@ -24,6 +24,7 @@ import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import StreetsList from "../components/StreetsList";
 import SuburbsList from "../components/SuburbsList";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
@@ -113,6 +114,9 @@ function RegisterPage({
 
   // useState() hook that sets the townId value
   const [townId, setTownId] = React.useState<any>("");
+
+  // useState() hook that sets the suburbId value
+  const [suburbId, setSuburbId] = React.useState<any>("");
 
   // useState() hook that sets the isMounted value
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
@@ -519,6 +523,7 @@ function RegisterPage({
                             <React.Suspense fallback={<Loading />}>
                               <SuburbsList
                                 selectedValue={value}
+                                setSuburbId={setSuburbId}
                                 setValue={setValue}
                                 suburbs={registerPageQuery}
                                 townId={townId}
@@ -527,6 +532,7 @@ function RegisterPage({
                           ) : (
                             <SuburbsList
                               selectedValue={value}
+                              setSuburbId={setSuburbId}
                               setValue={setValue}
                               suburbs={registerPageQuery}
                               townId={townId}
@@ -582,21 +588,36 @@ function RegisterPage({
                       </Text>
                     </FormControl.Label>
                     <VStack flex={1}>
-                      <Controller
-                        control={control}
-                        name={"street"}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            _focus={{
-                              borderColor: "yellow.400",
-                            }}
-                            autoComplete={"off"}
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            value={value}
-                          />
-                        )}
-                      />
+                      {suburbId === "" ? (
+                        <Select
+                          isDisabled={true}
+                          placeholder={"Selecciona..."}
+                        />
+                      ) : (
+                        <Controller
+                          control={control}
+                          name={"street"}
+                          render={({ field: { value } }) =>
+                            isMounted ? (
+                              <React.Suspense fallback={<Loading />}>
+                                <StreetsList
+                                  selectedValue={value}
+                                  setValue={setValue}
+                                  streets={registerPageQuery}
+                                  suburbId={suburbId}
+                                />
+                              </React.Suspense>
+                            ) : (
+                              <StreetsList
+                                selectedValue={value}
+                                setValue={setValue}
+                                streets={registerPageQuery}
+                                suburbId={suburbId}
+                              />
+                            )
+                          }
+                        />
+                      )}
                       <FormControl.ErrorMessage>
                         {errors.street?.message}
                       </FormControl.ErrorMessage>
