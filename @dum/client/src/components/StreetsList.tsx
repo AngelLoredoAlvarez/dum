@@ -2,13 +2,13 @@ import { Select } from "native-base";
 import * as React from "react";
 import { useRefetchableFragment } from "react-relay/hooks";
 
-import type { StreetsFragment_suburbs$key } from "../graphql/Fragments/__generated__/StreetsFragment_suburbs.graphql";
+import type { StreetsFragment_streets$key } from "../graphql/Fragments/__generated__/StreetsFragment_streets.graphql";
 import StreetsFragment from "../graphql/Fragments/StreetsFragment";
 
 interface StreetsListProps {
   selectedValue: string;
   setValue: (field: string, value: string) => void;
-  streets: StreetsFragment_suburbs$key;
+  streets: StreetsFragment_streets$key;
   suburbId: any;
 }
 
