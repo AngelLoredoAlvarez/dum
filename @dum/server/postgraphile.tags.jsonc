@@ -187,6 +187,16 @@
         "tags": {
           "omit": "all"
         }
+      },
+      "dum_public.user_addresses": {
+        "tags": {
+          "omit": "all"
+        }
+      },
+      "dum_public.user_phone_numbers": {
+        "tags": {
+          "omit": "all"
+        }
       }
     },
     "procedure": {
