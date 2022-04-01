@@ -1,6 +1,6 @@
 /*
- * This function handles logging in a user with their username (or email
- * address) and password.
+ * This function handles logging in a user with their email
+ * address and password.
  *
  * Note that it is not in dum_public; this function is intended to be called
  * with elevated privileges (namely from `PassportLoginPlugin.ts`). The reason
@@ -11,30 +11,26 @@
  * so we only let code call into `login` that we trust to not roll back the
  * transaction afterwards.
  */
-create function dum_private.login(username citext, password text) returns dum_private.sessions as $$
+create function dum_private.login(email citext, password text) returns dum_private.sessions as $$
 declare
   v_user dum_public.users;
   v_user_secret dum_private.user_secrets;
   v_login_attempt_window_duration interval = interval '5 minutes';
   v_session dum_private.sessions;
 begin
-  if username like '%@%' then
-    -- It's an email
-    select users.* into v_user
-    from dum_public.users
-    inner join dum_public.user_emails
-    on (user_emails.user_id = users.id)
-    where user_emails.email = login.username
-    order by
-      user_emails.is_verified desc, -- Prefer verified email
-      user_emails.created_at asc -- Failing that, prefer the first registered (unverified users _should_ verify before logging in)
-    limit 1;
-  else
-    -- It's a username
-    select users.* into v_user
-    from dum_public.users
-    where users.username = login.username;
-  end if;
+  select
+    users.* into v_user
+  from
+    dum_public.users
+  inner join
+    dum_public.user_emails
+  on
+    (user_emails.user_id = users.id)
+  where user_emails.email = login.email
+  order by
+    user_emails.is_verified desc, -- Prefer verified email
+    user_emails.created_at asc -- Failing that, prefer the first registered (unverified users _should_ verify before logging in)
+  limit 1;
 
   if not (v_user is null) then
     -- Load their secrets
@@ -73,11 +69,11 @@ begin
       return null; -- Must not throw otherwise transaction will be aborted and attempts won't be recorded
     end if;
   else
-    -- No user with that email/username was found
+    -- No user with that email was found
     return null;
   end if;
 end;
 $$ language plpgsql strict volatile;
 
-comment on function dum_private.login(username citext, password text) is
-  E'Returns a user that matches the username/password combo, or null on failure.';
+comment on function dum_private.login(email citext, password text) is
+  E'Returns a user that matches the email/password combo, or null on failure.';

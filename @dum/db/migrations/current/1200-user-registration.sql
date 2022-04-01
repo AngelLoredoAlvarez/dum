@@ -4,7 +4,7 @@
  * `installPassportStrategy.ts`, calls link_or_register_user below, which may
  * then call really_create_user). Ultimately `really_create_user` is called in
  * all cases to create a user account within our system, so it must do
- * everything we'd expect in this case including validating username/password,
+ * everything we'd expect in this case including validating email/password,
  * setting the password (if any), storing the email address, etc.
  */
 
@@ -12,7 +12,6 @@ create function dum_private.really_create_user(
   name text,
   first_surname text,
   second_surname text,
-  username citext,
   avatar_url text,
   email text,
   password text default null,
@@ -20,7 +19,6 @@ create function dum_private.really_create_user(
 ) returns dum_public.users as $$
 declare
   v_user dum_public.users;
-  v_username citext = username;
 begin
   if password is not null then
     perform dum_private.assert_valid_password(password);
@@ -35,13 +33,11 @@ begin
     name,
     first_surname,
     second_surname,
-    username,
     avatar_url
   ) values (
     name,
     first_surname,
     second_surname,
-    v_username,
     avatar_url
   ) returning * into v_user;
 
@@ -75,7 +71,7 @@ begin
 end;
 $$ language plpgsql volatile set search_path to pg_catalog, public, pg_temp;
 
-comment on function dum_private.really_create_user(name text, first_surname text, second_surname text, username citext, avatar_url text, email text, password text, email_is_verified bool) is
+comment on function dum_private.really_create_user(name text, first_surname text, second_surname text, avatar_url text, email text, password text, email_is_verified bool) is
   E'Creates a user account. All arguments are optional, it trusts the calling method to perform sanitisation.';
 
 /**********/
@@ -98,7 +94,6 @@ declare
   v_name text;
   v_first_surname text;
   v_second_surname text;
-  v_username citext;
   v_avatar_url text;
   v_email citext;
   v_user_authentication_id uuid;
@@ -107,46 +102,14 @@ begin
   v_name := f_profile ->> 'name';
   v_first_surname := f_profile ->> 'first_surname';
   v_second_surname := f_profile ->> 'second_surname';
-  v_username := f_profile ->> 'username';
   v_avatar_url := f_profile ->> 'avatar_url';
   v_email := f_profile ->> 'email';
-
-  -- Sanitise the username, and make it unique if necessary.
-  if v_username is null then
-    v_username = coalesce(v_name, 'user');
-  end if;
-
-  v_username = regexp_replace(v_username, '^[^a-z]+', '', 'gi');
-  v_username = regexp_replace(v_username, '[^a-z0-9]+', '_', 'gi');
-
-  if v_username is null or length(v_username) < 3 then
-    v_username = 'user';
-  end if;
-
-  select (
-    case
-    when i = 0 then v_username
-    else v_username || i::text
-    end
-  ) into v_username from generate_series(0, 1000) i
-  where not exists(
-    select 1
-    from dum_public.users
-    where users.username = (
-      case
-      when i = 0 then v_username
-      else v_username || i::text
-      end
-    )
-  )
-  limit 1;
 
   -- Create the user account
   v_user = dum_private.really_create_user(
     name => v_name,
     first_surname => v_first_surname,
     second_surname => v_second_surname,
-    username => v_username,
     avatar_url => v_avatar_url,
     email => v_email,
     email_is_verified => f_email_is_verified

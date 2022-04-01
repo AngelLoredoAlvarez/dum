@@ -26,14 +26,12 @@ import type { LoginMutation as LoginMutationTypes } from "../graphql/Mutations/_
 import LoginMutation from "../graphql/Mutations/LoginMutation";
 
 const LoginValidationSchema = Yup.object().shape({
-  useremail: Yup.string().required(
-    "Ingresa tu Nombre de Usuario y/o Correo Electrónico"
-  ),
+  email: Yup.string().required("Ingresa tu Correo Electrónico"),
   password: Yup.string().required("Ingresa tu Contraseña"),
 });
 
 interface LoginPageProps {
-  useremail: string;
+  email: string;
   password: string;
 }
 
@@ -44,7 +42,7 @@ function LoginForm() {
     formState: { errors },
   } = useForm<LoginPageProps>({
     defaultValues: {
-      useremail: "",
+      email: "",
       password: "",
     },
     resolver: yupResolver(LoginValidationSchema),
@@ -70,7 +68,7 @@ function LoginForm() {
     }
   }, [router]);
 
-  const onSubmit = ({ useremail, password }) => {
+  const onSubmit = ({ email, password }) => {
     login({
       onCompleted: (response, apiErrors) => {
         if (response.login) {
@@ -84,7 +82,7 @@ function LoginForm() {
       onError: () => {},
       variables: {
         LoginInput: {
-          username: useremail,
+          email: email,
           password: password,
         },
       },
@@ -133,13 +131,11 @@ function LoginForm() {
             </Center>
           </Stack>
           <VStack space={3} mt="5">
-            <FormControl isInvalid={errors.useremail?.message && true}>
-              <FormControl.Label>
-                Nombre de Usuario y/o Correo Electrónico:
-              </FormControl.Label>
+            <FormControl isInvalid={errors.email?.message && true}>
+              <FormControl.Label>Correo Electrónico:</FormControl.Label>
               <Controller
                 control={control}
-                name={"useremail"}
+                name={"email"}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
                     _focus={{
@@ -153,7 +149,7 @@ function LoginForm() {
                 )}
               />
               <FormControl.ErrorMessage>
-                {errors.useremail?.message}
+                {errors.email?.message}
               </FormControl.ErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors.password?.message && true}>

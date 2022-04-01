@@ -99,7 +99,7 @@ async function runCommand(
 ): Promise<object | null> {
   if (command === "clearTestUsers") {
     await rootPgPool.query(
-      "delete from dum_public.users where username like 'testuser%'"
+      "delete from dum_public.users where name like '%test%'"
     );
     return { success: true };
   } else if (command === "createUser") {
@@ -107,18 +107,16 @@ async function runCommand(
       throw new Error("Payload required");
     }
     const {
-      username = "testuser",
-      email = `${username}@example.com`,
+      email = "test_email@example.com",
       verified = false,
-      name = username,
+      name = "test",
       avatarUrl = null,
       password = "TestUserPassword",
     } = payload;
-    if (!username.startsWith("testuser")) {
-      throw new Error("Test user usernames may only start with 'testuser'");
+    if (!email.startsWith("test_email")) {
+      throw new Error("Test user email may only start with 'test_email'");
     }
     const user = await reallyCreateUser(rootPgPool, {
-      username,
       email,
       verified,
       name,
@@ -136,17 +134,15 @@ async function runCommand(
     return { user, userEmailId, verificationToken };
   } else if (command === "login") {
     const {
-      username = "testuser",
-      email = `${username}@example.com`,
+      email = "test_email@example.com",
       verified = false,
-      name = username,
+      name = "test",
       avatarUrl = null,
       password = "TestUserPassword",
       next = "/",
       orgs = [],
     } = payload;
     const user = await reallyCreateUser(rootPgPool, {
-      username,
       email,
       verified,
       name,
@@ -154,9 +150,8 @@ async function runCommand(
       password,
     });
     const otherUser = await reallyCreateUser(rootPgPool, {
-      username: "testuser_other",
-      email: "testuser_other@example.com",
       name: "testuser_other",
+      email: "testuser_other@example.com",
       verified: true,
       password: "DOESNT MATTER",
     });
@@ -175,13 +170,11 @@ async function runCommand(
       try {
         await setSession(session);
         await Promise.all(
-          orgs.map(
-            async ([, , owner = true]: [string, string, boolean?]) => {
-              if (!owner) {
-                await setSession(otherSession);
-              }
+          orgs.map(async ([, , owner = true]: [string, string, boolean?]) => {
+            if (!owner) {
+              await setSession(otherSession);
             }
-          )
+          })
         );
       } finally {
         await client.query("commit");
@@ -212,7 +205,6 @@ async function reallyCreateUser(
     name,
     firstSurname,
     secondSurname,
-    username,
     avatarUrl,
     email,
     password,
@@ -221,7 +213,6 @@ async function reallyCreateUser(
     name?: string;
     firstSurname?: string;
     secondSurname?: string;
-    username?: string;
     avatarUrl?: string;
     email?: string;
     password?: string;
@@ -235,22 +226,12 @@ async function reallyCreateUser(
         name := $1,
         first_surname: := $2,
         second_surname := $3,
-        username := $4,
-        avatar_url := $5,
-        email := $6,
-        password := $7,
-        email_is_verified := $8
+        avatar_url := $4,
+        email := $5,
+        password := $6,
+        email_is_verified := $7
       )`,
-    [
-      name,
-      firstSurname,
-      secondSurname,
-      username,
-      avatarUrl,
-      email,
-      password,
-      verified
-    ]
+    [name, firstSurname, secondSurname, avatarUrl, email, password, verified]
   );
   return user;
 }

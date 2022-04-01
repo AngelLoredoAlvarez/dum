@@ -13,7 +13,6 @@ create table dum_public.users (
   name text,
   first_surname text,
   second_surname text,
-  username citext not null unique check(length(username) >= 2 and length(username) <= 24 and username ~ '^[a-zA-Z]([_]?[a-zA-Z0-9])+$'),
   avatar_url text check(avatar_url ~ '^$|^https?://[^/]+'),
   is_admin boolean not null default false,
   is_verified boolean not null default false,
@@ -33,7 +32,7 @@ create policy select_all on dum_public.users for select using (true);
 create policy update_self on dum_public.users for update using (id = dum_public.current_user_id());
 grant select on dum_public.users to :DATABASE_VISITOR;
 -- NOTE: `insert` is not granted, because we'll handle that separately
-grant update(username, name, avatar_url) on dum_public.users to :DATABASE_VISITOR;
+grant update(name, first_surname, second_surname, avatar_url) on dum_public.users to :DATABASE_VISITOR;
 -- NOTE: `delete` is not granted, because we require confirmation via request_account_deletion/confirm_account_deletion
 
 comment on table dum_public.users is
@@ -41,10 +40,12 @@ comment on table dum_public.users is
 
 comment on column dum_public.users.id is
   E'Unique identifier for the user.';
-comment on column dum_public.users.username is
-  E'Public-facing username (or ''handle'') of the user.';
 comment on column dum_public.users.name is
-  E'Public-facing name (or pseudonym) of the user.';
+  E'The name of the user.';
+comment on column dum_public.users.name is
+  E'The First Surname of the user.';
+comment on column dum_public.users.name is
+  E'The Second Surname of the user.';
 comment on column dum_public.users.avatar_url is
   E'Optional avatar URL.';
 comment on column dum_public.users.is_admin is
@@ -108,7 +109,7 @@ comment on function dum_private.tg_user_secrets__insert_with_user() is
   E'Ensures that every user record has an associated user_secret record.';
 
 /*
- * Because you can register with username/password or using OAuth (social
+ * Because you can register with email/password or using OAuth (social
  * login), we need a way to tell the user whether or not they have a
  * password. This is to help the UI display the right interface: change
  * password or set password.

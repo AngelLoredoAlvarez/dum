@@ -1,5 +1,5 @@
 /*
- * In addition to logging in with username/email and password, users may use
+ * In addition to logging in with email and password, users may use
  * other authentication methods, such as "social login" (OAuth) with GitHub,
  * Twitter, Facebook, etc. We store details of these logins to the
  * user_authentications and user_authentication_secrets tables.

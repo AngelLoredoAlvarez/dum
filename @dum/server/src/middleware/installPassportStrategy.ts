@@ -13,7 +13,6 @@ interface DbSession {
 export interface UserSpec {
   id: string;
   displayName: string;
-  username: string;
   avatarUrl?: string;
   email: string;
   profile?: any;
@@ -123,7 +122,6 @@ export default (
               service,
               userInformation.id,
               JSON.stringify({
-                username: userInformation.username,
                 avatar_url: userInformation.avatarUrl,
                 email: userInformation.email,
                 name: userInformation.displayName,
