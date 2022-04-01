@@ -26,7 +26,6 @@ type Chainable<Subject = any> = Cypress.Chainable<Subject>;
 
 type User = {
   id: string;
-  username: string;
   name: string;
   is_admin: boolean;
   is_verified: boolean;
@@ -37,7 +36,7 @@ function getCy(cyName: string): Chainable<JQuery<HTMLElement>> {
 }
 
 /**
- * Deletes all users with username starting 'test'.
+ * Deletes all users with name starting 'test'.
  */
 function serverCommand(command: "clearTestUsers"): Chainable<{
   success: true;
@@ -49,17 +48,15 @@ function serverCommand(command: "clearTestUsers"): Chainable<{
  *
  * Default values:
  *
- * - username: `testuser`
- * - email: `${username}@example.com`
+ * - email: "test_email@example.com"
  * - verified: false
- * - name: `${username}`
+ * - name: "test"
  * - password: `TestUserPassword`
  * - next: `/`
  */
 function serverCommand(
   command: "createUser",
   payload: {
-    username?: string;
     email?: string;
     verified?: boolean;
     name?: string;
@@ -97,7 +94,6 @@ function serverCommand(command: string, payload?: any): any {
 
 function login(payload?: {
   next?: string;
-  username?: string;
   name?: string;
   verified?: boolean;
   password?: string;

@@ -81,8 +81,6 @@ export function sanitize(json: any): any {
         result[k] = mask(result[k], "nodeId");
       } else if (k === "email" && typeof json[k] === "string") {
         result[k] = mask(result[k], "email");
-      } else if (k === "username" && typeof json[k] === "string") {
-        result[k] = mask(result[k], "username");
       } else {
         result[k] = sanitize(json[k]);
       }

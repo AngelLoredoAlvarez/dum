@@ -7,7 +7,6 @@ export async function reallyCreateUser(
   name: string | null,
   first_surname: string | null,
   second_surname: string | null,
-  username: string | null,
   avatarUrl: string | null,
   email: string | null,
   password: string | null,
@@ -21,18 +20,16 @@ export async function reallyCreateUser(
         name => $1,
         first_surname => $2,
         second_surname => $3,
-        username => $4,
-        avatar_url => $5,
-        email => $6,
-        password => $7,
-        email_is_verified => $8
+        avatar_url => $4,
+        email => $5,
+        password => $6,
+        email_is_verified => $7
       ) new_user
       `,
     [
       name,
       first_surname,
       second_surname,
-      username,
       avatarUrl,
       email,
       password,
@@ -50,7 +47,6 @@ test("can register user with a password", () =>
       "test",
       "test_first_surname",
       "test_second_surname",
-      "test_username",
       "http://example.com",
       "testuser@example.com",
       "SuperSecurePassword1"
@@ -67,7 +63,6 @@ test("can register user with a password", () =>
         "name": "test",
         "second_surname": "test_second_surname",
         "updated_at": "[DATE]",
-        "username": "test_username",
       }
     `);
   }));
@@ -79,7 +74,6 @@ test("cannot register with a weak password", () =>
       "test",
       "test_first_surname",
       "test_second_surname",
-      "test_username",
       "http://example.com",
       "testuser@example.com",
       "WEAK"
@@ -90,7 +84,7 @@ test("cannot register with a weak password", () =>
     await expect(promise).rejects.toHaveProperty("code", "WEAKP");
   }));
 
-test("can register user with just a username and email", () =>
+test("can register user with just an email", () =>
   withRootDb(async (client) => {
     // Normally PassportLoginPlugin will call this SQL function directly.
     const user = await reallyCreateUser(
@@ -98,7 +92,6 @@ test("can register user with just a username and email", () =>
       null,
       null,
       null,
-      "test_username",
       null,
       "testuser@example.com",
       null
@@ -115,7 +108,6 @@ test("can register user with just a username and email", () =>
         "name": null,
         "second_surname": null,
         "updated_at": "[DATE]",
-        "username": "test_username",
       }
     `);
   }));

@@ -5,7 +5,7 @@ context("Verify email", () => {
   it("can open verification link", () => {
     // Setup
     cy.serverCommand("createUser", {
-      username: "testuser",
+      email: "test_email@example.com",
     }).as("createUserResult");
 
     // Action

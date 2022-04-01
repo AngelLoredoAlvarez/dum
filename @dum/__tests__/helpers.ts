@@ -9,7 +9,6 @@ export const TEST_DATABASE_URL: string = process.env.TEST_DATABASE_URL;
 
 export type User = {
   id: string;
-  username: string;
   _password?: string;
   _email?: string;
 };
@@ -44,9 +43,7 @@ export const deleteTestUsers = () => {
   return pool.query(
     `
       delete from dum_public.users
-      where username like 'testuser%'
-      or username = 'testuser'
-      or id in
+      where id in
         (
           select user_id from dum_public.user_emails where email like 'testuser%@example.com'
         union
@@ -109,17 +106,15 @@ export const createUsers = async function createUsers(
           name := $1,
           first_surname := $2,
           second_surname := $3,
-          username := $4,
-          avatar_url := $5,
-          email := $6,
-          password := $7,
-          email_is_verified := $8
+          avatar_url := $4,
+          email := $5,
+          password := $6,
+          email_is_verified := $7
       )`,
         [
           "test_name",
           "test_first_surname",
           "test_second_surname",
-          `testuser_${userLetter}`,
           null,
           email,
           password,

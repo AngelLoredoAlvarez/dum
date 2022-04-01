@@ -37,12 +37,10 @@ describe("when account doesn't already exist", () => {
           email: "github.user.123456@example.com",
           name: "GitHub User123456",
           avatar_url: "http://example.com/avatar.jpg",
-          username: "GHU123",
         },
         {}
       );
       expect(user).toBeTruthy();
-      expect(user.username).toEqual("GHU123");
       expect(user.name).toEqual("GitHub User123456");
       expect(user.avatar_url).toEqual("http://example.com/avatar.jpg");
       expect(user.is_admin).toEqual(false);
@@ -58,7 +56,6 @@ describe("when account doesn't already exist", () => {
           "name": "GitHub User123456",
           "second_surname": null,
           "updated_at": "[DATE]",
-          "username": "GHU123",
         }
       `);
     }));
@@ -76,7 +73,6 @@ describe("when account doesn't already exist", () => {
         {}
       );
       expect(user).toBeTruthy();
-      expect(user.username).toMatch(/^user(?:[1-9][0-9]+)?$/);
       expect(user.name).toEqual(null);
       expect(user.avatar_url).toEqual(null);
       expect(user.is_admin).toEqual(false);

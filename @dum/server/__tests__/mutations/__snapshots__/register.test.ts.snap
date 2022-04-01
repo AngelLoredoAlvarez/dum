@@ -12,7 +12,6 @@ Object {
         "name": "Test Name",
         "rowId": "[id-1]",
         "updatedAt": "[timestamp-1]",
-        "username": "[username-1]",
       },
     },
   },

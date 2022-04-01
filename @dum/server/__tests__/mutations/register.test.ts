@@ -18,7 +18,6 @@ test("Register", async () => {
       $name: String!,
       $firstSurname: String!,
       $secondSurname: String,
-      $username: String!,
       $avatarUrl: String,
       $email: String!,
       $password: String!
@@ -28,7 +27,6 @@ test("Register", async () => {
           name: $name
           firstSurname: $firstSurname
           secondSurname: $secondSurname
-          username: $username
           avatarUrl: $avatarUrl
           email: $email
           password: $password
@@ -42,7 +40,6 @@ test("Register", async () => {
           isAdmin
           isVerified
           updatedAt
-          username
         }
       }
     }
@@ -53,7 +50,6 @@ test("Register", async () => {
       name: "Test Name",
       firstSurname: "testFirstSurname",
       secondSurname: "testSecondSurname",
-      username: "testuser",
       email: "test.user@example.org",
       password: "SECURE_PASSWORD",
     },
@@ -78,7 +74,6 @@ test("Register", async () => {
           "name": "Test Name",
           "rowId": "[id-1]",
           "updatedAt": "[timestamp-1]",
-          "username": "[username-1]",
         }
       `);
       const id = json.data!.register.user.rowId;
@@ -92,7 +87,7 @@ test("Register", async () => {
       if (rows.length !== 1) {
         throw new Error("User not found!");
       }
-      expect(rows[0].username).toEqual(json.data!.register.user.username);
+      expect(rows[0].name).toEqual(json.data!.register.user.name);
     }
   );
 });

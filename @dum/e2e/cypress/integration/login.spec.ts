@@ -8,17 +8,16 @@ context("Login", () => {
   it("can log in", () => {
     // Setup
     cy.serverCommand("createUser", {
-      username: "testuser",
       name: "Test User",
       verified: true,
       password: PASSWORD,
     });
     cy.visit(Cypress.env("ROOT_URL") + "/login");
-    cy.getCy("loginpage-button-withusername").click();
+    cy.getCy("loginpage-button-withemail").click();
     cy.getCy("header-login-button").should("not.exist"); // No login button on login page
 
     // Action
-    cy.getCy("loginpage-input-username").type("testuser");
+    cy.getCy("loginpage-input-email").type("testuser");
     cy.getCy("loginpage-input-password").type(PASSWORD);
     cy.getCy("loginpage-button-submit").click();
 
@@ -31,21 +30,20 @@ context("Login", () => {
   it("fails on bad password", () => {
     // Setup
     cy.serverCommand("createUser", {
-      username: "testuser",
       name: "Test User",
       verified: true,
       password: PASSWORD,
     });
     cy.visit(Cypress.env("ROOT_URL") + "/login");
-    cy.getCy("loginpage-button-withusername").click();
+    cy.getCy("loginpage-button-withemail").click();
 
     // Action
-    cy.getCy("loginpage-input-username").type("testuser");
+    cy.getCy("loginpage-input-name").type("test");
     cy.getCy("loginpage-input-password").type(PASSWORD + "!");
     cy.getCy("loginpage-button-submit").click();
 
     // Assertion
-    cy.contains("Incorrect username or passphrase").should("exist");
+    cy.contains("Incorrect email or passphrase").should("exist");
     cy.url().should("equal", Cypress.env("ROOT_URL") + "/login"); // Should be on login page still
     cy.getCy("header-login-button").should("not.exist"); // No login button on login page
     cy.getCy("layout-dropdown-user").should("not.exist"); // Should not be logged in

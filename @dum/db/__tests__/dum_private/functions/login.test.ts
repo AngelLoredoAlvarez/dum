@@ -5,59 +5,25 @@ import { reallyCreateUser } from "./really_create_user.test";
 
 export async function login(
   client: PoolClient,
-  username: string | null,
+  email: string | null,
   password: string | null
 ) {
   const {
     rows: [row],
   } = await client.query(`select * from dum_private.login($1, $2)`, [
-    username,
+    email,
     password,
   ]);
   return row;
 }
 
-const USERNAME = "username";
-const EMAIL = `${USERNAME}@example.com`;
-const EmAiL = `${USERNAME}@eXaMpLe.cOm`;
-const UsErNaMe = "uSeRnAmE";
+const EMAIL = "email@example.com";
+const EmAiL = "email@eXaMpLe.cOm";
 const PASSWORD = "!TestPassword!";
 
 async function setupTestUser(client: PoolClient) {
-  return reallyCreateUser(client, null, null, null, USERNAME, null, EMAIL, PASSWORD);
+  return reallyCreateUser(client, null, null, null, null, EMAIL, PASSWORD);
 }
-
-it("can login with username+password", () =>
-  withRootDb(async (client) => {
-    const testUser = await setupTestUser(client);
-    const session = await login(client, USERNAME, PASSWORD);
-    expect(session).toBeTruthy();
-    expect(session.user_id).toEqual(testUser.id);
-    expect(snapshotSafe(session)).toMatchInlineSnapshot(`
-      Object {
-        "created_at": "[DATE]",
-        "last_active": "[DATE]",
-        "user_id": "[ID]",
-        "uuid": "[UUID]",
-      }
-    `);
-  }));
-
-it("can login with uSeRnAmE+password", () =>
-  withRootDb(async (client) => {
-    const testUser = await setupTestUser(client);
-    const session = await login(client, UsErNaMe, PASSWORD);
-    expect(session).toBeTruthy();
-    expect(session.user_id).toEqual(testUser.id);
-    expect(snapshotSafe(session)).toMatchInlineSnapshot(`
-      Object {
-        "created_at": "[DATE]",
-        "last_active": "[DATE]",
-        "user_id": "[ID]",
-        "uuid": "[UUID]",
-      }
-    `);
-  }));
 
 it("can login with email+password", () =>
   withRootDb(async (client) => {
@@ -103,10 +69,10 @@ it("cannot login with wrong password", () =>
 it("prevents too many login attempts", () =>
   withRootDb(async (client) => {
     await setupTestUser(client);
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
-    const promise = login(client, USERNAME, PASSWORD);
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
+    const promise = login(client, EMAIL, PASSWORD);
     expect(promise).rejects.toThrowErrorMatchingInlineSnapshot(
       `"User account locked - too many login attempts. Try again after 5 minutes."`
     );
@@ -116,9 +82,9 @@ it("prevents too many login attempts", () =>
 it("too many login attempts resets after 5 minutes", () =>
   withRootDb(async (client) => {
     const testUser = await setupTestUser(client);
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
-    await login(client, USERNAME, "WRONG" + PASSWORD).catch(() => {});
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
+    await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
     // Too many attempts
     const {
       rows: [secrets],
@@ -153,7 +119,7 @@ it("too many login attempts resets after 5 minutes", () =>
       [testUser.id]
     );
 
-    const session = await login(client, USERNAME, PASSWORD);
+    const session = await login(client, EMAIL, PASSWORD);
     expect(session).toBeTruthy();
     expect(session.user_id).toEqual(testUser.id);
   }));
