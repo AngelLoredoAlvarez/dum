@@ -39,5 +39,5 @@ create or replace function dum_public.streets_by_suburb_id(suburb_id uuid defaul
 $$ language sql stable;
 
 -- Inserts MOCK data in the dum_public.streets DELETE BEFORE LAUNCH TO PROD!!!!!
-insert into dum_public.streets(name, suburb_id) values('MORELOS', 'c5ef579f-61d5-4441-82a5-108247ec4058'),
-                                                      ('MORELOS', 'a86ee345-7012-4eb4-b97c-7513ea7be919');
+insert into dum_public.streets(id, name, suburb_id) values('be283c11-e280-43c8-bb58-797c53903821', 'MORELOS', 'c5ef579f-61d5-4441-82a5-108247ec4058'),
+                                                          ('cefdbfd5-b01e-4ddd-ac32-f88ad675628a', 'MORELOS', 'a86ee345-7012-4eb4-b97c-7513ea7be919');
