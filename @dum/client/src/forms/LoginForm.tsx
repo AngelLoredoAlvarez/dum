@@ -57,13 +57,17 @@ function LoginForm() {
   const handleError = useErrorHandler();
 
   const redirectOnLogin = React.useCallback(() => {
-    if (router.query.next.includes("ultimo-producto-agregado")) {
-      router.push(
-        `${router.query.next}?product_id=${router.query.product_id}&quantity=${router.query.quantity}`,
-        `${router.query.next}`
-      );
+    if (router.query.hasOwnProperty("next")) {
+      if (router.query.next.includes("ultimo-producto-agregado")) {
+        router.push(
+          `${router.query.next}?product_id=${router.query.product_id}&quantity=${router.query.quantity}`,
+          `${router.query.next}`
+        );
+      } else {
+        router.push(`${router.query.next}`);
+      }
     } else {
-      router.push(`${router.query.next}`);
+      router.push("/");
     }
   }, [router]);
 
