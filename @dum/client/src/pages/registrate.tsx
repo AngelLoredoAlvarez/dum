@@ -14,6 +14,7 @@ import {
   Text,
   VStack,
 } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { mask } from "react-native-mask-text";
@@ -169,10 +170,31 @@ function RegisterPage({
       setValue("thirdNumber", formatedText);
   };
 
+  const router = useRouter();
+
+  // Callback that will Redirect the user after a correct Registation
+  const redirectAfterRegister = React.useCallback(() => {
+    if (router.query.next.includes("ultimo-producto-agregado")) {
+      router.push(
+        `${router.query.next}?&product_id=${router.query.product_id}&quantity=${router.query.quantity}`
+      );
+    } else {
+      router.push(`${router.query.next}`);
+    }
+  }, [router]);
+
   // Callback that will handle the Submit of the Form
   const onSubmit = (data: UseFormProps) => {
     register({
-      onCompleted: () => {},
+      onCompleted: (response, apiErrors) => {
+        if (response.register) {
+          if (response.register.user) {
+            redirectAfterRegister();
+          }
+        } else {
+          console.log(apiErrors);
+        }
+      },
       onError: () => {},
       variables: {
         RegisterInput: {
