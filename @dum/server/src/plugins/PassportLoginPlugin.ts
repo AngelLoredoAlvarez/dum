@@ -6,12 +6,20 @@ import { ERROR_MESSAGE_OVERRIDES } from "../utils/handleErrors";
 const PassportLoginPlugin = makeExtendSchemaPlugin((build) => ({
   typeDefs: gql`
     input RegisterInput {
-      name: String!
-      firstSurname: String!
+      name: String
+      firstSurname: String
       secondSurname: String
+      townId: String
+      suburbId: String
+      streetId: String
+      exteriorNumber: String
+      interiorNumber: String
+      phoneOne: String
+      phoneTwo: String
+      phoneThree: String
       avatarUrl: String
-      email: String!
-      password: String!
+      email: String
+      password: String
     }
 
     type RegisterPayload {
@@ -94,6 +102,14 @@ const PassportLoginPlugin = makeExtendSchemaPlugin((build) => ({
           name,
           firstSurname,
           secondSurname,
+          townId,
+          suburbId,
+          streetId,
+          exteriorNumber,
+          interiorNumber,
+          phoneOne,
+          phoneTwo,
+          phoneThree,
           avatarUrl,
           email,
           password,
@@ -110,9 +126,17 @@ const PassportLoginPlugin = makeExtendSchemaPlugin((build) => ({
                 name => $1,
                 first_surname => $2,
                 second_surname => $3,
-                avatar_url => $4,
-                email => $5,
-                password => $6,
+                town_id => $4,
+                suburb_id => $5,
+                street_id => $6,
+                exterior_number => $7,
+                interior_number => $8,
+                phone_one => $9,
+                phone_two => $10,
+                phone_three => $11,
+                avatar_url => $12,
+                email => $13,
+                password => $14,
                 email_is_verified => false
               ) users where not (users is null)
             ), new_session as (
@@ -122,7 +146,22 @@ const PassportLoginPlugin = makeExtendSchemaPlugin((build) => ({
             )
             select new_user.id as user_id, new_session.uuid as session_id
             from new_user, new_session`,
-            [name, firstSurname, secondSurname, avatarUrl, email, password]
+            [
+              name,
+              firstSurname,
+              secondSurname,
+              townId,
+              suburbId,
+              streetId,
+              exteriorNumber,
+              interiorNumber,
+              phoneOne,
+              phoneTwo,
+              phoneThree,
+              avatarUrl,
+              email,
+              password,
+            ]
           );
 
           if (!details || !details.user_id) {
