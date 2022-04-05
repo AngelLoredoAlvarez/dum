@@ -7,7 +7,7 @@
 create table dum_public.lots (
   id uuid primary key default gen_random_uuid(),
   block integer not null,
-  number integer not null,
+  lot_number integer not null,
   geom geometry(point, 32614) not null
 );
 
