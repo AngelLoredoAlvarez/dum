@@ -534,7 +534,7 @@ type Lot implements Node {
   """
   id: ID!
   latlong: String
-  number: Int!
+  lotNumber: Int!
   rowId: UUID!
 }
 
@@ -1733,11 +1733,19 @@ type Query implements Node {
 
 input RegisterInput {
   avatarUrl: String
-  email: String!
-  firstSurname: String!
-  name: String!
-  password: String!
+  email: String
+  exteriorNumber: String
+  firstSurname: String
+  interiorNumber: String
+  name: String
+  password: String
+  phoneOne: String
+  phoneThree: String
+  phoneTwo: String
   secondSurname: String
+  streetId: String
+  suburbId: String
+  townId: String
 }
 
 type RegisterPayload {
@@ -2971,15 +2979,15 @@ type UserAddress implements Node {
 
   """Reads a single `Street` that is related to this `UserAddress`."""
   street: Street
-  streetId: UUID!
+  streetId: UUID
 
   """Reads a single `Suburb` that is related to this `UserAddress`."""
   suburb: Suburb
-  suburbId: UUID!
+  suburbId: UUID
 
   """Reads a single `Town` that is related to this `UserAddress`."""
   town: Town
-  townId: UUID!
+  townId: UUID
   updatedAt: Datetime!
 
   """Reads a single `User` that is related to this `UserAddress`."""
