@@ -3,6 +3,11 @@ import { graphql } from "react-relay/hooks";
 export default graphql`
   query RegisterPageQuery {
     ...CurrentUserFragment_user
+    currentUser {
+      id
+      rowId
+      fullName
+    }
     towns {
       edges {
         node {
