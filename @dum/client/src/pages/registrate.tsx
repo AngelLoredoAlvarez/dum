@@ -25,6 +25,7 @@ import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import Redirect from "../components/Redirect";
 import StreetsList from "../components/StreetsList";
 import SuburbsList from "../components/SuburbsList";
 import type { RegisterMutation as RegisterMutationTypes } from "../graphql/Mutations/__generated__/RegisterMutation.graphql";
@@ -145,6 +146,12 @@ function RegisterPage({
     },
     resolver: yupResolver(RegisterValidationSchema),
   });
+
+  if (
+    registerPageQuery.currentUser === null ||
+    registerPageQuery.currentUser === undefined
+  )
+    return <Redirect href="/" />;
 
   // Callback that handles the mask of the Exterior Number TextField
   const handleExteriorNumberChange = (val: string) => {
