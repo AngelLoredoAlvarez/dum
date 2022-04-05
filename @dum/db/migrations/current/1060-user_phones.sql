@@ -4,7 +4,7 @@
 create table dum_public.user_phone_numbers (
   id uuid primary key default gen_random_uuid(),
   phone_number text,
-  user_id uuid not null references dum_public.users(id),
+  user_id uuid not null references dum_public.users(id) on update cascade on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
