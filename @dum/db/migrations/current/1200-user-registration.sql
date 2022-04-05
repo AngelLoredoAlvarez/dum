@@ -12,6 +12,14 @@ create function dum_private.really_create_user(
   name text,
   first_surname text,
   second_surname text,
+  town_id uuid,
+  suburb_id uuid,
+  street_id uuid,
+  exterior_number text,
+  interior_number text,
+  phone_one text,
+  phone_two text,
+  phone_three text,
   avatar_url text,
   email text,
   password text default null,
@@ -40,6 +48,31 @@ begin
     second_surname,
     avatar_url
   ) returning * into v_user;
+
+  -- Insert the main address
+  insert into dum_public.user_addresses (
+    town_id,
+    suburb_id,
+    street_id,
+    ext_number,
+    int_number,
+    is_main,
+    user_id
+  ) values ($4, $5, $6, $7, $8, true, v_user.id);
+
+  -- Insert phone numbers
+  insert into dum_public.user_phone_numbers (
+    phone_number,
+    user_id
+  ) values ($9, v_user.id),
+           ($10, v_user.id);
+
+  if $11 <> '' then
+    insert into dum_public.user_phone_numbers (
+      phone_number,
+      user_id
+    ) values ($11, v_user.id);
+  end if;
 
 	-- Add the user's email
   insert into dum_public.user_emails (
@@ -71,7 +104,23 @@ begin
 end;
 $$ language plpgsql volatile set search_path to pg_catalog, public, pg_temp;
 
-comment on function dum_private.really_create_user(name text, first_surname text, second_surname text, avatar_url text, email text, password text, email_is_verified bool) is
+comment on function dum_private.really_create_user(
+                                                    name text,
+                                                    first_surname text,
+                                                    second_surname text,
+                                                    town_id uuid,
+                                                    suburb_id uuid,
+                                                    street_id uuid,
+                                                    exterior_number text,
+                                                    interior_number text,
+                                                    phone_one text,
+                                                    phone_two text,
+                                                    phone_three text,
+                                                    avatar_url text,
+                                                    email text,
+                                                    password text,
+                                                    email_is_verified bool
+                                                  ) is
   E'Creates a user account. All arguments are optional, it trusts the calling method to perform sanitisation.';
 
 /**********/
@@ -94,6 +143,14 @@ declare
   v_name text;
   v_first_surname text;
   v_second_surname text;
+  v_town_id uuid;
+  v_suburb_id uuid;
+  v_street_id uuid;
+  v_exterior_number text;
+  v_interior_number text;
+  v_phone_one text;
+  v_phone_two text;
+  v_phone_three text;
   v_avatar_url text;
   v_email citext;
   v_user_authentication_id uuid;
@@ -102,6 +159,14 @@ begin
   v_name := f_profile ->> 'name';
   v_first_surname := f_profile ->> 'first_surname';
   v_second_surname := f_profile ->> 'second_surname';
+  v_town_id := f_profile ->> 'town_id';
+  v_suburb_id := f_profile ->> 'suburb_id';
+  v_street_id := f_profile ->> 'street_id';
+  v_exterior_number := f_profile ->> 'exterior_number';
+  v_interior_number := f_profile ->> 'interior_number';
+  v_phone_one := f_profile ->> 'phone_one';
+  v_phone_two := f_profile ->> 'phone_two';
+  v_phone_three := f_profile ->> 'phone_three';
   v_avatar_url := f_profile ->> 'avatar_url';
   v_email := f_profile ->> 'email';
 
@@ -110,6 +175,14 @@ begin
     name => v_name,
     first_surname => v_first_surname,
     second_surname => v_second_surname,
+    town_id => v_town_id,
+    suburb_id => v_suburb_id,
+    street_id => v_street_id,
+    exterior_number => v_exterior_number,
+    interior_number => v_interior_number,
+    phone_one => v_phone_one,
+    phone_two => v_phone_two,
+    phone_three => v_phone_three,
     avatar_url => v_avatar_url,
     email => v_email,
     email_is_verified => f_email_is_verified
