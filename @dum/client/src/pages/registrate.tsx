@@ -99,12 +99,6 @@ interface UseFormProps {
 function RegisterPage({
   preloadedQuery,
 }: RelayProps<{}, RegisterPageQueryTypes>) {
-  // Fetch the hole Query
-  const registerPageQuery = usePreloadedQuery<RegisterPageQueryTypes>(
-    RegisterPageQuery,
-    preloadedQuery
-  );
-
   // Executes the Mutation
   const [register] = useMutation<RegisterMutationTypes>(RegisterMutation);
 
@@ -146,12 +140,6 @@ function RegisterPage({
     },
     resolver: yupResolver(RegisterValidationSchema),
   });
-
-  if (
-    registerPageQuery.currentUser === null ||
-    registerPageQuery.currentUser === undefined
-  )
-    return <Redirect href="/" />;
 
   // Callback that handles the mask of the Exterior Number TextField
   const handleExteriorNumberChange = (val: string) => {
@@ -222,6 +210,14 @@ function RegisterPage({
       },
     });
   };
+
+  // Fetch the hole Query
+  const registerPageQuery = usePreloadedQuery<RegisterPageQueryTypes>(
+    RegisterPageQuery,
+    preloadedQuery
+  );
+
+  if (registerPageQuery.currentUser !== null) return <Redirect href="/" />;
 
   return (
     <Layout currentUser={registerPageQuery}>
