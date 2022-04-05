@@ -57,11 +57,10 @@ function LoginForm() {
   const handleError = useErrorHandler();
 
   const redirectOnLogin = React.useCallback(() => {
-    if (router.query.next.includes("producto-agregado")) {
-      const { next, product_id, quantity } = router.query;
+    if (router.query.next.includes("ultimo-producto-agregado")) {
       router.push(
-        `${next}?product_id=${product_id}&quantity=${quantity}`,
-        `${next}`
+        `${router.query.next}?product_id=${router.query.product_id}&quantity=${router.query.quantity}`,
+        `${router.query.next}`
       );
     } else {
       router.push(`${router.query.next}`);
@@ -88,6 +87,22 @@ function LoginForm() {
       },
     });
   };
+
+  const redirectOnRegister = React.useCallback(() => {
+    if (router.query.next.includes("ultimo-producto-agregado")) {
+      router.push(
+        `/registrate?next=${encodeURIComponent(
+          router.query.next.toString()
+        )}&product_id=${router.query.product_id}&quantity=${
+          router.query.quantity
+        }`
+      );
+    } else {
+      router.push(
+        `/registrate?next=${encodeURIComponent(router.query.next.toString())}`
+      );
+    }
+  }, [router]);
 
   return (
     <Center flex="1">
@@ -232,13 +247,7 @@ function LoginForm() {
                   fontWeight: "medium",
                   fontSize: "sm",
                 }}
-                onPress={() =>
-                  router.push(
-                    `/registrate?next=${encodeURIComponent(
-                      router.query.next.toString()
-                    )}`
-                  )
-                }
+                onPress={redirectOnRegister}
               >
                 ¡Registrate!
               </Link>
