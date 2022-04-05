@@ -22,7 +22,23 @@ const EmAiL = "email@eXaMpLe.cOm";
 const PASSWORD = "!TestPassword!";
 
 async function setupTestUser(client: PoolClient) {
-  return reallyCreateUser(client, null, null, null, null, EMAIL, PASSWORD);
+  return reallyCreateUser(
+    client,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    EMAIL,
+    PASSWORD
+  );
 }
 
 it("can login with email+password", () =>
