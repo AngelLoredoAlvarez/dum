@@ -17,7 +17,7 @@ import {
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { mask } from "react-native-mask-text";
-import { usePreloadedQuery } from "react-relay/hooks";
+import { useMutation, usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 import * as Yup from "yup";
@@ -26,6 +26,8 @@ import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import StreetsList from "../components/StreetsList";
 import SuburbsList from "../components/SuburbsList";
+import type { RegisterMutation as RegisterMutationTypes } from "../graphql/Mutations/__generated__/RegisterMutation.graphql";
+import RegisterMutation from "../graphql/Mutations/RegisterMutation";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -50,12 +52,10 @@ const RegisterValidationSchema = Yup.object().shape({
   secondNumber: Yup.string()
     .required("Ingresa un Número de Contacto")
     .matches(phoneRegExp, "Ingresa un Número Teléfonico valido"),
-  thirdNumber: Yup.string()
-    .notRequired()
-    .matches(phoneRegExp, {
-      message: "Ingresa un Número Teléfonico valido",
-      excludeEmptyString: true,
-    }),
+  thirdNumber: Yup.string().notRequired().matches(phoneRegExp, {
+    message: "Ingresa un Número Teléfonico valido",
+    excludeEmptyString: true,
+  }),
   email: Yup.string()
     .required("Ingresa un Correo Electrónico")
     .matches(emailRegExp, "Ingresa un Correo Electrónico Valido"),
@@ -102,6 +102,9 @@ function RegisterPage({
     RegisterPageQuery,
     preloadedQuery
   );
+
+  // Executes the Mutation
+  const [register] = useMutation<RegisterMutationTypes>(RegisterMutation);
 
   // useState() hook that sets the townId value
   const [townId, setTownId] = React.useState<any>("");
@@ -168,7 +171,27 @@ function RegisterPage({
 
   // Callback that will handle the Submit of the Form
   const onSubmit = (data: UseFormProps) => {
-    console.log(data);
+    register({
+      onCompleted: () => {},
+      onError: () => {},
+      variables: {
+        RegisterInput: {
+          name: data.name,
+          firstSurname: data.firstSurname,
+          secondSurname: data.secondSurname,
+          townId: data.town,
+          suburbId: data.suburb,
+          streetId: data.street,
+          exteriorNumber: data.exteriorNumber,
+          interiorNumber: data.interiorNumber,
+          phoneOne: data.firstNumber,
+          phoneTwo: data.secondNumber,
+          phoneThree: data.thirdNumber,
+          email: data.email,
+          password: data.password,
+        },
+      },
+    });
   };
 
   return (
