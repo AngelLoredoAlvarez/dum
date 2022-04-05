@@ -4,7 +4,7 @@
 create table dum_public.streets (
   id uuid primary key default gen_random_uuid(),
   name text,
-  suburb_id uuid not null references dum_public.suburbs on delete cascade,
+  suburb_id uuid not null references dum_public.suburbs on update cascade on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
