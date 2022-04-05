@@ -3,13 +3,13 @@
  */
 create table dum_public.user_addresses (
   id uuid primary key default gen_random_uuid(),
-  town_id uuid not null references dum_public.towns(id),
-  suburb_id uuid not null references dum_public.suburbs(id),
-  street_id uuid not null references dum_public.streets(id),
+  town_id uuid references dum_public.towns(id) on update cascade on delete cascade,
+  suburb_id uuid references dum_public.suburbs(id) on update cascade on delete cascade,
+  street_id uuid references dum_public.streets(id) on update cascade on delete cascade,
   ext_number text,
   int_number text,
   is_main boolean default false,
-  user_id uuid not null references dum_public.users(id),
+  user_id uuid not null references dum_public.users(id) on update cascade on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
