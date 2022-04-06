@@ -169,12 +169,16 @@ function RegisterPage({
 
   // Callback that will Redirect the user after a correct Registation
   const redirectAfterRegister = React.useCallback(() => {
-    if (router.query.next.includes("ultimo-producto-agregado")) {
-      router.push(
-        `${router.query.next}?&product_id=${router.query.product_id}&quantity=${router.query.quantity}`
-      );
+    if (router.query.hasOwnProperty("next")) {
+      if (router.query.next.includes("ultimo-producto-agregado")) {
+        router.push(
+          `${router.query.next}?&product_id=${router.query.product_id}&quantity=${router.query.quantity}`
+        );
+      } else {
+        router.push(`${router.query.next}`);
+      }
     } else {
-      router.push(`${router.query.next}`);
+      router.push("/");
     }
   }, [router]);
 
