@@ -28,7 +28,9 @@ import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
 import StreetsList from "../components/StreetsList";
 import SuburbsList from "../components/SuburbsList";
+import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import type { RegisterMutation as RegisterMutationTypes } from "../graphql/Mutations/__generated__/RegisterMutation.graphql";
+import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
 import RegisterMutation from "../graphql/Mutations/RegisterMutation";
 import type { RegisterPageQuery as RegisterPageQueryTypes } from "../graphql/Queries/__generated__/RegisterPageQuery.graphql";
 import RegisterPageQuery from "../graphql/Queries/RegisterPageQuery";
@@ -99,8 +101,13 @@ interface UseFormProps {
 function RegisterPage({
   preloadedQuery,
 }: RelayProps<{}, RegisterPageQueryTypes>) {
-  // Executes the Mutation
+  // Executes the Mutation to Register a new User
   const [register] = useMutation<RegisterMutationTypes>(RegisterMutation);
+
+  // Executes the mutation when the user comes from the Product Page Details
+  const [addToShoppingList] = useMutation<AddToShoppingListMutationTypes>(
+    AddToShoppingListMutation
+  );
 
   // useState() hook that sets the townId value
   const [townId, setTownId] = React.useState<any>("");
@@ -170,13 +177,7 @@ function RegisterPage({
   // Callback that will Redirect the user after a correct Registation
   const redirectAfterRegister = React.useCallback(() => {
     if (router.query.hasOwnProperty("next")) {
-      if (router.query.next.includes("ultimo-producto-agregado")) {
-        router.push(
-          `${router.query.next}?&product_id=${router.query.product_id}&quantity=${router.query.quantity}`
-        );
-      } else {
-        router.push(`${router.query.next}`);
-      }
+      router.push(`${router.query.next}`);
     } else {
       router.push("/");
     }
@@ -188,7 +189,30 @@ function RegisterPage({
       onCompleted: (response, apiErrors) => {
         if (response.register) {
           if (response.register.user) {
-            redirectAfterRegister();
+            if (router.query.next.includes("ultimo-producto-agregado")) {
+              addToShoppingList({
+                onCompleted: (response, apiErrors) => {
+                  if (response.addToShoppingList) {
+                    if (response.addToShoppingList.shoppingListDetail) {
+                      redirectAfterRegister();
+                    } else {
+                      console.log(apiErrors);
+                    }
+                  }
+                },
+                onError: () => {},
+                variables: {
+                  AddToShoppingListInput: {
+                    productId: `${router.query.product_id}`,
+                    selectedQuantity: Number.parseInt(
+                      `${router.query.quantity}`
+                    ),
+                  },
+                },
+              });
+            } else {
+              redirectAfterRegister();
+            }
           }
         } else {
           console.log(apiErrors);
