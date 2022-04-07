@@ -35,11 +35,11 @@
     "setimmediate": "^1.0.5",
     "slugify": "^1.6.5",
     "tls": "^0.0.1",
-    "webpack": "^5.71.0",
+    "webpack": "^5.72.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/core": "^7.17.9",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@expo/next-adapter": "3.1.12",
     "@testing-library/react-native": "^9.1.0",
