@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
 import * as React from "react";
-import { useMutation, usePreloadedQuery } from "react-relay";
+import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
@@ -8,8 +7,6 @@ import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import ProductsLikeTheLastAddedProductList from "../../components/ProductsLikeTheLastAddedProductList";
 import Redirect from "../../components/Redirect";
-import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
-import AddToShoppingListMutation from "../../graphql/Mutations/AddToShoppingListMutation";
 import type { LastAddedProductPageQuery as LastAddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/LastAddedProductPageQuery.graphql";
 import LastAddedProductPageQuery from "../../graphql/Queries/LastAddedProductPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -17,28 +14,6 @@ import { getClientEnvironment } from "../../lib/client";
 function LastAddedProductPage({
   preloadedQuery,
 }: RelayProps<{}, LastAddedProductPageQueryTypes>) {
-  const [addToShoppingList] = useMutation<AddToShoppingListMutationTypes>(
-    AddToShoppingListMutation
-  );
-
-  const router = useRouter();
-
-  React.useEffect(() => {
-    const { product_id, quantity } = router.query;
-    if (product_id !== undefined && quantity !== undefined) {
-      addToShoppingList({
-        onCompleted: () => {},
-        onError: () => {},
-        variables: {
-          AddToShoppingListInput: {
-            productId: `${product_id}`,
-            selectedQuantity: Number.parseInt(`${quantity}`),
-          },
-        },
-      });
-    }
-  }, [addToShoppingList, router.query]);
-
   const lastAddedProductPageQuery =
     usePreloadedQuery<LastAddedProductPageQueryTypes>(
       LastAddedProductPageQuery,
