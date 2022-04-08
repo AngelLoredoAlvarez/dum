@@ -4,6 +4,7 @@ import "raf/polyfill";
 // @ts-ignore
 global.setImmediate = requestAnimationFrame;
 
+import { SSRProvider } from "@react-aria/ssr";
 import { ColorMode, NativeBaseProvider, StorageManager } from "native-base";
 import type { AppProps } from "next/app";
 import Router, { useRouter } from "next/router";
@@ -105,13 +106,15 @@ function DUMApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
-    <NativeBaseProvider colorModeManager={colorManager}>
-      <RelayEnvironmentProvider environment={env}>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Component {...pageProps} {...relayProps} key={router.asPath} />
-        </ErrorBoundary>
-      </RelayEnvironmentProvider>
-    </NativeBaseProvider>
+    <SSRProvider>
+      <NativeBaseProvider colorModeManager={colorManager}>
+        <RelayEnvironmentProvider environment={env}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Component {...pageProps} {...relayProps} key={router.asPath} />
+          </ErrorBoundary>
+        </RelayEnvironmentProvider>
+      </NativeBaseProvider>
+    </SSRProvider>
   );
 }
 
