@@ -49,6 +49,10 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
 
   const { dispatch } = useNavigation();
 
+  const handleRedirectAfterLogout = React.useCallback(() => {
+    router.push("/");
+  }, []);
+
   return (
     <DrawerContentScrollView {...props}>
       <VStack space="6" my="2" mx="1">
@@ -157,7 +161,7 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
                 logout({
                   onCompleted: (response) => {
                     if (response.logout.success) {
-                      router.push("/");
+                      handleRedirectAfterLogout();
                     }
                   },
                   onError: () => {},
