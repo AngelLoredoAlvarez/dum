@@ -28,7 +28,7 @@
     "graphile-worker": "^0.12.2",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "next": "^12.1.4",
+    "next": "^12.1.5",
     "passport": "^0.5.2",
     "pg": "^8.7.3",
     "postgraphile": "^4.12.9",
