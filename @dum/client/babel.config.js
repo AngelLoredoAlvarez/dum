@@ -1,5 +1,4 @@
 module.exports = {
-  presets: ["@expo/next-adapter/babel", "next/babel"],
   plugins: [
     ["relay"],
     ["@babel/plugin-proposal-class-properties", { loose: true }],
@@ -16,6 +15,7 @@ module.exports = {
       "lodash",
     ],
   ],
+  presets: ["@expo/next-adapter/babel", "next/babel"],
   env: {
     development: {
       presets: [
