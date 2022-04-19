@@ -71,6 +71,6 @@
   "scripts": {
     "build": "cd src && cross-env NODE_ENV=production NODE_OPTIONS=\"$NODE_OPTIONS -r @dum/config/env\" next build",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS -r @dum/config/env\" jest",
-    "relay": "relay-compiler"
+    "relay": "relay-compiler --watch"
   }
 }
