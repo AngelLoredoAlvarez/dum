@@ -51,7 +51,7 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
 
   const handleRedirectAfterLogout = React.useCallback(() => {
     router.push("/");
-  }, []);
+  }, [router]);
 
   return (
     <DrawerContentScrollView {...props}>
