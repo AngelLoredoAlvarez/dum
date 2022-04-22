@@ -1317,17 +1317,10 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/vector-icons@^12.0.5":
-  version "12.0.5"
-  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-12.0.5.tgz#bc508ad05fb7e9a3e008704977cfec6c18aa7728"
-  integrity sha512-zWvHBmkpbi1KrPma6Y+r/bsGI6MjbM1MBSe6W9A4uYMLhNI5NR4JtTnqxhf7g1XdpaDtBdv5aOWKEx4d5rxnhg==
-  dependencies:
-    lodash.frompairs "^4.0.1"
-    lodash.isequal "^4.5.0"
-    lodash.isstring "^4.0.1"
-    lodash.omit "^4.5.0"
-    lodash.pick "^4.4.0"
-    lodash.template "^4.5.0"
+"@expo/vector-icons@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-13.0.0.tgz#e2989b85e95a82bce216f88cf8fb583ab050ec95"
+  integrity sha512-TI+l71+5aSKnShYclFa14Kum+hQMZ86b95SH6tQUG3qZEmLTarvWpKwqtTwQKqvlJSJrpFiSFu3eCuZokY6zWA==
 
 "@expo/webpack-config@0.16.12":
   version "0.16.12"
@@ -11641,11 +11634,6 @@ lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
   integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
-
-lodash.frompairs@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.frompairs/-/lodash.frompairs-4.0.1.tgz#bc4e5207fa2757c136e573614e9664506b2b1bd2"
-  integrity sha1-vE5SB/onV8E25XNhTpZkUGsrG9I=
 
 lodash.get@^4, lodash.get@^4.4.2:
   version "4.4.2"
