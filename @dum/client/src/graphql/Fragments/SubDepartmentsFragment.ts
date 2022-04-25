@@ -1,9 +1,9 @@
-import { graphql } from "babel-plugin-relay/macro";
+import graphql from "babel-plugin-relay/macro";
 
 export default graphql`
   fragment SubDepartmentsFragment_subDepartments on MainDepartment
   @argumentDefinitions(
-    first: { type: "Int!", defaultValue: 10 }
+    first: { type: "Int", defaultValue: 10 }
     after: { type: "Cursor" }
   )
   @refetchable(queryName: "SubDepartments") {
