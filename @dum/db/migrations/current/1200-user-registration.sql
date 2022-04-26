@@ -28,12 +28,12 @@ create function dum_private.really_create_user(
 declare
   v_user dum_public.users;
 begin
-  if password is not null then
-    perform dum_private.assert_valid_password(password);
-  end if;
-
   if email is null then
     raise exception 'Email is required' using errcode = 'MODAT';
+  end if;
+
+  if password is not null then
+    perform dum_private.assert_valid_password(password);
   end if;
 
   -- Insert the new user
