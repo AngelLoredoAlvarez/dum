@@ -219,14 +219,7 @@ function ProductDetails(props: ProductDetailsProps) {
         }
         onChangeText={(val: string) => handleChange(val)}
         py="0"
-        size={{
-          base: "base",
-          sm: "sm",
-          md: "md",
-          lg: "lg",
-          xl: "xl",
-          "2xl": "2xl",
-        }}
+        size={"md"}
         value={stockValue.toString()}
       />
       <Button
