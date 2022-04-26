@@ -245,14 +245,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
             }
             onChangeText={(val: string) => handleChange(val)}
             py="0"
-            size={{
-              base: "base",
-              sm: "sm",
-              md: "md",
-              lg: "lg",
-              xl: "xl",
-              "2xl": "sm",
-            }}
+            size={"md"}
             value={selectedQuantity.toString()}
           />
           <HStack>
