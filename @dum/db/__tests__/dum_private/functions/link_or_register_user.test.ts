@@ -41,7 +41,7 @@ describe("when account doesn't already exist", () => {
         {}
       );
       expect(user).toBeTruthy();
-      expect(user.name).toEqual("GitHub User123456");
+      expect(user.name).toEqual("GITHUB USER123456");
       expect(user.avatar_url).toEqual("http://example.com/avatar.jpg");
       expect(user.is_admin).toEqual(false);
       expect(user.is_verified).toEqual(true);
@@ -53,7 +53,7 @@ describe("when account doesn't already exist", () => {
           "id": "[ID]",
           "is_admin": false,
           "is_verified": true,
-          "name": "GitHub User123456",
+          "name": "GITHUB USER123456",
           "second_surname": null,
           "updated_at": "[DATE]",
         }

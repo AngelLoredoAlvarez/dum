@@ -88,12 +88,12 @@ test("can register user with a password", () =>
       Object {
         "avatar_url": "http://example.com",
         "created_at": "[DATE]",
-        "first_surname": "test_first_surname",
+        "first_surname": "TEST_FIRST_SURNAME",
         "id": "[ID]",
         "is_admin": false,
         "is_verified": false,
-        "name": "test",
-        "second_surname": "test_second_surname",
+        "name": "TEST",
+        "second_surname": "TEST_SECOND_SURNAME",
         "updated_at": "[DATE]",
       }
     `);

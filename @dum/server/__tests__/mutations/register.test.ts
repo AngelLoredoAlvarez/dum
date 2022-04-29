@@ -71,7 +71,7 @@ test("Register", async () => {
           "createdAt": "[timestamp-1]",
           "isAdmin": false,
           "isVerified": false,
-          "name": "Test Name",
+          "name": "TEST NAME",
           "rowId": "[id-1]",
           "updatedAt": "[timestamp-1]",
         }
