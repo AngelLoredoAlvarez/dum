@@ -42,12 +42,7 @@ begin
     first_surname,
     second_surname,
     avatar_url
-  ) values (
-    name,
-    first_surname,
-    second_surname,
-    avatar_url
-  ) returning * into v_user;
+  ) values (upper($1), upper($2), upper($3), lower($12)) returning * into v_user;
 
   -- Insert the main address
   insert into dum_public.user_addresses (
@@ -80,19 +75,14 @@ begin
     email,
     is_verified,
     is_primary
-  ) values (
-    v_user.id,
-    email,
-    email_is_verified,
-    email_is_verified
-  );
+  ) values (v_user.id, lower($13), $15, $15);
 
   -- Store the password
   if password is not null then
     update
       dum_private.user_secrets
     set
-      password_hash = crypt(password, gen_salt('bf'))
+      password_hash = crypt($14, gen_salt('bf'))
     where
       user_id = v_user.id;
   end if;
