@@ -6,6 +6,7 @@ export default graphql`
       id
       rowId
       avatarUrl
+      isVerified
       fullName
       shoppingListProductsCount
     }
