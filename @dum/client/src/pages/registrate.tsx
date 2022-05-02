@@ -12,6 +12,7 @@ import {
   Select,
   Stack,
   Text,
+  useToast,
   VStack,
 } from "native-base";
 import { useRouter } from "next/router";
@@ -183,6 +184,9 @@ function RegisterPage({
     }
   }, [router]);
 
+  // Hook to show messages to the user as Toast
+  const toast = useToast();
+
   // Callback that will handle the Submit of the Form
   const onSubmit = (data: UseFormProps) => {
     register({
@@ -200,7 +204,9 @@ function RegisterPage({
                     }
                   }
                 },
-                onError: () => {},
+                onError: (err) => {
+                  console.log(err);
+                },
                 variables: {
                   AddToShoppingListInput: {
                     productId: `${router.query.product_id}`,
@@ -215,10 +221,20 @@ function RegisterPage({
             }
           }
         } else {
-          console.log(apiErrors);
+          toast.show({
+            description: `${apiErrors[0].message}`,
+            isClosable: true,
+            placement: "top",
+            status: "error",
+            tintColor: "danger.400",
+            title: "Verifica tus Datos",
+            variant: "top-accent",
+          });
         }
       },
-      onError: () => {},
+      onError: (err) => {
+        console.log(err);
+      },
       variables: {
         RegisterInput: {
           name: data.name,
