@@ -28,6 +28,19 @@ create function dum_private.really_create_user(
 declare
   v_user dum_public.users;
 begin
+  if exists(
+    select
+      1
+    from
+      dum_public.users
+    where
+      unaccent(dum_public.users.name) ilike unaccent($1) and
+      unaccent(dum_public.users.first_surname) ilike unaccent($2) and
+      unaccent(dum_public.users.second_surname) ilike unaccent($3)
+  ) then
+    raise exception 'El usuario % % % ya ha sido registrado.', upper($1), upper($2), upper($3) using errcode = 'USRAR';
+  end if;
+
   if email is null then
     raise exception 'Email is required' using errcode = 'MODAT';
   end if;
