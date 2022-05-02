@@ -120,9 +120,9 @@ export const createUsers = async function createUsers(
           email_is_verified := $15
       )`,
         [
-          "test",
-          "test_first_surname",
-          "test_second_surname",
+          "test" + i,
+          "test_first_surname" + i,
+          "test_second_surname" + i,
           "84673058-eca2-42b1-bd94-84b1ece47c0c",
           "c5ef579f-61d5-4441-82a5-108247ec4058",
           "be283c11-e280-43c8-bb58-797c53903821",
