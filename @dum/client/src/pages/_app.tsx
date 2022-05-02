@@ -10,7 +10,6 @@ import type { AppProps } from "next/app";
 import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
 import * as React from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import { getInitialPreloadedQuery, getRelayProps } from "relay-nextjs/app";
 
@@ -67,16 +66,6 @@ if (typeof window !== "undefined") {
   });
 }
 
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
-
 const colorManager: StorageManager = {
   get: async () => {
     try {
@@ -109,9 +98,7 @@ function DUMApp({ Component, pageProps }: AppProps) {
     <SSRProvider>
       <NativeBaseProvider colorModeManager={colorManager}>
         <RelayEnvironmentProvider environment={env}>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Component {...pageProps} {...relayProps} key={router.asPath} />
-          </ErrorBoundary>
+          <Component {...pageProps} {...relayProps} key={router.asPath} />
         </RelayEnvironmentProvider>
       </NativeBaseProvider>
     </SSRProvider>
