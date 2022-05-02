@@ -99,6 +99,53 @@ test("can register user with a password", () =>
     `);
   }));
 
+test("cannot register an already registered user", () =>
+  withRootDb(async (client) => {
+    reallyCreateUser(
+      client,
+      "first_try",
+      "first_try_first_surname",
+      "first_try_second_surname",
+      "84673058-eca2-42b1-bd94-84b1ece47c0c",
+      "c5ef579f-61d5-4441-82a5-108247ec4058",
+      "be283c11-e280-43c8-bb58-797c53903821",
+      "111",
+      null,
+      "(487) 111 1111",
+      "(487) 111 1111",
+      null,
+      "http://example.com",
+      "first_try@example.com",
+      "SuperSecurePassword1"
+    );
+
+    const second_try = reallyCreateUser(
+      client,
+      "first_try",
+      "first_try_first_surname",
+      "first_try_second_surname",
+      "84673058-eca2-42b1-bd94-84b1ece47c0c",
+      "c5ef579f-61d5-4441-82a5-108247ec4058",
+      "be283c11-e280-43c8-bb58-797c53903821",
+      "111",
+      null,
+      "(487) 111 1111",
+      "(487) 111 1111",
+      null,
+      "http://example.com",
+      "first_try@example.com",
+      "SuperSecurePassword1"
+    );
+
+    await expect(second_try).rejects.toMatchInlineSnapshot(
+      `[error: El usuario FIRST_TRY FIRST_TRY_FIRST_SURNAME FIRST_TRY_SECOND_SURNAME ya ha sido registrado.]`
+    );
+
+    await expect(second_try).rejects.toMatchObject({
+      code: "USRAR",
+    });
+  }));
+
 test("cannot register user without email", () =>
   withRootDb(async (client) => {
     // Normally PassportLoginPlugin will call this SQL function directly.
