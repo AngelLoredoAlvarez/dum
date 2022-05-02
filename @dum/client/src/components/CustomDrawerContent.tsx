@@ -6,6 +6,7 @@ import {
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import {
+  Avatar,
   Box,
   Divider,
   HStack,
@@ -22,7 +23,6 @@ import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__
 import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
 import type { LogoutMutation as LogoutMutationTypes } from "../graphql/Mutations/__generated__/LogoutMutation.graphql";
 import LogoutMutation from "../graphql/Mutations/LogoutMutation";
-import Avatar from "./Avatar";
 
 interface CustomDrawerContentProps {
   currentUser: CurrentUserFragment_user$key;
@@ -57,12 +57,24 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
     <DrawerContentScrollView {...props}>
       <VStack space="6" my="2" mx="1">
         <Avatar
-          imageURI={currentUser?.avatarUrl}
-          size="lg"
-          text={getCharactersFromName(
+          _dark={{
+            bg: "coolGray.800",
+          }}
+          _light={{
+            bg: "red.700",
+          }}
+          source={{
+            uri: currentUser?.avatarUrl,
+          }}
+          size={"lg"}
+        >
+          {getCharactersFromName(
             currentUser?.fullName ? currentUser.fullName : "DUM"
           )}
-        />
+          <Avatar.Badge
+            bg={currentUser?.isVerified ? "green.500" : "red.500"}
+          />
+        </Avatar>
         <Box px="4">
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
             {currentUser?.fullName}
