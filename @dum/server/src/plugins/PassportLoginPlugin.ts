@@ -200,6 +200,7 @@ const PassportLoginPlugin = makeExtendSchemaPlugin((build) => ({
             "WEAKP",
             "LOCKD",
             "EMTKN",
+            "USRAR",
             ...Object.keys(ERROR_MESSAGE_OVERRIDES),
           ];
           if (safeErrorCodes.includes(code)) {
