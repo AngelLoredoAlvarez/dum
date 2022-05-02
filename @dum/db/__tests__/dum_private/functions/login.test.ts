@@ -90,7 +90,7 @@ it("prevents too many login attempts", () =>
     await login(client, EMAIL, "WRONG" + PASSWORD).catch(() => {});
     const promise = login(client, EMAIL, PASSWORD);
     expect(promise).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"User account locked - too many login attempts. Try again after 5 minutes."`
+      `"Cuenta Bloqueada - muchos intentos de inicio de sesión. Intenta de nuevo despúes de 5 minutos."`
     );
     expect(promise).rejects.toMatchObject({ code: "LOCKD" });
   }));

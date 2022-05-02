@@ -45,7 +45,7 @@ begin
     and
       v_user_secret.failed_password_attempts >= 3
     ) then
-      raise exception 'User account locked - too many login attempts. Try again after 5 minutes.' using errcode = 'LOCKD';
+      raise exception 'Cuenta Bloqueada - muchos intentos de inicio de sesión. Intenta de nuevo despúes de 5 minutos.' using errcode = 'LOCKD';
     end if;
 
     -- Not too many login attempts, let's check the password.
