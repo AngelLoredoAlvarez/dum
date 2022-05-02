@@ -226,7 +226,6 @@ function RegisterPage({
             isClosable: true,
             placement: "top",
             status: "error",
-            tintColor: "danger.400",
             title: "Verifica tus Datos",
             variant: "top-accent",
           });
