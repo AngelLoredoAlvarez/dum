@@ -92,8 +92,11 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
             isClosable: true,
             placement: "top",
             status: "error",
-            tintColor: "danger.400",
-            title: "Verifica tus Datos",
+            title:
+              apiErrors[0].extensions.exception.code === "CREDS"
+                ? "Verifica tus Datos"
+                : apiErrors[0].extensions.exception.code === "LOCKD" &&
+                  "Cuenta Bloqueada",
             variant: "top-accent",
           });
         }
