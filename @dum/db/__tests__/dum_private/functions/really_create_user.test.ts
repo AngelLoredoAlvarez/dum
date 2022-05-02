@@ -99,6 +99,34 @@ test("can register user with a password", () =>
     `);
   }));
 
+test("cannot register user without email", () =>
+  withRootDb(async (client) => {
+    // Normally PassportLoginPlugin will call this SQL function directly.
+    const promise = reallyCreateUser(
+      client,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+    await expect(promise).rejects.toMatchInlineSnapshot(
+      `[error: Email is required]`
+    );
+    await expect(promise).rejects.toMatchObject({
+      code: "MODAT",
+    });
+  }));
+
 test("cannot register with a weak password", () =>
   withRootDb(async (client) => {
     const promise = reallyCreateUser(
@@ -158,32 +186,4 @@ test("can register user with just an email", () =>
         "updated_at": "[DATE]",
       }
     `);
-  }));
-
-test("cannot register user without email", () =>
-  withRootDb(async (client) => {
-    // Normally PassportLoginPlugin will call this SQL function directly.
-    const promise = reallyCreateUser(
-      client,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    );
-    await expect(promise).rejects.toMatchInlineSnapshot(
-      `[error: Email is required]`
-    );
-    await expect(promise).rejects.toMatchObject({
-      code: "MODAT",
-    });
   }));
