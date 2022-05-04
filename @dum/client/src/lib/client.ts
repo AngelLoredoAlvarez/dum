@@ -1,8 +1,10 @@
+import { createClient } from "graphql-ws";
 import { getRelaySerializedState } from "relay-nextjs";
 import { withHydrateDatetime } from "relay-nextjs/date";
 import {
   Environment,
   Network,
+  Observable,
   RecordSource,
   RequestParameters,
   Store,
@@ -25,13 +27,33 @@ async function fecthQuery(params: RequestParameters, variables: Variables) {
   return JSON.parse(json, withHydrateDatetime);
 }
 
+function fecthSubscription(
+  params: RequestParameters,
+  variables: Variables
+): Observable<any> {
+  const wsClient = createClient({
+    url: `${"http://localhost:5678".replace(/^http/, "ws")}/graphql`,
+  });
+
+  return Observable.create((sink) =>
+    wsClient.subscribe(
+      {
+        operationName: params.name,
+        query: params.text!,
+        variables,
+      },
+      sink as any
+    )
+  );
+}
+
 let clientEnv: Environment | undefined;
 export function getClientEnvironment() {
   if (typeof window === "undefined") return null;
 
   if (clientEnv == null) {
     clientEnv = new Environment({
-      network: Network.create(fecthQuery),
+      network: Network.create(fecthQuery, fecthSubscription),
       store: new Store(new RecordSource(getRelaySerializedState()?.records)),
       isServer: false,
     });
