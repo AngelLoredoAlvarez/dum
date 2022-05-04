@@ -17,15 +17,34 @@ import {
 } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { useFragment, useMutation } from "react-relay";
+import { useFragment, useMutation, useSubscription } from "react-relay";
+import type { GraphQLSubscriptionConfig } from "relay-runtime";
 
 import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__/CurrentUserFragment_user.graphql";
 import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
 import type { LogoutMutation as LogoutMutationTypes } from "../graphql/Mutations/__generated__/LogoutMutation.graphql";
 import LogoutMutation from "../graphql/Mutations/LogoutMutation";
+import type { CurrentUserUpdatedSubscription as CurrentUserUpdatedSubscriptionTypes } from "../graphql/Subscriptions/__generated__/CurrentUserUpdatedSubscription.graphql";
+import CurrentUserUpdatedSubscription from "../graphql/Subscriptions/CurrentUserUpdatedSubscription";
 
 interface CustomDrawerContentProps {
   currentUser: CurrentUserFragment_user$key;
+}
+
+function CurrentUserUpdated() {
+  const subscriptionConfig = React.useMemo<
+    GraphQLSubscriptionConfig<CurrentUserUpdatedSubscriptionTypes>
+  >(
+    () => ({
+      subscription: CurrentUserUpdatedSubscription,
+      variables: {},
+    }),
+    []
+  );
+
+  useSubscription(subscriptionConfig);
+
+  return null;
 }
 
 function getCharactersFromName(fullName: string) {
@@ -55,6 +74,7 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
 
   return (
     <DrawerContentScrollView {...props}>
+      {currentUser ? <CurrentUserUpdated /> : null}
       <VStack space="6" my="2" mx="1">
         <Avatar
           _dark={{
