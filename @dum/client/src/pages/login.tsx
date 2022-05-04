@@ -93,9 +93,11 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
             placement: "top",
             status: "error",
             title:
+              // @ts-ignore
               apiErrors[0].extensions.exception.code === "CREDS"
                 ? "Verifica tus Datos"
-                : apiErrors[0].extensions.exception.code === "LOCKD" &&
+                : // @ts-ignore
+                  apiErrors[0].extensions.exception.code === "LOCKD" &&
                   "Cuenta Bloqueada",
             variant: "top-accent",
           });
