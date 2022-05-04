@@ -1,13 +1,15 @@
 import { Alert, Center, HStack, Text, VStack } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { usePreloadedQuery } from "react-relay/hooks";
+import { useMutation, usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
+import type { VerifyEmailMutation as VerifyEmailMutationTypes } from "../graphql/Mutations/__generated__/VerifyEmailMutation.graphql";
+import VerifyEmailMutation from "../graphql/Mutations/VerifyEmailMutation";
 import type { VerifyPageQuery as VerifyPageQueryTypes } from "../graphql/Queries/__generated__/VerifyPageQuery.graphql";
 import VerifyPageQuery from "../graphql/Queries/VerifyPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -18,9 +20,38 @@ function VerifyPage({ preloadedQuery }: RelayProps<{}, VerifyPageQueryTypes>) {
     preloadedQuery
   );
 
-  const [verificated] = React.useState<boolean>(true);
+  const [verificated, setVerificated] = React.useState<boolean>(true);
 
   const router = useRouter();
+
+  const [verifyEmail] =
+    useMutation<VerifyEmailMutationTypes>(VerifyEmailMutation);
+
+  React.useEffect(() => {
+    const { id, token } = router.query;
+    if (
+      (id !== null && token !== null) ||
+      (id !== undefined && token !== undefined)
+    ) {
+      verifyEmail({
+        onCompleted: (response) => {
+          if (response.verifyEmail) {
+            if (response.verifyEmail.success) setVerificated(true);
+            else setVerificated(false);
+          }
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        variables: {
+          VerifyInput: {
+            userEmailId: `${id}`,
+            token: `${token}`,
+          },
+        },
+      });
+    }
+  }, [router.query, router.query.id, router.query.token, verifyEmail]);
 
   if (
     (router.query.id === null && router.query.token === null) ||
