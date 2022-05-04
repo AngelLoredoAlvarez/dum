@@ -126,7 +126,7 @@ function Layout(props: LayoutProps) {
           />
         </HStack>
         <HStack alignItems="center" space={2}>
-          {currentUser ? (
+          {currentUser && !router.pathname.includes("/verificar") ? (
             <VStack>
               <Badge
                 _text={{
@@ -213,7 +213,8 @@ function Layout(props: LayoutProps) {
       </Box>
       {!router.pathname.includes("/login") &&
       !router.pathname.includes("/blog") &&
-      !router.pathname.includes("/registrate") ? (
+      !router.pathname.includes("/registrate") &&
+      !router.pathname.includes("/verificar") ? (
         <HStack
           _dark={{
             bg: "coolGray.800",
