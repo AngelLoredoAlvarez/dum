@@ -21,7 +21,7 @@
         font-size="13px"
         font-family="Helvetica"
       />
-      <mj-class name="blue-section" background-color="#4680b4" />
+      <mj-class name="red-section" background-color="#b91c1c" />
       <mj-class name="white-section" background-color="#fff" />
     </mj-attributes>
   </mj-head>
@@ -29,7 +29,7 @@
   <mj-body mj-class="background">
     <mj-section padding-bottom="20px"></mj-section>
 
-    <mj-section background-color="#b91c1c" mj-class="blue-section">
+    <mj-section mj-class="red-section">
       <mj-column width="100%">
         <mj-text
           mj-class="bold-text"
@@ -76,7 +76,7 @@
       </mj-column>
     </mj-section>
 
-    <mj-section background-color="#b91c1c" mj-class="blue-section">
+    <mj-section mj-class="red-section">
       <mj-column width="100%">
         <mj-text
           mj-class="text"
