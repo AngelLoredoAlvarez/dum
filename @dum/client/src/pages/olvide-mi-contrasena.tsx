@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
 } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
@@ -29,6 +30,12 @@ function ForgotPasswordPage({
       ForgotPasswordQuery,
       preloadedQuery
     );
+
+  const router = useRouter();
+
+  const goToLogin = React.useCallback(() => {
+    router.push("/login");
+  }, [router]);
 
   return (
     <Layout currentUser={forgotPasswordPageQuery}>
@@ -105,6 +112,7 @@ function ForgotPasswordPage({
                   fontWeight: "500",
                   color: "amber.600",
                 }}
+                onPress={goToLogin}
               >
                 ¡Ya recorde mi contraseña! 🤩
               </Link>
