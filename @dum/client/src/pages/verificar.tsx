@@ -1,10 +1,11 @@
-import { Alert, Center, HStack, Text, VStack } from "native-base";
+import { Center } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useMutation, usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 
+import Alert from "../components/Alert";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
@@ -63,62 +64,18 @@ function VerifyPage({ preloadedQuery }: RelayProps<{}, VerifyPageQueryTypes>) {
     <Layout currentUser={verifyPageQuery}>
       <Center flex={1}>
         <Alert
-          colorScheme={verificated ? "success" : "error"}
+          message={
+            verificated
+              ? "Gracias por verificar tu cuenta, puedes cerrar esta pestaña. 👌"
+              : "No fue posible Verificar tu Cuenta 😔, intentalo nuevamente o ponte en contacto con Soporte Técnico 👍🏻."
+          }
           status={verificated ? "success" : "error"}
-          w={{
-            base: "90%",
-            sm: "90%",
-            md: "90%",
-            lg: "80%",
-            xl: "70%",
-            "2xl": "60%",
-          }}
-        >
-          <VStack space={2} flexShrink={1} w="100%">
-            <HStack
-              alignItems="center"
-              flexShrink={1}
-              justifyContent="space-between"
-              space={2}
-            >
-              <HStack alignItems="center" flexShrink={1} space={2}>
-                <Alert.Icon />
-                <Text
-                  color="coolGray.800"
-                  fontSize={{
-                    base: "sm",
-                    sm: "md",
-                    md: "lg",
-                    lg: "xl",
-                    xl: "2xl",
-                    "2xl": "3xl",
-                  }}
-                  fontWeight="medium"
-                >
-                  {verificated
-                    ? "¡Cuenta Verificada! 👏"
-                    : "Error al Verificar la Cuenta 😵"}
-                </Text>
-              </HStack>
-            </HStack>
-            <Text
-              color="gray.600"
-              fontSize={{
-                base: "md",
-                sm: "lg",
-                md: "xl",
-                lg: "2xl",
-                xl: "3xl",
-                "2xl": "4xl",
-              }}
-              textAlign={"justify"}
-            >
-              {verificated
-                ? "Gracias por verificar tu cuenta, puedes cerrar esta pestaña. 👌"
-                : "No fue posible Verificar tu Cuenta 😔, intentalo nuevamente o ponte en contacto con Soporte Técnico 👍🏻."}
-            </Text>
-          </VStack>
-        </Alert>
+          title={
+            verificated
+              ? "¡Cuenta Verificada! 👏"
+              : "Error al Verificar la Cuenta 😵"
+          }
+        />
       </Center>
     </Layout>
   );
