@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/router";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { usePreloadedQuery } from "react-relay/hooks";
+import { useMutation, usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 import * as Yup from "yup";
@@ -23,6 +23,8 @@ import * as Yup from "yup";
 import Alert from "../components/Alert";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import type { ForgotPasswordMutation as ForgotPasswordMutationTypes } from "../graphql/Mutations/__generated__/ForgotPasswordMutation.graphql";
+import ForgotPasswordMutation from "../graphql/Mutations/ForgotPasswordMutation";
 import type { ForgotPasswordQuery as ForgotPasswordPageQueryTypes } from "../graphql/Queries/__generated__/ForgotPasswordQuery.graphql";
 import ForgotPasswordQuery from "../graphql/Queries/ForgotPasswordQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -64,10 +66,30 @@ function ForgotPasswordPage({
     router.push("/login");
   }, [router]);
 
-  const [emailSent] = React.useState<string>("");
+  const [emailSent, setEmailSent] = React.useState<string>("");
+
+  const [forgotPassword] = useMutation<ForgotPasswordMutationTypes>(
+    ForgotPasswordMutation
+  );
 
   const onSubmit = ({ email }) => {
-    console.log(email);
+    forgotPassword({
+      onCompleted: (response, apiErrors) => {
+        if (response.forgotPassword.clientMutationId !== "") {
+          setEmailSent("SUCCESS");
+        } else if (apiErrors[0].message !== "") {
+          setEmailSent("ERROR");
+        }
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+      variables: {
+        ForgotPasswordInput: {
+          email,
+        },
+      },
+    });
   };
 
   return (
