@@ -116,18 +116,22 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
   };
 
   const redirectOnRegister = React.useCallback(() => {
-    if (router.query.next.includes("ultimo-producto-agregado")) {
-      router.push(
-        `/registrate?next=${encodeURIComponent(
-          router.query.next.toString()
-        )}&product_id=${router.query.product_id}&quantity=${
-          router.query.quantity
-        }`
-      );
+    if (router.query.hasOwnProperty("next")) {
+      if (router.query.next.includes("ultimo-producto-agregado")) {
+        router.push(
+          `/registrate?next=${encodeURIComponent(
+            router.query.next.toString()
+          )}&product_id=${router.query.product_id}&quantity=${
+            router.query.quantity
+          }`
+        );
+      } else {
+        router.push(
+          `/registrate?next=${encodeURIComponent(router.query.next.toString())}`
+        );
+      }
     } else {
-      router.push(
-        `/registrate?next=${encodeURIComponent(router.query.next.toString())}`
-      );
+      router.push("/registrate");
     }
   }, [router]);
 
