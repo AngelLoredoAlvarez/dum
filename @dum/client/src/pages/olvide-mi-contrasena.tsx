@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
   Center,
+  FormControl,
   HStack,
   Icon,
   Input,
@@ -12,9 +14,11 @@ import {
 } from "native-base";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { Controller, useForm } from "react-hook-form";
 import { usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
+import * as Yup from "yup";
 
 import Alert from "../components/Alert";
 import Layout from "../components/Layout";
@@ -23,9 +27,30 @@ import type { ForgotPasswordQuery as ForgotPasswordPageQueryTypes } from "../gra
 import ForgotPasswordQuery from "../graphql/Queries/ForgotPasswordQuery";
 import { getClientEnvironment } from "../lib/client";
 
+interface ForgotPasswordPageProps {
+  email: string;
+}
+
+const ForgotPasswordValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required("Ingresa tu Correo Electrónico")
+    .email("Ingresa un Correo Electrónico Valido"),
+});
+
 function ForgotPasswordPage({
   preloadedQuery,
 }: RelayProps<{}, ForgotPasswordPageQueryTypes>) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordPageProps>({
+    defaultValues: {
+      email: "",
+    },
+    resolver: yupResolver(ForgotPasswordValidationSchema),
+  });
+
   const forgotPasswordPageQuery =
     usePreloadedQuery<ForgotPasswordPageQueryTypes>(
       ForgotPasswordQuery,
@@ -39,6 +64,10 @@ function ForgotPasswordPage({
   }, [router]);
 
   const [emailSent] = React.useState<string>("");
+
+  const onSubmit = ({ email }) => {
+    console.log(email);
+  };
 
   return (
     <Layout currentUser={forgotPasswordPageQuery}>
@@ -82,22 +111,47 @@ function ForgotPasswordPage({
               Olvide mi Contraseña 🙃
             </Text>
             <VStack space={5} w={"100%"}>
-              <Input
-                _focus={{
-                  borderColor: "yellow.400",
-                }}
-                autoFocus={true}
-                InputLeftElement={
-                  <Icon
-                    as={<MaterialCommunityIcons name="email" />}
-                    size={5}
-                    ml="2"
-                    color="muted.400"
-                  />
-                }
-                placeholder="Correo Electrónico"
-                size={"md"}
-              />
+              <FormControl isInvalid={errors.email?.message && true}>
+                <Controller
+                  control={control}
+                  name={"email"}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Input
+                      _focus={{
+                        borderColor: "yellow.400",
+                      }}
+                      autoFocus
+                      InputLeftElement={
+                        <Icon
+                          as={<MaterialCommunityIcons name="email" />}
+                          size={5}
+                          ml="2"
+                          color="muted.400"
+                        />
+                      }
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      placeholder="Correo Electrónico"
+                      size={"md"}
+                      value={value}
+                    />
+                  )}
+                />
+                <FormControl.ErrorMessage
+                  _text={{
+                    fontSize: {
+                      base: "md",
+                      sm: "md",
+                      md: "md",
+                      lg: "lg",
+                      xl: "lg",
+                      "2xl": "lg",
+                    },
+                  }}
+                >
+                  {errors.email?.message}
+                </FormControl.ErrorMessage>
+              </FormControl>
               <Button
                 _text={{
                   fontSize: {
@@ -110,6 +164,7 @@ function ForgotPasswordPage({
                   },
                 }}
                 colorScheme="amber"
+                onPress={handleSubmit(onSubmit)}
                 w={"40%"}
               >
                 Resetear Contraseña
