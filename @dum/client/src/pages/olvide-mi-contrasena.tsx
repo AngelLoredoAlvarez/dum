@@ -44,6 +44,7 @@ function ForgotPasswordPage({
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<ForgotPasswordPageProps>({
     defaultValues: {
       email: "",
@@ -74,7 +75,9 @@ function ForgotPasswordPage({
       <Center flex={1}>
         {emailSent.includes("SUCCESS") ? (
           <Alert
-            message="Hemos enviado un Correo Electrónico con un Link para resetear tu contraseña, solo sigue las instrucciones, pero si no recibiste el Link, verifica que tecleaste tu Correo Electrónico correctamente, y revisa tu bandeja de Spam, solo por si acaso 🤔."
+            message={`Hemos enviado un Correo Electrónico con un Link para resetear tu contraseña al correo '${getValues(
+              "email"
+            )}', solo sigue las instrucciones, pero si no recibiste el Link, verifica que tecleaste tu Correo Electrónico correctamente, y revisa tu bandeja de Spam, solo por si acaso 🤔.`}
             status="success"
             title="¡Has recibido un Correo Electrónico 😀!"
           />
