@@ -165,6 +165,7 @@ function Layout(props: LayoutProps) {
           {!currentUser &&
           !router.pathname.includes("/login") &&
           !router.pathname.includes("/registrate") &&
+          !router.pathname.includes("/olvide-mi-contrasena") &&
           (screenSize === "base" || screenSize === "sm") ? (
             <IconButton
               _hover={{
@@ -189,6 +190,7 @@ function Layout(props: LayoutProps) {
           {!currentUser &&
           !router.pathname.includes("/login") &&
           !router.pathname.includes("/registrate") &&
+          !router.pathname.includes("/olvide-mi-contrasena") &&
           (screenSize === "md" ||
             screenSize === "lg" ||
             screenSize === "xl" ||
