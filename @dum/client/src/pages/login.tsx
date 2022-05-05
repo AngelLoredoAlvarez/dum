@@ -256,6 +256,7 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
                   }}
                   alignSelf="flex-end"
                   mt="1"
+                  onPress={() => router.push("/olvide-mi-contrasena")}
                 >
                   ¿Olvidaste tu Contraseña?
                 </Link>
