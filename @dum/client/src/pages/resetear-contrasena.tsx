@@ -16,6 +16,7 @@ import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 import * as Yup from "yup";
 
+import Alert from "../components/Alert";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import type { ResetPasswordMutation as ResetPasswordMutationTypes } from "../graphql/Mutations/__generated__/ResetPasswordMutation.graphql";
@@ -48,6 +49,9 @@ function ResetPasswordPage({
     preloadedQuery
   );
 
+  const [resetPasswordState, setResetPasswordState] =
+    React.useState<string>("");
+
   const router = useRouter();
   const { user_id = "", token = "" } = router.query;
 
@@ -64,19 +68,18 @@ function ResetPasswordPage({
     resolver: yupResolver(ResetPasswordValidationSchema),
   });
 
-  const [resetPassword] = useMutation<ResetPasswordMutationTypes>(
-    ResetPasswordMutation
-  );
+  const [resetPassword, resetPasswordIsInFlight] =
+    useMutation<ResetPasswordMutationTypes>(ResetPasswordMutation);
 
   const onSubmit = ({ token, newPassword }) => {
     resetPassword({
       onCompleted: (response, apiErrors) => {
         if (response.resetPassword) {
           if (response.resetPassword.success) {
-            console.log("ALL OK");
+            setResetPasswordState("SUCCESS");
           }
         } else if (apiErrors[0].message !== "") {
-          console.log("ALL NO OK");
+          setResetPasswordState("ERROR");
         }
       },
       onError: (err) => {
@@ -95,212 +98,265 @@ function ResetPasswordPage({
   return (
     <Layout currentUser={resetPasswordPageQuery}>
       <Center flex={1}>
-        <VStack
-          alignItems={"center"}
-          space={5}
-          w={{
-            base: "90%",
-            sm: "90%",
-            md: "85%",
-            lg: "80%",
-            xl: "75%",
-            "2xl": "70%",
-          }}
-        >
-          <Text
-            bold
-            fontSize={{
-              base: "2xl",
-              sm: "2xl",
-              md: "3xl",
-              lg: "4xl",
-              xl: "5xl",
-              "2xl": "5xl",
+        {resetPasswordIsInFlight ? (
+          <Alert
+            message="Estamos enviando la Información 🚀, esto puede tomar unos minutos ⏲️."
+            status="info"
+            title="Reseteando tú Contraseña ⌨️"
+          />
+        ) : resetPasswordState === "SUCCESS" ? (
+          <Alert
+            message="Tú contraseña ha sido Reseteada 👏, ahora puedes ir a iniciar sesión 🤗."
+            status="success"
+            title="Contraseña Reseteada ✅"
+          />
+        ) : resetPasswordState === "ERROR" ? (
+          <Alert
+            message="No fue posible Resetear tú Contraseña 😔, intentalo nuevamente o ponte en contacto con Soporte Técnico 👍🏻."
+            status="error"
+            title="Error al Resetear tú Contraseña 😵"
+          />
+        ) : (
+          <VStack
+            alignItems={"center"}
+            space={5}
+            w={{
+              base: "90%",
+              sm: "90%",
+              md: "85%",
+              lg: "80%",
+              xl: "75%",
+              "2xl": "70%",
             }}
           >
-            Resetea tu Contraseña 👍🏻
-          </Text>
-          <VStack space={5} w={"100%"}>
-            <FormControl isInvalid={errors.token?.message && true}>
-              <Stack
-                direction={{
-                  base: "column",
-                  sm: "column",
-                  md: "column",
-                  lg: "row",
-                  xl: "row",
-                  "2xl": "row",
-                }}
-                flex={1}
-              >
-                <FormControl.Label>
-                  <Text
-                    bold
-                    fontSize={{
-                      base: "sm",
-                      sm: "sm",
-                      md: "sm",
-                      lg: "md",
-                      xl: "lg",
-                      "2xl": "xl",
-                    }}
-                  >
-                    <Text bold color={"red.500"}>
-                      *{" "}
-                    </Text>
-                    Token de Reseteo:
-                  </Text>
-                </FormControl.Label>
-                <VStack flex={1}>
-                  <Controller
-                    control={control}
-                    name={"token"}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Input
-                        _focus={{
-                          borderColor: "yellow.400",
-                        }}
-                        autoFocus
-                        onBlur={onBlur}
-                        onChange={onChange}
-                        size={"md"}
-                        value={value}
-                      />
-                    )}
-                  />
-                  <FormControl.ErrorMessage>
-                    {errors.token?.message}
-                  </FormControl.ErrorMessage>
-                </VStack>
-              </Stack>
-            </FormControl>
-            <FormControl isInvalid={errors.newPassword?.message && true}>
-              <Stack
-                direction={{
-                  base: "column",
-                  sm: "column",
-                  md: "column",
-                  lg: "row",
-                  xl: "row",
-                  "2xl": "row",
-                }}
-                flex={1}
-              >
-                <FormControl.Label>
-                  <Text
-                    bold
-                    fontSize={{
-                      base: "sm",
-                      sm: "sm",
-                      md: "sm",
-                      lg: "md",
-                      xl: "lg",
-                      "2xl": "xl",
-                    }}
-                  >
-                    <Text bold color={"red.500"}>
-                      *{" "}
-                    </Text>
-                    Nueva Contraseña:
-                  </Text>
-                </FormControl.Label>
-                <VStack flex={1}>
-                  <Controller
-                    control={control}
-                    name={"newPassword"}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Input
-                        _focus={{
-                          borderColor: "yellow.400",
-                        }}
-                        autoFocus
-                        onBlur={onBlur}
-                        onChange={onChange}
-                        size={"md"}
-                        type={"password"}
-                        value={value}
-                      />
-                    )}
-                  />
-                  <FormControl.ErrorMessage>
-                    {errors.newPassword?.message}
-                  </FormControl.ErrorMessage>
-                </VStack>
-              </Stack>
-            </FormControl>
-            <FormControl isInvalid={errors.confirmPassword?.message && true}>
-              <Stack
-                direction={{
-                  base: "column",
-                  sm: "column",
-                  md: "column",
-                  lg: "row",
-                  xl: "row",
-                  "2xl": "row",
-                }}
-                flex={1}
-              >
-                <FormControl.Label>
-                  <Text
-                    bold
-                    fontSize={{
-                      base: "sm",
-                      sm: "sm",
-                      md: "sm",
-                      lg: "md",
-                      xl: "lg",
-                      "2xl": "xl",
-                    }}
-                  >
-                    <Text bold color={"red.500"}>
-                      *{" "}
-                    </Text>
-                    Confirma tú Nueva Contraseña:
-                  </Text>
-                </FormControl.Label>
-                <VStack flex={1}>
-                  <Controller
-                    control={control}
-                    name={"confirmPassword"}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Input
-                        _focus={{
-                          borderColor: "yellow.400",
-                        }}
-                        autoFocus
-                        onBlur={onBlur}
-                        onChange={onChange}
-                        size={"md"}
-                        type={"password"}
-                        value={value}
-                      />
-                    )}
-                  />
-                  <FormControl.ErrorMessage>
-                    {errors.confirmPassword?.message}
-                  </FormControl.ErrorMessage>
-                </VStack>
-              </Stack>
-            </FormControl>
-            <Button
-              _text={{
-                fontSize: {
-                  base: "md",
-                  sm: "md",
-                  md: "md",
-                  lg: "lg",
-                  xl: "lg",
-                  "2xl": "lg",
-                },
+            <Text
+              bold
+              fontSize={{
+                base: "2xl",
+                sm: "2xl",
+                md: "3xl",
+                lg: "4xl",
+                xl: "5xl",
+                "2xl": "5xl",
               }}
-              colorScheme="amber"
-              onPress={handleSubmit(onSubmit)}
-              w={"40%"}
             >
-              Resetear Contraseña
-            </Button>
+              Resetea tu Contraseña 👍🏻
+            </Text>
+            <VStack space={5} w={"100%"}>
+              <FormControl isInvalid={errors.token?.message && true}>
+                <Stack
+                  direction={{
+                    base: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
+                    xl: "row",
+                    "2xl": "row",
+                  }}
+                  flex={1}
+                >
+                  <FormControl.Label>
+                    <Text
+                      bold
+                      fontSize={{
+                        base: "sm",
+                        sm: "sm",
+                        md: "sm",
+                        lg: "md",
+                        xl: "lg",
+                        "2xl": "xl",
+                      }}
+                    >
+                      <Text bold color={"red.500"}>
+                        *{" "}
+                      </Text>
+                      Token de Reseteo:
+                    </Text>
+                  </FormControl.Label>
+                  <VStack flex={1}>
+                    <Controller
+                      control={control}
+                      name={"token"}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          _focus={{
+                            borderColor: "yellow.400",
+                          }}
+                          autoFocus
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          size={"md"}
+                          value={value}
+                        />
+                      )}
+                    />
+                    <FormControl.ErrorMessage
+                      _text={{
+                        fontSize: {
+                          base: "md",
+                          sm: "md",
+                          md: "md",
+                          lg: "lg",
+                          xl: "lg",
+                          "2xl": "lg",
+                        },
+                      }}
+                    >
+                      {errors.token?.message}
+                    </FormControl.ErrorMessage>
+                  </VStack>
+                </Stack>
+              </FormControl>
+              <FormControl isInvalid={errors.newPassword?.message && true}>
+                <Stack
+                  direction={{
+                    base: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
+                    xl: "row",
+                    "2xl": "row",
+                  }}
+                  flex={1}
+                >
+                  <FormControl.Label>
+                    <Text
+                      bold
+                      fontSize={{
+                        base: "sm",
+                        sm: "sm",
+                        md: "sm",
+                        lg: "md",
+                        xl: "lg",
+                        "2xl": "xl",
+                      }}
+                    >
+                      <Text bold color={"red.500"}>
+                        *{" "}
+                      </Text>
+                      Nueva Contraseña:
+                    </Text>
+                  </FormControl.Label>
+                  <VStack flex={1}>
+                    <Controller
+                      control={control}
+                      name={"newPassword"}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          _focus={{
+                            borderColor: "yellow.400",
+                          }}
+                          autoFocus
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          size={"md"}
+                          type={"password"}
+                          value={value}
+                        />
+                      )}
+                    />
+                    <FormControl.ErrorMessage
+                      _text={{
+                        fontSize: {
+                          base: "md",
+                          sm: "md",
+                          md: "md",
+                          lg: "lg",
+                          xl: "lg",
+                          "2xl": "lg",
+                        },
+                      }}
+                    >
+                      {errors.newPassword?.message}
+                    </FormControl.ErrorMessage>
+                  </VStack>
+                </Stack>
+              </FormControl>
+              <FormControl isInvalid={errors.confirmPassword?.message && true}>
+                <Stack
+                  direction={{
+                    base: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
+                    xl: "row",
+                    "2xl": "row",
+                  }}
+                  flex={1}
+                >
+                  <FormControl.Label>
+                    <Text
+                      bold
+                      fontSize={{
+                        base: "sm",
+                        sm: "sm",
+                        md: "sm",
+                        lg: "md",
+                        xl: "lg",
+                        "2xl": "xl",
+                      }}
+                    >
+                      <Text bold color={"red.500"}>
+                        *{" "}
+                      </Text>
+                      Confirma tú Nueva Contraseña:
+                    </Text>
+                  </FormControl.Label>
+                  <VStack flex={1}>
+                    <Controller
+                      control={control}
+                      name={"confirmPassword"}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          _focus={{
+                            borderColor: "yellow.400",
+                          }}
+                          autoFocus
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          size={"md"}
+                          type={"password"}
+                          value={value}
+                        />
+                      )}
+                    />
+                    <FormControl.ErrorMessage
+                      _text={{
+                        fontSize: {
+                          base: "md",
+                          sm: "md",
+                          md: "md",
+                          lg: "lg",
+                          xl: "lg",
+                          "2xl": "lg",
+                        },
+                      }}
+                    >
+                      {errors.confirmPassword?.message}
+                    </FormControl.ErrorMessage>
+                  </VStack>
+                </Stack>
+              </FormControl>
+              <Button
+                _text={{
+                  fontSize: {
+                    base: "md",
+                    sm: "md",
+                    md: "md",
+                    lg: "lg",
+                    xl: "lg",
+                    "2xl": "lg",
+                  },
+                }}
+                colorScheme="amber"
+                onPress={handleSubmit(onSubmit)}
+                w={"40%"}
+              >
+                Resetear Contraseña
+              </Button>
+            </VStack>
           </VStack>
-        </VStack>
+        )}
       </Center>
     </Layout>
   );
