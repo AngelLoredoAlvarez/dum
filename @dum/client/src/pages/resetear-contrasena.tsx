@@ -11,13 +11,15 @@ import {
 import { useRouter } from "next/router";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { usePreloadedQuery } from "react-relay/hooks";
+import { useMutation, usePreloadedQuery } from "react-relay/hooks";
 import type { RelayProps } from "relay-nextjs";
 import { withRelay } from "relay-nextjs";
 import * as Yup from "yup";
 
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
+import type { ResetPasswordMutation as ResetPasswordMutationTypes } from "../graphql/Mutations/__generated__/ResetPasswordMutation.graphql";
+import ResetPasswordMutation from "../graphql/Mutations/ResetPasswordMutation";
 import type { ResetPasswordPageQuery as ResetPasswordPageQueryTypes } from "../graphql/Queries/__generated__/ResetPasswordPageQuery.graphql";
 import ResetPasswordPageQuery from "../graphql/Queries/ResetPasswordPageQuery";
 import { getClientEnvironment } from "../lib/client";
@@ -47,7 +49,7 @@ function ResetPasswordPage({
   );
 
   const router = useRouter();
-  const { _user_id = "", token = "" } = router.query;
+  const { user_id = "", token = "" } = router.query;
 
   const {
     control,
@@ -62,8 +64,32 @@ function ResetPasswordPage({
     resolver: yupResolver(ResetPasswordValidationSchema),
   });
 
-  const onSubmit = ({ token, newPassword, confirmPassword }) => {
-    console.log(token, newPassword, confirmPassword);
+  const [resetPassword] = useMutation<ResetPasswordMutationTypes>(
+    ResetPasswordMutation
+  );
+
+  const onSubmit = ({ token, newPassword }) => {
+    resetPassword({
+      onCompleted: (response, apiErrors) => {
+        if (response.resetPassword) {
+          if (response.resetPassword.success) {
+            console.log("ALL OK");
+          }
+        } else if (apiErrors[0].message !== "") {
+          console.log("ALL NO OK");
+        }
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+      variables: {
+        ResetPasswordInput: {
+          userId: user_id,
+          resetToken: token,
+          newPassword,
+        },
+      },
+    });
   };
 
   return (
