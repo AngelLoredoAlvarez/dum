@@ -71,6 +71,7 @@ function ProductLikeTheLastAddedProductItem(
           }}
           space={2}
           w={{
+            base: "400",
             sm: "210",
             md: "220",
             lg: "230",
