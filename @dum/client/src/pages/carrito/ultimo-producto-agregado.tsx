@@ -1,3 +1,4 @@
+import { Hidden } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -28,13 +29,61 @@ function LastAddedProductPage({
 
   return (
     <Layout currentUser={lastAddedProductPageQuery}>
-      <ProductsLikeTheLastAddedProductList
-        lastAddedProductInTheShoppingList={
-          lastAddedProductPageQuery.lastAddedProductInTheShoppingList
-        }
-        mainDepartments={lastAddedProductPageQuery}
-        productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
-      />
+      <Hidden only={["base", "sm", "md", "lg"]}>
+        <ProductsLikeTheLastAddedProductList
+          amountOfItemsToFetch={5}
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+          mainDepartments={lastAddedProductPageQuery}
+          numberOfColumns={5}
+          productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+        />
+      </Hidden>
+      <Hidden only={["base", "sm", "md", "xl", "2xl"]}>
+        <ProductsLikeTheLastAddedProductList
+          amountOfItemsToFetch={4}
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+          mainDepartments={lastAddedProductPageQuery}
+          numberOfColumns={4}
+          productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+        />
+      </Hidden>
+      <Hidden only={["base", "sm", "lg", "xl", "2xl"]}>
+        <ProductsLikeTheLastAddedProductList
+          amountOfItemsToFetch={3}
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+          mainDepartments={lastAddedProductPageQuery}
+          numberOfColumns={3}
+          productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+        />
+      </Hidden>
+      <Hidden only={["base", "md", "lg", "xl", "2xl"]}>
+        <ProductsLikeTheLastAddedProductList
+          amountOfItemsToFetch={2}
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+          mainDepartments={lastAddedProductPageQuery}
+          numberOfColumns={2}
+          productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+        />
+      </Hidden>
+      <Hidden only={["sm", "md", "lg", "xl", "2xl"]}>
+        <ProductsLikeTheLastAddedProductList
+          amountOfItemsToFetch={1}
+          lastAddedProductInTheShoppingList={
+            lastAddedProductPageQuery.lastAddedProductInTheShoppingList
+          }
+          mainDepartments={lastAddedProductPageQuery}
+          numberOfColumns={1}
+          productsLikeTheLastAddedProductList={lastAddedProductPageQuery}
+        />
+      </Hidden>
     </Layout>
   );
 }
