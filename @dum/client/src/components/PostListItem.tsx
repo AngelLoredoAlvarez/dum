@@ -74,7 +74,18 @@ function PostListItem(props: PostListItemProps) {
         />
       </Box>
       <Stack flex={1} p="4" space={[3, 3, 1.5]}>
-        <Heading size={["md", "lg", "lg"]}>{post.headline}</Heading>
+        <Heading
+          fontSize={{
+            base: "sm",
+            sm: "sm",
+            md: "md",
+            lg: "lg",
+            xl: "xl",
+            "2xl": "2xl",
+          }}
+        >
+          {post.headline}
+        </Heading>
         <Text
           fontSize={{
             base: "sm",
