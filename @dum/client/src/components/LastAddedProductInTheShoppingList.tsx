@@ -157,7 +157,7 @@ function LastAddedProductInTheShoppingList(
             )}
             <VStack space={3}>
               <Heading
-                size={{
+                fontSize={{
                   base: "sm",
                   sm: "sm",
                   md: "sm",
