@@ -63,16 +63,16 @@ function LastAddedProductInTheShoppingList(
         sm: "3",
         md: "12",
         lg: "20",
-        xl: "40",
-        "2xl": "64",
+        xl: "16",
+        "2xl": "40",
       }}
       mr={{
         base: "3",
         sm: "3",
         md: "12",
         lg: "20",
-        xl: "40",
-        "2xl": "56",
+        xl: "16",
+        "2xl": "40",
       }}
       mt="2"
       overflow="hidden"
@@ -87,15 +87,15 @@ function LastAddedProductInTheShoppingList(
               h={{
                 base: "40",
                 sm: "40",
-                md: "215px",
-                lg: "215px",
+                md: "100%",
+                lg: "100%",
                 xl: "215px",
                 "2xl": "215px",
               }}
               w={{
                 base: "100%",
                 sm: "100%",
-                md: "250px",
+                md: "300px",
                 lg: "250px",
                 xl: "250px",
                 "2xl": "250px",
@@ -111,8 +111,8 @@ function LastAddedProductInTheShoppingList(
             direction={{
               base: "column",
               sm: "column",
-              md: "row",
-              lg: "row",
+              md: "column",
+              lg: "column",
               xl: "row",
               "2xl": "row",
             }}
@@ -150,7 +150,10 @@ function LastAddedProductInTheShoppingList(
                 <Text>{lastAddedProductInTheShoppingList.cost}</Text>
               </HStack>
             </VStack>
-            {screenSize === "base" || screenSize === "sm" ? (
+            {screenSize === "base" ||
+            screenSize === "sm" ||
+            screenSize === "md" ||
+            screenSize === "lg" ? (
               <Divider my={5} orientation={"horizontal"} />
             ) : (
               <Divider my={5} orientation={"vertical"} />
@@ -171,7 +174,10 @@ function LastAddedProductInTheShoppingList(
               </Heading>
               <Text textAlign={"center"}>PROGRESS BAR</Text>
             </VStack>
-            {screenSize === "base" || screenSize === "sm" ? (
+            {screenSize === "base" ||
+            screenSize === "sm" ||
+            screenSize === "md" ||
+            screenSize === "lg" ? (
               <Divider my={5} orientation={"horizontal"} />
             ) : (
               <Divider my={5} orientation={"vertical"} />
@@ -182,7 +188,7 @@ function LastAddedProductInTheShoppingList(
                 base: "row",
                 sm: "row",
                 md: "row",
-                lg: "column",
+                lg: "row",
                 xl: "column",
                 "2xl": "column",
               }}
