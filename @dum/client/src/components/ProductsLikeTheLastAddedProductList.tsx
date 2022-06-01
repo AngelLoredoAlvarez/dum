@@ -11,8 +11,10 @@ import ProductLikeTheLastAddedProductItem from "./ProductLikeTheLastAddedProduct
 import ProductsLikeTheLastAddedProductListHeader from "./ProductsLikeTheLastAddedProductListHeader";
 
 interface ProductsLikeTheLastAddedProductListProps {
+  amountOfItemsToFetch: number;
   lastAddedProductInTheShoppingList: LastAddedProductInTheShoppingListFragment_lastAddedProduct$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
+  numberOfColumns: number;
   productsLikeTheLastAddedProductList: ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList$key;
 }
 
@@ -67,9 +69,9 @@ function ProductsLikeTheLastAddedProductList(
           mainDepartments={props.mainDepartments}
         />
       }
-      numColumns={5}
+      numColumns={props.numberOfColumns}
       onEndReached={() => {
-        loadNext(5);
+        loadNext(props.amountOfItemsToFetch);
       }}
       onEndReachedThreshold={0}
       renderItem={({ item }) => (
