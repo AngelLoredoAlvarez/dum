@@ -191,10 +191,8 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
               onPress={() => {
                 dispatch(DrawerActions.closeDrawer());
                 logout({
-                  onCompleted: (response) => {
-                    if (response.logout.success) {
-                      handleRedirectAfterLogout();
-                    }
+                  onCompleted: () => {
+                    handleRedirectAfterLogout();
                   },
                   onError: () => {},
                   variables: {},
