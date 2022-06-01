@@ -57,6 +57,15 @@ function SubDepartmentPage({
           subDepartment={subDepartmentPageQuery.subDepartmentByName}
         />
       </Hidden>
+      <Hidden only={["sm", "md", "lg", "xl", "2xl"]}>
+        <SubDepartmentProductsList
+          amountOfItemsToFetch={1}
+          mainDepartments={subDepartmentPageQuery}
+          numberOfColumns={1}
+          products={subDepartmentPageQuery.subDepartmentByName}
+          subDepartment={subDepartmentPageQuery.subDepartmentByName}
+        />
+      </Hidden>
     </Layout>
   );
 }
