@@ -122,7 +122,7 @@ function LastAddedProductInTheShoppingList(
           >
             <VStack alignContent={"center"} alignItems={"center"} space={2}>
               <Heading
-                size={{
+                fontSize={{
                   base: "sm",
                   sm: "sm",
                   md: "sm",
