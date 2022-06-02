@@ -28,7 +28,7 @@
     "graphile-worker": "^0.13.0",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "native-base": "3.4.5",
+    "native-base": "3.4.6",
     "next": "^12.1.6",
     "passport": "^0.6.0",
     "pg": "^8.7.3",
@@ -39,12 +39,12 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/connect-redis": "0.0.16",
+    "@types/connect-redis": "0.0.18",
     "@types/csurf": "^1.11.2",
     "@types/express-session": "^1.17.4",
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.38",
-    "@types/passport": "^1.0.7",
+    "@types/passport": "^1.0.8",
     "@types/pg": "^8.6.5",
     "@types/redis": "4.0.10",
     "graphql": "^16.5.0",

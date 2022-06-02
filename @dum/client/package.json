@@ -14,7 +14,7 @@
     "graphql-ws": "^5.8.2",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
-    "native-base": "3.4.5",
+    "native-base": "3.4.6",
     "net": "^1.0.2",
     "next": "^12.1.6",
     "nprogress": "^0.2.0",
@@ -37,7 +37,7 @@
     "setimmediate": "^1.0.5",
     "slugify": "^1.6.5",
     "tls": "^0.0.1",
-    "webpack": "^5.72.1",
+    "webpack": "^5.73.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
