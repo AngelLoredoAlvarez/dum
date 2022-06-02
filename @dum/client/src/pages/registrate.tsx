@@ -628,6 +628,69 @@ function RegisterPage({
                     </FormControl.ErrorMessage>
                   </VStack>
                 </FormControl>
+                <FormControl
+                  flexDir={"row"}
+                  isInvalid={errors.street?.message && true}
+                  w={{
+                    base: "100%",
+                    sm: "100%",
+                    md: "100%",
+                    lg: "25%",
+                    xl: "25%",
+                    "2xl": "25%",
+                  }}
+                >
+                  <FormControl.Label>
+                    <Text
+                      bold
+                      fontSize={{
+                        base: "sm",
+                        sm: "sm",
+                        md: "sm",
+                        lg: "md",
+                        xl: "lg",
+                        "2xl": "xl",
+                      }}
+                    >
+                      <Text bold color={"red.500"}>
+                        *{" "}
+                      </Text>
+                      Calle:
+                    </Text>
+                  </FormControl.Label>
+                  <VStack flex={1}>
+                    {suburbId === "" ? (
+                      <Select isDisabled={true} placeholder={"Selecciona..."} />
+                    ) : (
+                      <Controller
+                        control={control}
+                        name={"street"}
+                        render={({ field: { value } }) =>
+                          isMounted ? (
+                            <React.Suspense fallback={<Loading />}>
+                              <StreetsList
+                                selectedValue={value}
+                                setValue={setValue}
+                                streets={registerPageQuery}
+                                suburbId={suburbId}
+                              />
+                            </React.Suspense>
+                          ) : (
+                            <StreetsList
+                              selectedValue={value}
+                              setValue={setValue}
+                              streets={registerPageQuery}
+                              suburbId={suburbId}
+                            />
+                          )
+                        }
+                      />
+                    )}
+                    <FormControl.ErrorMessage>
+                      {errors.street?.message}
+                    </FormControl.ErrorMessage>
+                  </VStack>
+                </FormControl>
                 <HStack
                   flex={1}
                   space={{
@@ -635,87 +698,14 @@ function RegisterPage({
                     sm: 2,
                     md: 2,
                     lg: 2,
-                    xl: 3,
-                    "2xl": 5,
+                    xl: 2,
+                    "2xl": 2,
                   }}
                 >
                   <FormControl
                     flexDir={"row"}
-                    isInvalid={errors.street?.message && true}
-                    w={{
-                      base: "40%",
-                      sm: "42%",
-                      md: "55%",
-                      lg: "41%",
-                      xl: "45%",
-                      "2xl": "44%",
-                    }}
-                  >
-                    <FormControl.Label>
-                      <Text
-                        bold
-                        fontSize={{
-                          base: "sm",
-                          sm: "sm",
-                          md: "sm",
-                          lg: "md",
-                          xl: "lg",
-                          "2xl": "xl",
-                        }}
-                      >
-                        <Text bold color={"red.500"}>
-                          *{" "}
-                        </Text>
-                        Calle:
-                      </Text>
-                    </FormControl.Label>
-                    <VStack flex={1}>
-                      {suburbId === "" ? (
-                        <Select
-                          isDisabled={true}
-                          placeholder={"Selecciona..."}
-                        />
-                      ) : (
-                        <Controller
-                          control={control}
-                          name={"street"}
-                          render={({ field: { value } }) =>
-                            isMounted ? (
-                              <React.Suspense fallback={<Loading />}>
-                                <StreetsList
-                                  selectedValue={value}
-                                  setValue={setValue}
-                                  streets={registerPageQuery}
-                                  suburbId={suburbId}
-                                />
-                              </React.Suspense>
-                            ) : (
-                              <StreetsList
-                                selectedValue={value}
-                                setValue={setValue}
-                                streets={registerPageQuery}
-                                suburbId={suburbId}
-                              />
-                            )
-                          }
-                        />
-                      )}
-                      <FormControl.ErrorMessage>
-                        {errors.street?.message}
-                      </FormControl.ErrorMessage>
-                    </VStack>
-                  </FormControl>
-                  <FormControl
-                    flexDir={"row"}
                     isInvalid={errors.exteriorNumber?.message && true}
-                    w={{
-                      base: "",
-                      sm: "29%",
-                      md: "23%",
-                      lg: "30%",
-                      xl: "27%",
-                      "2xl": "27%",
-                    }}
+                    w={"50%"}
                   >
                     <FormControl.Label>
                       <Text
@@ -732,7 +722,7 @@ function RegisterPage({
                         <Text bold color={"red.500"}>
                           *{" "}
                         </Text>
-                        No. Ext.:
+                        No. Ext:
                       </Text>
                     </FormControl.Label>
                     <VStack flex={1}>
@@ -759,17 +749,7 @@ function RegisterPage({
                       </FormControl.ErrorMessage>
                     </VStack>
                   </FormControl>
-                  <FormControl
-                    flexDir={"row"}
-                    w={{
-                      base: "",
-                      sm: "25%",
-                      md: "20%",
-                      lg: "25%",
-                      xl: "22%",
-                      "2xl": "22%",
-                    }}
-                  >
+                  <FormControl flexDir={"row"} w={"48%"}>
                     <FormControl.Label>
                       <Text
                         bold
@@ -785,7 +765,7 @@ function RegisterPage({
                         No. Int:
                       </Text>
                     </FormControl.Label>
-                    <VStack flex={1} h={"100%"}>
+                    <VStack flex={1}>
                       <Controller
                         control={control}
                         name={"interiorNumber"}
