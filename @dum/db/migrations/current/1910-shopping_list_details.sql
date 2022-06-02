@@ -194,25 +194,29 @@ create or replace function dum_public.delete_from_shopping_list(product_id uuid)
 $$ language sql security definer volatile set search_path to pg_catalog, public, pg_temp;
 
 /*
- * Custom Query that returns all the products in the same Sub Department to wich belong the Last Added Product in the Shopping List
+ * Custom Query that returns all the products in the same Sub Department to wich belong the Last Added Product in the Shopping List, or, returns products ramdomly
  */
 create or replace function dum_public.products_like_the_last_added_product() returns setof dum_public.products as $$
-  with selected_product_id as (
-    select
-      product_id
-    from
-      dum_public.shopping_list_details
-    where
-      shopping_list_id = dum_public.opened_shopping_list_id()
-    order by
-      updated_at
-    desc limit 1
-  ), selected_sub_department_id as (
-    select
-      sub_department_id
-    from
-      dum_public.products
-    where
-      id = (select product_id from selected_product_id)
-  ) select * from dum_public.products where sub_department_id = (select sub_department_id from selected_sub_department_id);
-$$ language sql stable;
+  declare
+    selected_product_id uuid;
+    selected_sub_department_id uuid;
+  begin
+    -- First, we check if the user has added a product to their shopping list
+    if (select 1 from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc) then
+      /* If they do, we make the calculation to retrive the products like the last added product */
+
+      -- Select the id from the last product added to the shopping list
+      select product_id from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc limit 1 into selected_product_id;
+
+      -- Select the Sub Department id from the last product added to the shopping list
+      select sub_department_id from dum_public.products where id = selected_product_id into selected_sub_department_id;
+
+      return query select * from dum_public.products where sub_department_id = selected_sub_department_id;
+    else
+      /* If they do not, we retrive the products ramdomly */
+      return query select * from dum_public.products order by random();
+    end if;
+
+    return;
+  end;
+$$ language plpgsql stable;
