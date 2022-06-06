@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Box,
   Button,
@@ -120,7 +121,12 @@ function LastAddedProductInTheShoppingList(
             p="4"
             space={[3, 3, 1.5]}
           >
-            <VStack alignContent={"center"} alignItems={"center"} space={2}>
+            <VStack
+              alignContent={"center"}
+              alignItems={"center"}
+              flex={1}
+              space={2}
+            >
               <Heading
                 fontSize={{
                   base: "sm",
@@ -158,7 +164,7 @@ function LastAddedProductInTheShoppingList(
             ) : (
               <Divider my={5} orientation={"vertical"} />
             )}
-            <VStack space={3}>
+            <VStack flex={1} space={3}>
               <Heading
                 fontSize={{
                   base: "sm",
@@ -194,8 +200,19 @@ function LastAddedProductInTheShoppingList(
               }}
               space={1}
             >
-              <Button onPress={handleRouting}>Ver Carrito</Button>
-              <Button>Comprar Carrito</Button>
+              <Button
+                colorScheme={"amber"}
+                leftIcon={<MaterialIcons color={"white"} name={"search"} />}
+                onPress={handleRouting}
+              >
+                Ver Carrito
+              </Button>
+              <Button
+                colorScheme={"amber"}
+                leftIcon={<MaterialIcons color={"white"} name={"payment"} />}
+              >
+                Comprar Carrito
+              </Button>
             </Stack>
           </Stack>
         </>
