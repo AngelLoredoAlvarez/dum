@@ -83,7 +83,7 @@ create or replace function dum_public.add_to_shopping_list(product_id uuid, sele
           dum_public.shopping_list_details
         set
           quantity = quantity + $2,
-          unformated_cost = dum_public.shopping_list_detail_unformated_cost($1, $2)
+          unformated_cost = unformated_cost + dum_public.shopping_list_detail_unformated_cost($1, $2)
         where
           id = dum_public.shopping_list_detail_id($1)
         returning * into added_product;
