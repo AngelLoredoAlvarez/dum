@@ -7,7 +7,6 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import ProductsLikeTheLastAddedProductList from "../../components/ProductsLikeTheLastAddedProductList";
-import Redirect from "../../components/Redirect";
 import type { LastAddedProductPageQuery as LastAddedProductPageQueryTypes } from "../../graphql/Queries/__generated__/LastAddedProductPageQuery.graphql";
 import LastAddedProductPageQuery from "../../graphql/Queries/LastAddedProductPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -20,12 +19,6 @@ function LastAddedProductPage({
       LastAddedProductPageQuery,
       preloadedQuery
     );
-
-  if (
-    lastAddedProductPageQuery.currentUser === null ||
-    lastAddedProductPageQuery.currentUser === undefined
-  )
-    return <Redirect href="/" />;
 
   return (
     <Layout currentUser={lastAddedProductPageQuery}>
