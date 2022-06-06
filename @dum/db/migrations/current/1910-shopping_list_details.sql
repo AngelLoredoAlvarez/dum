@@ -202,7 +202,7 @@ create or replace function dum_public.products_like_the_last_added_product() ret
     selected_sub_department_id uuid;
   begin
     -- First, we check if the user has added a product to their shopping list
-    if (select 1 from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc) then
+    if (select 1 from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() order by updated_at desc limit 1) then
       /* If they do, we make the calculation to retrive the products like the last added product */
 
       -- Select the id from the last product added to the shopping list
@@ -216,7 +216,5 @@ create or replace function dum_public.products_like_the_last_added_product() ret
       /* If they do not, we retrive the products ramdomly */
       return query select * from dum_public.products order by random();
     end if;
-
-    return;
   end;
 $$ language plpgsql stable;
