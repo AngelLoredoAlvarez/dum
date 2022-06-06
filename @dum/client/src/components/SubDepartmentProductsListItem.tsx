@@ -54,6 +54,7 @@ function SubDepartmentProductsListItem(
           }}
           space={2}
           w={{
+            base: "90%",
             sm: "210",
             md: "220",
             lg: "230",
@@ -83,7 +84,7 @@ function SubDepartmentProductsListItem(
             {product.brand.brand}
           </Heading>
           <Text fontSize={"sm"} textAlign={"center"}>
-            {product.description}
+            {product.description}{" "}
           </Text>
           <Text bold fontSize={"sm"} textAlign={"center"}>
             {product.price}
