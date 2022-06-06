@@ -6,6 +6,7 @@ import {
   Heading,
   HStack,
   Image,
+  Progress,
   Stack,
   Text,
   useBreakpointValue,
@@ -132,28 +133,82 @@ function LastAddedProductInTheShoppingList(
                   base: "sm",
                   sm: "sm",
                   md: "sm",
-                  lg: "sm",
-                  xl: "sm",
-                  "2xl": "md",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
                 }}
                 textAlign={"center"}
               >
                 El Ultimo Producto que agregaste a tu Carrito fue:
               </Heading>
-              <Text textAlign={"center"}>
+              <Text
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+                textAlign={"center"}
+              >
                 {lastAddedProductInTheShoppingList.product.description}
               </Text>
               <HStack>
-                <Text bold textAlign={"center"}>
+                <Text
+                  bold
+                  fontSize={{
+                    base: "sm",
+                    sm: "sm",
+                    md: "sm",
+                    lg: "md",
+                    xl: "lg",
+                    "2xl": "xl",
+                  }}
+                  textAlign={"center"}
+                >
                   Cantidad:{" "}
                 </Text>
-                <Text>{lastAddedProductInTheShoppingList.quantity}</Text>
+                <Text
+                  fontSize={{
+                    base: "sm",
+                    sm: "sm",
+                    md: "sm",
+                    lg: "md",
+                    xl: "lg",
+                    "2xl": "xl",
+                  }}
+                >
+                  {lastAddedProductInTheShoppingList.quantity}
+                </Text>
               </HStack>
               <HStack>
-                <Text bold textAlign={"center"}>
+                <Text
+                  bold
+                  fontSize={{
+                    base: "sm",
+                    sm: "sm",
+                    md: "sm",
+                    lg: "md",
+                    xl: "lg",
+                    "2xl": "xl",
+                  }}
+                  textAlign={"center"}
+                >
                   Costo:{" "}
                 </Text>
-                <Text>{lastAddedProductInTheShoppingList.cost}</Text>
+                <Text
+                  fontSize={{
+                    base: "sm",
+                    sm: "sm",
+                    md: "sm",
+                    lg: "md",
+                    xl: "lg",
+                    "2xl": "xl",
+                  }}
+                >
+                  {lastAddedProductInTheShoppingList.cost}
+                </Text>
               </HStack>
             </VStack>
             {screenSize === "base" ||
@@ -170,15 +225,42 @@ function LastAddedProductInTheShoppingList(
                   base: "sm",
                   sm: "sm",
                   md: "sm",
-                  lg: "sm",
-                  xl: "sm",
-                  "2xl": "md",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
                 }}
                 textAlign={"center"}
               >
                 ¡Alcanza el Envío Gratis comprando más productos!
               </Heading>
-              <Text textAlign={"center"}>PROGRESS BAR</Text>
+              <Progress colorScheme={"warning"} size={"lg"} value={10} />
+              <Text
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+                textAlign={"center"}
+              >
+                Agrega{" "}
+                <Text
+                  bold
+                  fontSize={{
+                    base: "sm",
+                    sm: "sm",
+                    md: "sm",
+                    lg: "md",
+                    xl: "lg",
+                    "2xl": "xl",
+                  }}
+                >
+                  $ 0.00
+                </Text>{" "}
+                en productos.
+              </Text>
             </VStack>
             {screenSize === "base" ||
             screenSize === "sm" ||
