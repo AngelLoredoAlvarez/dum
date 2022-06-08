@@ -2050,6 +2050,7 @@ input ShoppingListCondition {
 
 """The details of a specific Shopping List."""
 type ShoppingListDetail implements Node {
+  """The formated cost that will be showed to the user."""
   cost: String
   createdAt: Datetime!
 

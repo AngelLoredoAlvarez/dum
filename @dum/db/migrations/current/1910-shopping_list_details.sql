@@ -52,6 +52,9 @@ create or replace function dum_public.shopping_list_details_cost(shopping_list_d
   select cast(shopping_list_detail.unformated_cost as money);
 $$ language sql stable;
 
+comment on function dum_public.shopping_list_details_cost(dum_public.shopping_list_details) is
+  E'The formated cost that will be showed to the user.';
+
 /*
  * Function that return the id from a specific Shipping List Detail
  */
