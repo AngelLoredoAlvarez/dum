@@ -214,7 +214,7 @@ create or replace function dum_public.products_like_the_last_added_product() ret
       -- Select the Sub Department id from the last product added to the shopping list
       select sub_department_id from dum_public.products where id = selected_product_id into selected_sub_department_id;
 
-      return query select * from dum_public.products where sub_department_id = selected_sub_department_id;
+      return query select * from dum_public.products where sub_department_id = selected_sub_department_id and id <> selected_product_id;
     else
       /* If they do not, we retrive the products ramdomly */
       return query select * from dum_public.products order by random();
