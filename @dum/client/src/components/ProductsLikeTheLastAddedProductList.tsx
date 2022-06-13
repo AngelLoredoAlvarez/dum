@@ -2,6 +2,7 @@ import { FlatList, Text } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
+import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { LastAddedProductInTheShoppingListFragment_lastAddedProduct$key } from "../graphql/Fragments/__generated__/LastAddedProductInTheShoppingListFragment_lastAddedProduct.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
 import type { ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList$key } from "../graphql/Fragments/__generated__/ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList.graphql";
@@ -12,6 +13,7 @@ import ProductsLikeTheLastAddedProductListHeader from "./ProductsLikeTheLastAdde
 
 interface ProductsLikeTheLastAddedProductListProps {
   amountOfItemsToFetch: number;
+  freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   lastAddedProductInTheShoppingList: LastAddedProductInTheShoppingListFragment_lastAddedProduct$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   numberOfColumns: number;
@@ -63,6 +65,7 @@ function ProductsLikeTheLastAddedProductList(
       }
       ListHeaderComponent={
         <ProductsLikeTheLastAddedProductListHeader
+          freeShippingPercentage={props.freeShippingPercentage}
           lastAddedProductInTheShoppingList={
             props.lastAddedProductInTheShoppingList
           }
