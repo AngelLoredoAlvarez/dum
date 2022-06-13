@@ -37,11 +37,11 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "graphql": "^16.5.0",
-    "lerna": "^5.1.1",
+    "lerna": "^5.1.2",
     "string-width": "^5.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
+    "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-typescript": "^7.17.12",
     "@next/eslint-plugin-next": "^12.1.6",
