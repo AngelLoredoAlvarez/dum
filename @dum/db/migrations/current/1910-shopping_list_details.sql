@@ -221,3 +221,12 @@ create or replace function dum_public.products_like_the_last_added_product() ret
     end if;
   end;
 $$ language plpgsql stable;
+
+/*
+ * Function that returns the total to pay for the opened shopping list
+ */
+create or replace function dum_public.shopping_lists_total_to_pay(sl dum_public.shopping_lists) returns text as $$
+  select cast(sum(unformated_cost) as money) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id();
+$$ language sql stable;
+
+
