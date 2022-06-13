@@ -107,6 +107,9 @@
               "omit": true
             }
           }
+        },
+        "tags": {
+          "omit": "all"
         }
       },
       "dum_public.product_pictures": {
@@ -132,7 +135,15 @@
             "tags": {
               "omit": true
             }
+          },
+          "brand_unique_name": {
+            "tags": {
+              "omit": true
+            }
           }
+        },
+        "tags": {
+          "omit": "all"
         }
       },
       "dum_public.products": {
