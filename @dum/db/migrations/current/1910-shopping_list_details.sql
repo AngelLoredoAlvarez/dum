@@ -229,4 +229,21 @@ create or replace function dum_public.shopping_lists_total_to_pay(sl dum_public.
   select cast(sum(unformated_cost) as money) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id();
 $$ language sql stable;
 
+/*
+ * Computed column that returns the percentage covered for all the products in the opened shopping list
+ */
+create or replace function dum_public.shopping_lists_percentage_free_shipping(sl dum_public.shopping_lists) returns integer as $$
+  declare
+    total_to_pay numeric(8, 2);
+    percentage_to_reach_free_shipping integer := 100;
+  begin
+    select sum(unformated_cost) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() into total_to_pay;
+
+    if total_to_pay < 500 then
+      select 100 - round(((500 - total_to_pay) / 500) * 100) into percentage_to_reach_free_shipping;
+    end if;
+
+    return percentage_to_reach_free_shipping;
+  end;
+$$ language plpgsql stable;
 
