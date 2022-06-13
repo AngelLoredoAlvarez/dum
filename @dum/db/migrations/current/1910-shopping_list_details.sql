@@ -247,3 +247,21 @@ create or replace function dum_public.shopping_lists_percentage_free_shipping(sl
   end;
 $$ language plpgsql stable;
 
+/*
+ * Computed column that returns the money needed to reach free shipping
+ */
+create or replace function dum_public.shopping_lists_amount_to_reach_free_shipping(sl dum_public.shopping_lists) returns numeric(8, 2) as $$
+  declare
+    difference numeric(8, 2);
+    missing_money numeric(8, 2) := 0.00;
+  begin
+    select 500 - sum(unformated_cost) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() into difference;
+
+    if difference < 500 then
+      missing_money := difference;
+    end if;
+
+    return missing_money;
+  end;
+$$ language plpgsql stable;
+
