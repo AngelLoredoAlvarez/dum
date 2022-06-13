@@ -6,7 +6,6 @@ import {
   Heading,
   HStack,
   Image,
-  Progress,
   Stack,
   Text,
   useBreakpointValue,
@@ -16,10 +15,13 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
+import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { LastAddedProductInTheShoppingListFragment_lastAddedProduct$key } from "../graphql/Fragments/__generated__/LastAddedProductInTheShoppingListFragment_lastAddedProduct.graphql";
 import LastAddedProductInTheShoppingListFragment from "../graphql/Fragments/LastAddedProductInTheShoppingListFragment";
+import FreeShippingProgress from "./FreeShippingProgress";
 
 interface LastAddedProductInTheShoppingListProps {
+  freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   lastAddedProductInTheShoppingList: LastAddedProductInTheShoppingListFragment_lastAddedProduct$key;
 }
 
@@ -219,49 +221,9 @@ function LastAddedProductInTheShoppingList(
             ) : (
               <Divider my={5} orientation={"vertical"} />
             )}
-            <VStack flex={1} space={3}>
-              <Heading
-                fontSize={{
-                  base: "sm",
-                  sm: "sm",
-                  md: "sm",
-                  lg: "md",
-                  xl: "lg",
-                  "2xl": "xl",
-                }}
-                textAlign={"center"}
-              >
-                ¡Alcanza el Envío Gratis comprando más productos!
-              </Heading>
-              <Progress colorScheme={"warning"} size={"lg"} value={10} />
-              <Text
-                fontSize={{
-                  base: "sm",
-                  sm: "sm",
-                  md: "sm",
-                  lg: "md",
-                  xl: "lg",
-                  "2xl": "xl",
-                }}
-                textAlign={"center"}
-              >
-                Agrega{" "}
-                <Text
-                  bold
-                  fontSize={{
-                    base: "sm",
-                    sm: "sm",
-                    md: "sm",
-                    lg: "md",
-                    xl: "lg",
-                    "2xl": "xl",
-                  }}
-                >
-                  $ 0.00
-                </Text>{" "}
-                en productos.
-              </Text>
-            </VStack>
+            <FreeShippingProgress
+              freeShippingPercentage={props.freeShippingPercentage}
+            />
             {screenSize === "base" ||
             screenSize === "sm" ||
             screenSize === "md" ||
