@@ -41,3 +41,10 @@ create trigger _100_timestamps
  create or replace function dum_public.opened_shopping_list_id() returns uuid as $$
   select id from dum_public.shopping_lists where is_open = true and user_id = dum_public.current_user_id();
  $$ language sql stable;
+
+/*
+ * Function that returns the Current User Shopping List
+ */
+create or replace function dum_public.current_user_opened_shopping_list() returns dum_public.shopping_lists as $$
+  select * from dum_public.shopping_lists where id = dum_public.opened_shopping_list_id();
+$$ language sql stable;
