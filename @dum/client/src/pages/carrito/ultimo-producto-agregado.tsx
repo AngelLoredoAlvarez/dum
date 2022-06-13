@@ -25,6 +25,7 @@ function LastAddedProductPage({
       <Hidden only={["base", "sm", "md", "lg"]}>
         <ProductsLikeTheLastAddedProductList
           amountOfItemsToFetch={5}
+          freeShippingPercentage={lastAddedProductPageQuery}
           lastAddedProductInTheShoppingList={
             lastAddedProductPageQuery.lastAddedProductInTheShoppingList
           }
@@ -36,6 +37,7 @@ function LastAddedProductPage({
       <Hidden only={["base", "sm", "md", "xl", "2xl"]}>
         <ProductsLikeTheLastAddedProductList
           amountOfItemsToFetch={4}
+          freeShippingPercentage={lastAddedProductPageQuery}
           lastAddedProductInTheShoppingList={
             lastAddedProductPageQuery.lastAddedProductInTheShoppingList
           }
@@ -47,6 +49,7 @@ function LastAddedProductPage({
       <Hidden only={["base", "sm", "lg", "xl", "2xl"]}>
         <ProductsLikeTheLastAddedProductList
           amountOfItemsToFetch={3}
+          freeShippingPercentage={lastAddedProductPageQuery}
           lastAddedProductInTheShoppingList={
             lastAddedProductPageQuery.lastAddedProductInTheShoppingList
           }
@@ -58,6 +61,7 @@ function LastAddedProductPage({
       <Hidden only={["base", "md", "lg", "xl", "2xl"]}>
         <ProductsLikeTheLastAddedProductList
           amountOfItemsToFetch={2}
+          freeShippingPercentage={lastAddedProductPageQuery}
           lastAddedProductInTheShoppingList={
             lastAddedProductPageQuery.lastAddedProductInTheShoppingList
           }
@@ -69,6 +73,7 @@ function LastAddedProductPage({
       <Hidden only={["sm", "md", "lg", "xl", "2xl"]}>
         <ProductsLikeTheLastAddedProductList
           amountOfItemsToFetch={1}
+          freeShippingPercentage={lastAddedProductPageQuery}
           lastAddedProductInTheShoppingList={
             lastAddedProductPageQuery.lastAddedProductInTheShoppingList
           }
