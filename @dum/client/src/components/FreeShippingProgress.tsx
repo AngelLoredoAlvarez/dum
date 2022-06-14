@@ -45,6 +45,12 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
           : "¡Alcanza el Envío Gratis comprando más productos!"}
       </Heading>
       <Progress
+        _dark={{
+          background: "white",
+        }}
+        _light={{
+          background: "coolGray.300",
+        }}
         colorScheme={"warning"}
         size={"lg"}
         value={
