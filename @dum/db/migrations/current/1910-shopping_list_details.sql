@@ -257,7 +257,7 @@ create or replace function dum_public.shopping_lists_amount_to_reach_free_shippi
   begin
     select 500 - sum(unformated_cost) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() into difference;
 
-    if difference > 500 then
+    if difference < 0 or difference > 500 then
       missing_money := 0.00;
     elsif difference < 500 then
       missing_money := difference;
