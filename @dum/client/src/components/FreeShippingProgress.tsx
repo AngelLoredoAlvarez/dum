@@ -59,7 +59,11 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
         }
       />
       {freeShippingPercentage.currentUserOpenedShoppingList
-        .amountToReachFreeShipping === "0.00" ? null : (
+        .amountToReachFreeShipping === "0.00" ? (
+        <Text textAlign={"center"}>
+          ¡Enviaremos todo directamente desde nuestra bodega!
+        </Text>
+      ) : (
         <Text
           fontSize={{
             base: "sm",
