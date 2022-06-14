@@ -17,7 +17,17 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
     );
 
   return (
-    <VStack space={3}>
+    <VStack
+      space={3}
+      w={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100%",
+        xl: "30%",
+        "2xl": "40%",
+      }}
+    >
       <Heading
         fontSize={{
           base: "sm",
@@ -43,7 +53,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
         }
       />
       {freeShippingPercentage.currentUserOpenedShoppingList
-        .amountToReachFreeShipping < 500 ? (
+        .amountToReachFreeShipping === "0.00" ? null : (
         <Text
           fontSize={{
             base: "sm",
@@ -75,7 +85,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
           </Text>{" "}
           en productos.
         </Text>
-      ) : null}
+      )}
     </VStack>
   );
 }
