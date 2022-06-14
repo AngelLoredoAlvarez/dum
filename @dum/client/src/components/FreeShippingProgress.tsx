@@ -17,7 +17,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
     );
 
   return (
-    <VStack space={3} w={"100%"}>
+    <VStack space={3}>
       <Heading
         fontSize={{
           base: "sm",
@@ -42,20 +42,9 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             .percentageFreeShipping
         }
       />
-      <Text
-        fontSize={{
-          base: "sm",
-          sm: "sm",
-          md: "sm",
-          lg: "md",
-          xl: "lg",
-          "2xl": "xl",
-        }}
-        textAlign={"center"}
-      >
-        Agrega{" "}
+      {freeShippingPercentage.currentUserOpenedShoppingList
+        .amountToReachFreeShipping < 500 ? (
         <Text
-          bold
           fontSize={{
             base: "sm",
             sm: "sm",
@@ -64,11 +53,29 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             xl: "lg",
             "2xl": "xl",
           }}
+          textAlign={"center"}
         >
-          $ 0.00
-        </Text>{" "}
-        en productos.
-      </Text>
+          Agrega{" "}
+          <Text
+            bold
+            fontSize={{
+              base: "sm",
+              sm: "sm",
+              md: "sm",
+              lg: "md",
+              xl: "lg",
+              "2xl": "xl",
+            }}
+          >
+            ${" "}
+            {
+              freeShippingPercentage.currentUserOpenedShoppingList
+                .amountToReachFreeShipping
+            }
+          </Text>{" "}
+          en productos.
+        </Text>
+      ) : null}
     </VStack>
   );
 }
