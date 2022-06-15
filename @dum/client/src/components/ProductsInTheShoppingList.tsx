@@ -7,6 +7,7 @@ import type { ProductsInTheShoppingListFragment_productsInTheShoppingList$key } 
 import ProductsInTheShoppingListFragment from "../graphql/Fragments/ProductsInTheShoppingListFragment";
 import Loading from "./Loading";
 import ProductInShoppingListItem from "./ProductInShoppingListItem";
+import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
@@ -45,7 +46,15 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
         alignItems: "stretch",
         width: "100%",
       }}
-      ListFooterComponent={hasNext ? isLoadingNext ? <Loading /> : null : null}
+      ListFooterComponent={
+        hasNext ? (
+          isLoadingNext ? (
+            <Loading />
+          ) : null
+        ) : (
+          <ProductsInTheShoppingListFooter />
+        )
+      }
       ListHeaderComponent={
         <ProductsInTheShoppingListHeader
           mainDepartments={props.mainDepartments}
