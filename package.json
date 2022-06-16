@@ -37,7 +37,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "graphql": "^16.5.0",
-    "lerna": "^5.1.2",
+    "lerna": "^5.1.4",
     "string-width": "^5.1.2"
   },
   "devDependencies": {
@@ -68,7 +68,7 @@
     "mock-req": "^0.2.0",
     "mock-res": "^0.6.0",
     "nodemon": "^2.0.16",
-    "prettier": "^2.7.0",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
     "ts-loader": "^9.3.0",
