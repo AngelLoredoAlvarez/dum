@@ -3,6 +3,7 @@ import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
+import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import type { ProductsInTheShoppingListFragment_productsInTheShoppingList$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFragment_productsInTheShoppingList.graphql";
 import ProductsInTheShoppingListFragment from "../graphql/Fragments/ProductsInTheShoppingListFragment";
 import Loading from "./Loading";
@@ -11,6 +12,7 @@ import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
+  costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   productsInTheShoppingList: ProductsInTheShoppingListFragment_productsInTheShoppingList$key;
@@ -52,7 +54,7 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
             <Loading />
           ) : null
         ) : (
-          <ProductsInTheShoppingListFooter />
+          <ProductsInTheShoppingListFooter costs={props.costs} />
         )
       }
       ListHeaderComponent={
