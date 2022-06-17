@@ -5,8 +5,11 @@ export default graphql`
     $DeleteFromShoppingListInput: DeleteFromShoppingListInput!
   ) {
     deleteFromShoppingList(input: $DeleteFromShoppingListInput) {
-      shoppingListDetail {
+      shoppingList {
         id
+        rowId
+        amountToReachFreeShipping
+        totalToPay
       }
     }
   }
