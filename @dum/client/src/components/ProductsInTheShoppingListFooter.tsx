@@ -8,8 +8,23 @@ import {
   VStack,
 } from "native-base";
 import * as React from "react";
+import { useFragment } from "react-relay/hooks";
 
-function ProductsInTheShoppingListFooter() {
+import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
+import ProductsInTheShoppingListFooterFragment from "../graphql/Fragments/ProductsInTheShoppingListFooterFragment";
+
+interface ProductsInTheSHoppingListFooterProps {
+  costs: ProductsInTheShoppingListFooterFragment_costs$key;
+}
+
+function ProductsInTheShoppingListFooter(
+  props: ProductsInTheSHoppingListFooterProps
+) {
+  const costs = useFragment<ProductsInTheShoppingListFooterFragment_costs$key>(
+    ProductsInTheShoppingListFooterFragment,
+    props.costs
+  );
+
   return (
     <VStack
       mb={2}
@@ -85,7 +100,10 @@ function ProductsInTheShoppingListFooter() {
             "2xl": "2xl",
           }}
         >
-          Costo de Envio
+          {costs.currentUserOpenedShoppingList.amountToReachFreeShipping ===
+          "0.00"
+            ? "¡Envío Gratis!"
+            : costs.currentUserOpenedShoppingList.amountToReachFreeShipping}
         </Text>
       </HStack>
       <HStack alignItems={"center"} justifyContent={"right"} space={3}>
@@ -112,7 +130,7 @@ function ProductsInTheShoppingListFooter() {
             "2xl": "2xl",
           }}
         >
-          $ 0.00
+          {costs.currentUserOpenedShoppingList.totalToPay}
         </Text>
       </HStack>
       <Divider
