@@ -251,6 +251,7 @@ export function getPostGraphileOptions({
           }),
 
         logout: () => {
+          // @ts-ignore
           req.logout();
           return Promise.resolve();
         },
