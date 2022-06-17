@@ -33,6 +33,7 @@ export default async (app: Express) => {
   getWebsocketMiddlewares(app).push(passportSessionMiddleware);
 
   app.get("/logout", (req, res) => {
+    // @ts-ignore
     req.logout();
     res.redirect("/");
   });
