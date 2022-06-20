@@ -31,6 +31,9 @@ function ShoppingListPage({
       <VStack alignItems={"center"} flex={1} space={3}>
         <ProductsInTheShoppingList
           currentUserID={shoppingListPageQuery.currentUser.id}
+          freeShippingPercentage={
+            shoppingListPageQuery.currentUserOpenedShoppingList
+          }
           mainDepartments={shoppingListPageQuery}
           productsInTheShoppingList={
             shoppingListPageQuery.currentUserOpenedShoppingList
