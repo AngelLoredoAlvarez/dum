@@ -12,7 +12,9 @@ export default graphql`
     lastAddedProductInTheShoppingList {
       ...LastAddedProductInTheShoppingListFragment_lastAddedProduct
     }
-    ...FreeShippingPercentageFragment_freeShippingPercentage
+    currentUserOpenedShoppingList {
+      ...FreeShippingPercentageFragment_freeShippingPercentage
+    }
     ...ProductsLikeTheLastAddedProductListFragment_productsLikeTheLastAddedProductList
   }
 `;
