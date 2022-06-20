@@ -17,7 +17,25 @@ function ProductsInTheShoppingListHeader(
   return (
     <VStack>
       <MainDepartmentsList departments={props.mainDepartments} />
-      <Box alignItems={"center"}>
+      <Box
+        alignItems={"center"}
+        ml={{
+          base: 5,
+          sm: 5,
+          md: 50,
+          lg: 100,
+          xl: 200,
+          "2xl": 250,
+        }}
+        mr={{
+          base: 5,
+          sm: 5,
+          md: 50,
+          lg: 100,
+          xl: 200,
+          "2xl": 250,
+        }}
+      >
         <FreeShippingProgress
           freeShippingPercentage={props.freeShippingPercentage}
         />
