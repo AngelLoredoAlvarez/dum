@@ -235,12 +235,16 @@ $$ language sql stable;
 create or replace function dum_public.shopping_lists_percentage_free_shipping(sl dum_public.shopping_lists) returns integer as $$
   declare
     total_to_pay numeric(8, 2);
-    percentage_to_reach_free_shipping integer := 100;
+    percentage_to_reach_free_shipping integer := 0;
   begin
     select sum(unformated_cost) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() into total_to_pay;
 
-    if total_to_pay < 500 then
+    if total_to_pay = 0 then
+      percentage_to_reach_free_shipping := 0;
+    elsif total_to_pay < 500 then
       select 100 - round(((500 - total_to_pay) / 500) * 100) into percentage_to_reach_free_shipping;
+    elsif total_to_pay > 500 then
+      percentage_to_reach_free_shipping := 100;
     end if;
 
     return percentage_to_reach_free_shipping;
