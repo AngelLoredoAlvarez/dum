@@ -9,6 +9,7 @@ export default graphql`
         id
         rowId
         amountToReachFreeShipping
+        percentageFreeShipping
         totalToPay
       }
     }
