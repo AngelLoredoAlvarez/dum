@@ -8,6 +8,7 @@ export default graphql`
       rowId
       fullName
     }
+    ...MainDepartmentsFragment_mainDepartments
     currentUserOpenedShoppingList {
       ...ProductsInTheShoppingListFragment_shoppingListDetails
     }
