@@ -100,10 +100,9 @@ function ProductsInTheShoppingListFooter(
             "2xl": "2xl",
           }}
         >
-          {costs.currentUserOpenedShoppingList.amountToReachFreeShipping ===
-          "0.00"
+          {costs.amountToReachFreeShipping === "0.00"
             ? "¡Envío Gratis!"
-            : costs.currentUserOpenedShoppingList.amountToReachFreeShipping}
+            : `Costo de Envío $${costs.amountToReachFreeShipping}`}
         </Text>
       </HStack>
       <HStack alignItems={"center"} justifyContent={"right"} space={3}>
@@ -130,7 +129,7 @@ function ProductsInTheShoppingListFooter(
             "2xl": "2xl",
           }}
         >
-          {costs.currentUserOpenedShoppingList.totalToPay}
+          {costs.totalToPay}
         </Text>
       </HStack>
       <Divider
