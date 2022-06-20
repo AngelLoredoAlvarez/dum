@@ -4,13 +4,16 @@ import { usePaginationFragment } from "react-relay/hooks";
 
 import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
+import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import type { ProductsInTheShoppingListFragment_shoppingListDetails$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFragment_shoppingListDetails.graphql";
 import ProductsInTheShoppingListFragment from "../graphql/Fragments/ProductsInTheShoppingListFragment";
 import Loading from "./Loading";
 import ProductInShoppingListItem from "./ProductInShoppingListItem";
+import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
+  costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
   freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
@@ -32,7 +35,15 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
         alignItems: "stretch",
         width: "100%",
       }}
-      ListFooterComponent={hasNext ? isLoadingNext ? <Loading /> : null : null}
+      ListFooterComponent={
+        hasNext ? (
+          isLoadingNext ? (
+            <Loading />
+          ) : null
+        ) : (
+          <ProductsInTheShoppingListFooter costs={props.costs} />
+        )
+      }
       ListHeaderComponent={
         <ProductsInTheShoppingListHeader
           freeShippingPercentage={props.freeShippingPercentage}
