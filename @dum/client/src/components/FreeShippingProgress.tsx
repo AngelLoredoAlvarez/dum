@@ -17,67 +17,21 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
     );
 
   return (
-    <VStack
-      space={3}
-      w={{
-        base: "100%",
-        sm: "100%",
-        md: "100%",
-        lg: "100%",
-        xl: "30%",
-        "2xl": "40%",
-      }}
-    >
-      <Heading
-        fontSize={{
-          base: "sm",
-          sm: "sm",
-          md: "sm",
-          lg: "md",
-          xl: "lg",
-          "2xl": "xl",
-        }}
-        textAlign={"center"}
-      >
-        {freeShippingPercentage.currentUserOpenedShoppingList
-          .percentageFreeShipping === 100
-          ? "¡Ya tienes Envío Gratis!"
-          : "¡Alcanza el Envío Gratis comprando más productos!"}
-      </Heading>
-      <Progress
-        _dark={{
-          background: "white",
-        }}
-        _light={{
-          background: "coolGray.300",
-        }}
-        colorScheme={"warning"}
-        size={"lg"}
-        value={
-          freeShippingPercentage.currentUserOpenedShoppingList
-            .percentageFreeShipping
-        }
-      />
+    <>
       {freeShippingPercentage.currentUserOpenedShoppingList
-        .amountToReachFreeShipping === "0.00" ? (
-        <Text textAlign={"center"}>
-          ¡Enviaremos todo directamente desde nuestra bodega!
-        </Text>
-      ) : (
-        <Text
-          fontSize={{
-            base: "sm",
-            sm: "sm",
-            md: "sm",
-            lg: "md",
-            xl: "lg",
-            "2xl": "xl",
+        .percentageFreeShipping === 0 ? null : (
+        <VStack
+          space={3}
+          w={{
+            base: "100%",
+            sm: "100%",
+            md: "100%",
+            lg: "100%",
+            xl: "30%",
+            "2xl": "40%",
           }}
-          textAlign={"center"}
         >
-          Agrega{" "}
-          <Text
-            bold
+          <Heading
             fontSize={{
               base: "sm",
               sm: "sm",
@@ -86,17 +40,68 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
               xl: "lg",
               "2xl": "xl",
             }}
+            textAlign={"center"}
           >
-            ${" "}
-            {
+            {freeShippingPercentage.currentUserOpenedShoppingList
+              .percentageFreeShipping === 100
+              ? "¡Ya tienes Envío Gratis!"
+              : "¡Alcanza el Envío Gratis comprando más productos!"}
+          </Heading>
+          <Progress
+            _dark={{
+              background: "white",
+            }}
+            _light={{
+              background: "coolGray.300",
+            }}
+            colorScheme={"warning"}
+            size={"lg"}
+            value={
               freeShippingPercentage.currentUserOpenedShoppingList
-                .amountToReachFreeShipping
+                .percentageFreeShipping
             }
-          </Text>{" "}
-          en productos.
-        </Text>
+          />
+          {freeShippingPercentage.currentUserOpenedShoppingList
+            .amountToReachFreeShipping === "0.00" ? (
+            <Text textAlign={"center"}>
+              ¡Enviaremos todo directamente desde nuestra bodega!
+            </Text>
+          ) : (
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "sm",
+                lg: "md",
+                xl: "lg",
+                "2xl": "xl",
+              }}
+              textAlign={"center"}
+            >
+              Agrega{" "}
+              <Text
+                bold
+                fontSize={{
+                  base: "sm",
+                  sm: "sm",
+                  md: "sm",
+                  lg: "md",
+                  xl: "lg",
+                  "2xl": "xl",
+                }}
+              >
+                ${" "}
+                {
+                  freeShippingPercentage.currentUserOpenedShoppingList
+                    .amountToReachFreeShipping
+                }
+              </Text>{" "}
+              en productos.
+            </Text>
+          )}
+        </VStack>
       )}
-    </VStack>
+    </>
   );
 }
 
