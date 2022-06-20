@@ -1,13 +1,10 @@
-import { Box, Text, VStack } from "native-base";
+import { Text, VStack } from "native-base";
 import * as React from "react";
 
-import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
-import FreeShippingProgress from "./FreeShippingProgress";
 import MainDepartmentsList from "./MainDepartmentsList";
 
 interface ProductsInTheShoppingListHeaderProps {
-  freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
 }
 
@@ -17,6 +14,7 @@ function ProductsInTheShoppingListHeader(
   return (
     <VStack>
       <MainDepartmentsList departments={props.mainDepartments} />
+      {/*
       <Box
         alignItems={"center"}
         ml={{
@@ -40,6 +38,7 @@ function ProductsInTheShoppingListHeader(
           freeShippingPercentage={props.freeShippingPercentage}
         />
       </Box>
+      */}
       <Text
         fontSize={{
           base: "md",
