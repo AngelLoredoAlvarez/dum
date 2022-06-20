@@ -10,6 +10,7 @@ export default graphql`
     }
     ...MainDepartmentsFragment_mainDepartments
     currentUserOpenedShoppingList {
+      ...FreeShippingPercentageFragment_freeShippingPercentage
       ...ProductsInTheShoppingListFragment_shoppingListDetails
     }
   }
