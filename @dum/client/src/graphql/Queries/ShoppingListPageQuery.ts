@@ -8,6 +8,7 @@ export default graphql`
       rowId
       fullName
     }
+    ...FreeShippingPercentageFragment_freeShippingPercentage
     ...MainDepartmentsFragment_mainDepartments
     ...ProductsInTheShoppingListFragment_productsInTheShoppingList
     ...ProductsInTheShoppingListFooterFragment_costs
