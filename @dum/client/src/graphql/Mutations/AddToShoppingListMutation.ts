@@ -5,6 +5,10 @@ export default graphql`
     $AddToShoppingListInput: AddToShoppingListInput!
   ) {
     addToShoppingList(input: $AddToShoppingListInput) {
+      shoppingList {
+        amountToReachFreeShipping
+        totalToPay
+      }
       shoppingListDetail {
         id
         rowId
