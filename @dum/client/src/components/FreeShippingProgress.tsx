@@ -18,8 +18,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
 
   return (
     <>
-      {freeShippingPercentage.currentUserOpenedShoppingList
-        .percentageFreeShipping === 0 ? null : (
+      {freeShippingPercentage.percentageFreeShipping === 0 ? null : (
         <VStack
           space={3}
           w={{
@@ -42,8 +41,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             }}
             textAlign={"center"}
           >
-            {freeShippingPercentage.currentUserOpenedShoppingList
-              .percentageFreeShipping === 100
+            {freeShippingPercentage.percentageFreeShipping === 100
               ? "¡Ya tienes Envío Gratis!"
               : "¡Alcanza el Envío Gratis comprando más productos!"}
           </Heading>
@@ -56,13 +54,9 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             }}
             colorScheme={"warning"}
             size={"lg"}
-            value={
-              freeShippingPercentage.currentUserOpenedShoppingList
-                .percentageFreeShipping
-            }
+            value={freeShippingPercentage.percentageFreeShipping}
           />
-          {freeShippingPercentage.currentUserOpenedShoppingList
-            .amountToReachFreeShipping === "0.00" ? (
+          {freeShippingPercentage.amountToReachFreeShipping === "0.00" ? (
             <Text textAlign={"center"}>
               ¡Enviaremos todo directamente desde nuestra bodega!
             </Text>
@@ -90,11 +84,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
                   "2xl": "xl",
                 }}
               >
-                ${" "}
-                {
-                  freeShippingPercentage.currentUserOpenedShoppingList
-                    .amountToReachFreeShipping
-                }
+                $ {freeShippingPercentage.amountToReachFreeShipping}
               </Text>{" "}
               en productos.
             </Text>
