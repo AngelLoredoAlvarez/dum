@@ -9,7 +9,6 @@ import {
   Text,
   VStack,
 } from "native-base";
-import { useRouter } from "next/router";
 import * as React from "react";
 import { mask } from "react-native-mask-text";
 import { useFragment, useMutation } from "react-relay/hooks";
@@ -41,27 +40,6 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
   const [selectedQuantity, setSelectedQuantity] = React.useState<number>(
     productInShoppingList?.quantity
   );
-
-  const router = useRouter();
-
-  const handleRouting = React.useCallback(() => {
-    router.push(
-      `/tienda/${productInShoppingList.product.subDepartment.department.mainDepartment
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s/g, "-")
-        .toLowerCase()}/${productInShoppingList.product.subDepartment.subDepartment
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s/g, "-")
-        .toLowerCase()}/${productInShoppingList.product.rowId}`
-    );
-  }, [
-    productInShoppingList.product.rowId,
-    productInShoppingList.product.subDepartment.department.mainDepartment,
-    productInShoppingList.product.subDepartment.subDepartment,
-    router,
-  ]);
 
   const handleIncrease = () => {
     if (selectedQuantity == productInShoppingList.product.stock) {
@@ -201,7 +179,6 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
             xl: "lg",
             "2xl": "xl",
           }}
-          onPress={handleRouting}
           textAlign={"center"}
         >
           {productInShoppingList.product.description}
