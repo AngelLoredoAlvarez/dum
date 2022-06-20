@@ -12,6 +12,7 @@ export default graphql`
     currentUserOpenedShoppingList {
       ...FreeShippingPercentageFragment_freeShippingPercentage
       ...ProductsInTheShoppingListFragment_shoppingListDetails
+      ...ProductsInTheShoppingListFooterFragment_costs
     }
   }
 `;
