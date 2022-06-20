@@ -26,18 +26,18 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             sm: "100%",
             md: "100%",
             lg: "100%",
-            xl: "30%",
-            "2xl": "40%",
+            xl: "40%",
+            "2xl": "50%",
           }}
         >
           <Heading
             fontSize={{
               base: "sm",
               sm: "sm",
-              md: "sm",
-              lg: "md",
-              xl: "lg",
-              "2xl": "xl",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
             }}
             textAlign={"center"}
           >
@@ -57,7 +57,17 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             value={freeShippingPercentage.percentageFreeShipping}
           />
           {freeShippingPercentage.amountToReachFreeShipping === "0.00" ? (
-            <Text textAlign={"center"}>
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "sm",
+                md: "md",
+                lg: "lg",
+                xl: "xl",
+                "2xl": "2xl",
+              }}
+              textAlign={"center"}
+            >
               ¡Enviaremos todo directamente desde nuestra bodega!
             </Text>
           ) : (
@@ -65,10 +75,10 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
               fontSize={{
                 base: "sm",
                 sm: "sm",
-                md: "sm",
-                lg: "md",
-                xl: "lg",
-                "2xl": "xl",
+                md: "md",
+                lg: "lg",
+                xl: "xl",
+                "2xl": "2xl",
               }}
               textAlign={"center"}
             >
@@ -78,10 +88,10 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
                 fontSize={{
                   base: "sm",
                   sm: "sm",
-                  md: "sm",
-                  lg: "md",
-                  xl: "lg",
-                  "2xl": "xl",
+                  md: "md",
+                  lg: "lg",
+                  xl: "xl",
+                  "2xl": "2xl",
                 }}
               >
                 $ {freeShippingPercentage.amountToReachFreeShipping}
