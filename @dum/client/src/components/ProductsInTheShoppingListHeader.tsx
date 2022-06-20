@@ -41,6 +41,7 @@ function ProductsInTheShoppingListHeader(
         />
       </Box>
       <Text
+        mt={5}
         fontSize={{
           base: "md",
           sm: "md",
