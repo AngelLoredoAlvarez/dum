@@ -1,15 +1,15 @@
 import graphql from "babel-plugin-relay/macro";
 
 export default graphql`
-  fragment ProductsInTheShoppingListFragment_productsInTheShoppingList on Query
+  fragment ProductsInTheShoppingListFragment_shoppingListDetails on ShoppingList
   @argumentDefinitions(
-    first: { type: "Int", defaultValue: 3 }
+    first: { type: "Int", defaultValue: 5 }
     after: { type: "Cursor" }
   )
   @refetchable(queryName: "ProductsInTheShoppingList") {
-    productsInTheShoppingList(first: $first, after: $after)
+    shoppingListDetails(first: $first, after: $after)
       @connection(
-        key: "ProductsInTheShoppingListFragment_productsInTheShoppingList"
+        key: "ProductsInTheShoppingListFragment_shoppingListDetails"
       ) {
       __id
       edges {
