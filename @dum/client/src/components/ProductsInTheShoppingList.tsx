@@ -1,19 +1,18 @@
-import { FlatList, Text } from "native-base";
+import { FlatList } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
+import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
-import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import type { ProductsInTheShoppingListFragment_productsInTheShoppingList$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFragment_productsInTheShoppingList.graphql";
 import ProductsInTheShoppingListFragment from "../graphql/Fragments/ProductsInTheShoppingListFragment";
 import Loading from "./Loading";
 import ProductInShoppingListItem from "./ProductInShoppingListItem";
-import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
-  costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
+  freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   productsInTheShoppingList: ProductsInTheShoppingListFragment_productsInTheShoppingList$key;
 }
@@ -29,36 +28,14 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
       data={data.productsInTheShoppingList.edges}
       flex={1}
       keyExtractor={(item) => item.node.id}
-      ListEmptyComponent={
-        <Text
-          fontSize={{
-            base: "md",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "3xl",
-          }}
-          textAlign={"center"}
-        >
-          Tu Carrito esta vacio :'(
-        </Text>
-      }
       ListHeaderComponentStyle={{
         alignItems: "stretch",
         width: "100%",
       }}
-      ListFooterComponent={
-        hasNext ? (
-          isLoadingNext ? (
-            <Loading />
-          ) : null
-        ) : (
-          <ProductsInTheShoppingListFooter costs={props.costs} />
-        )
-      }
+      ListFooterComponent={hasNext ? isLoadingNext ? <Loading /> : null : null}
       ListHeaderComponent={
         <ProductsInTheShoppingListHeader
+          freeShippingPercentage={props.freeShippingPercentage}
           mainDepartments={props.mainDepartments}
         />
       }
