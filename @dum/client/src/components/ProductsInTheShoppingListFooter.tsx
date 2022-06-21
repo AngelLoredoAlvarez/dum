@@ -26,124 +26,173 @@ function ProductsInTheShoppingListFooter(
   );
 
   return (
-    <VStack
-      mb={2}
-      ml={{
-        base: 5,
-        sm: 5,
-        md: 50,
-        lg: 100,
-        xl: 200,
-        "2xl": 250,
-      }}
-      mr={{
-        base: 5,
-        sm: 5,
-        md: 50,
-        lg: 100,
-        xl: 200,
-        "2xl": 250,
-      }}
-      mt={2}
-      space={3}
-    >
-      <Divider
-        _dark={{
-          bg: "white",
-        }}
-        _light={{
-          bg: "coolGray.400",
-        }}
-        orientation={"horizontal"}
-      />
-      <HStack alignItems={"center"} justifyContent={"right"} space={3}>
-        <Select
-          size={{
-            base: "sm",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "2xl",
+    <VStack>
+      {costs.amountToReachFreeShipping !== null && costs.totalToPay !== null ? (
+        <VStack
+          mb={2}
+          ml={{
+            base: 5,
+            sm: 5,
+            md: 50,
+            lg: 100,
+            xl: 200,
+            "2xl": 250,
           }}
-          placeholder={"Elige la dirección"}
-        >
-          <Select.Item
-            label={`Enviar a C.P.: Dirección 1`}
-            value={"Direccion1"}
-          />
-          <Select.Item
-            label={"Enviar a C.P.: Dirección 2"}
-            value={"Direccion2"}
-          />
-          <Select.Item
-            label={"Enviar a C.P.: Dirección 3"}
-            value={"Direccion3"}
-          />
-          <Select.Item
-            label={"Enviar a C.P.: Dirección 4"}
-            value={"Direccion4"}
-          />
-          <Select.Item
-            label={"Enviar a C.P.: Dirección 5"}
-            value={"Direccion5"}
-          />
-        </Select>
-        <Text
-          bold
-          fontSize={{
-            base: "sm",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "2xl",
+          mr={{
+            base: 5,
+            sm: 5,
+            md: 50,
+            lg: 100,
+            xl: 200,
+            "2xl": 250,
           }}
+          mt={2}
+          space={3}
         >
-          {costs.amountToReachFreeShipping === "0.00"
-            ? "¡Envío Gratis!"
-            : `Costo de Envío $${costs.amountToReachFreeShipping}`}
-        </Text>
-      </HStack>
-      <HStack alignItems={"center"} justifyContent={"right"} space={3}>
-        <Text
-          fontSize={{
-            base: "sm",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "2xl",
+          <Divider
+            _dark={{
+              bg: "white",
+            }}
+            _light={{
+              bg: "coolGray.400",
+            }}
+            orientation={"horizontal"}
+          />
+          <HStack alignItems={"center"} justifyContent={"right"} space={3}>
+            <Select
+              size={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+              placeholder={"Elige la dirección"}
+            >
+              <Select.Item
+                label={`Enviar a C.P.: Dirección 1`}
+                value={"Direccion1"}
+              />
+              <Select.Item
+                label={"Enviar a C.P.: Dirección 2"}
+                value={"Direccion2"}
+              />
+              <Select.Item
+                label={"Enviar a C.P.: Dirección 3"}
+                value={"Direccion3"}
+              />
+              <Select.Item
+                label={"Enviar a C.P.: Dirección 4"}
+                value={"Direccion4"}
+              />
+              <Select.Item
+                label={"Enviar a C.P.: Dirección 5"}
+                value={"Direccion5"}
+              />
+            </Select>
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+            >
+              {costs.amountToReachFreeShipping === "0.00"
+                ? "¡Envío Gratis!"
+                : `Costo de Envío $${costs.amountToReachFreeShipping}`}
+            </Text>
+          </HStack>
+          <HStack alignItems={"center"} justifyContent={"right"} space={3}>
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+            >
+              Total con Envío:{" "}
+            </Text>
+            <Text
+              bold
+              fontSize={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+            >
+              {costs.totalToPay}
+            </Text>
+          </HStack>
+          <Divider
+            _dark={{
+              bg: "white",
+            }}
+            _light={{
+              bg: "coolGray.400",
+            }}
+            orientation={"horizontal"}
+          />
+          <Box flexDir={"row"}>
+            <Box flex={1} />
+            <Button colorScheme={"amber"}>Continuar compra</Button>
+          </Box>
+        </VStack>
+      ) : (
+        <Box
+          _dark={{ backgroundColor: "gray.700" }}
+          _light={{ backgroundColor: "coolGray.50" }}
+          mb="2"
+          ml={{
+            base: "3",
+            sm: "3",
+            md: "12",
+            lg: "20",
+            xl: "16",
+            "2xl": "40",
           }}
-        >
-          Total con Envío:{" "}
-        </Text>
-        <Text
-          bold
-          fontSize={{
-            base: "sm",
-            sm: "md",
-            md: "lg",
-            lg: "xl",
-            xl: "2xl",
-            "2xl": "2xl",
+          mr={{
+            base: "3",
+            sm: "3",
+            md: "12",
+            lg: "20",
+            xl: "16",
+            "2xl": "40",
           }}
+          mt="2"
+          overflow="hidden"
+          rounded="lg"
+          shadow="1"
         >
-          {costs.totalToPay}
-        </Text>
-      </HStack>
-      <Divider
-        _dark={{
-          bg: "white",
-        }}
-        _light={{
-          bg: "coolGray.400",
-        }}
-        orientation={"horizontal"}
-      />
-      <Box flexDir={"row"}>
-        <Box flex={1} />
-        <Button colorScheme={"amber"}>Continuar compra</Button>
+          <Text
+            flex={1}
+            fontSize={{
+              base: "lg",
+              sm: "lg",
+              md: "xl",
+              lg: "2xl",
+              xl: "3xl",
+              "2xl": "4xl",
+            }}
+            textAlign={"center"}
+          >
+            Actualmente, no cuentas con ningun producto en tu carrito 😪 pero...
+            😏
+          </Text>
+        </Box>
+      )}
+      <Box>
+        <Text>Aqui va la FlatList</Text>
       </Box>
     </VStack>
   );
