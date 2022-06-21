@@ -14,7 +14,7 @@
     "graphql-ws": "^5.9.0",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
-    "native-base": "3.4.6",
+    "native-base": "3.4.7",
     "net": "^1.0.2",
     "next": "^12.1.6",
     "nprogress": "^0.2.0",

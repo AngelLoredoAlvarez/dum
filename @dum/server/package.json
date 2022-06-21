@@ -28,7 +28,7 @@
     "graphile-worker": "^0.13.0",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "native-base": "3.4.6",
+    "native-base": "3.4.7",
     "next": "^12.1.6",
     "passport": "^0.6.0",
     "pg": "^8.7.3",
