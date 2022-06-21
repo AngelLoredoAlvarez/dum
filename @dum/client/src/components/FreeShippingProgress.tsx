@@ -20,6 +20,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
     <>
       {freeShippingPercentage.percentageFreeShipping === 0 ? null : (
         <VStack
+          mb={5}
           space={3}
           w={{
             base: "100%",
