@@ -2,6 +2,7 @@ import { FlatList } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
+import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
@@ -13,6 +14,7 @@ import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
+  addresses: CurrentUserAddressesFragment_addresses$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
   freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
@@ -41,7 +43,10 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
             <Loading />
           ) : null
         ) : (
-          <ProductsInTheShoppingListFooter costs={props.costs} />
+          <ProductsInTheShoppingListFooter
+            addresses={props.addresses}
+            costs={props.costs}
+          />
         )
       }
       ListHeaderComponent={
