@@ -15,5 +15,6 @@ export default graphql`
       ...ProductsInTheShoppingListFragment_shoppingListDetails
       ...ProductsInTheShoppingListFooterFragment_costs
     }
+    ...BestSellersFragment_bestSellers
   }
 `;
