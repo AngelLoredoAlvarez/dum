@@ -1,19 +1,14 @@
-import {
-  Box,
-  Button,
-  Divider,
-  HStack,
-  Select,
-  Text,
-  VStack,
-} from "native-base";
+import { Box, Button, Divider, HStack, Text, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
+import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import ProductsInTheShoppingListFooterFragment from "../graphql/Fragments/ProductsInTheShoppingListFooterFragment";
+import CurrentUserAddressesSelect from "./CurrentUserAddressesSelect";
 
 interface ProductsInTheSHoppingListFooterProps {
+  addresses: CurrentUserAddressesFragment_addresses$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
 }
 
@@ -59,38 +54,7 @@ function ProductsInTheShoppingListFooter(
             orientation={"horizontal"}
           />
           <HStack alignItems={"center"} justifyContent={"right"} space={3}>
-            <Select
-              size={{
-                base: "sm",
-                sm: "md",
-                md: "lg",
-                lg: "xl",
-                xl: "2xl",
-                "2xl": "2xl",
-              }}
-              placeholder={"Elige la dirección"}
-            >
-              <Select.Item
-                label={`Enviar a C.P.: Dirección 1`}
-                value={"Direccion1"}
-              />
-              <Select.Item
-                label={"Enviar a C.P.: Dirección 2"}
-                value={"Direccion2"}
-              />
-              <Select.Item
-                label={"Enviar a C.P.: Dirección 3"}
-                value={"Direccion3"}
-              />
-              <Select.Item
-                label={"Enviar a C.P.: Dirección 4"}
-                value={"Direccion4"}
-              />
-              <Select.Item
-                label={"Enviar a C.P.: Dirección 5"}
-                value={"Direccion5"}
-              />
-            </Select>
+            <CurrentUserAddressesSelect addresses={props.addresses} />
             <Text
               bold
               fontSize={{
