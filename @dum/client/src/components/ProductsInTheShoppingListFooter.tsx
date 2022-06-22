@@ -2,13 +2,14 @@ import { Box, Button, Divider, HStack, Text, VStack } from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
+import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
 import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import ProductsInTheShoppingListFooterFragment from "../graphql/Fragments/ProductsInTheShoppingListFooterFragment";
 import CurrentUserAddressesSelect from "./CurrentUserAddressesSelect";
-
 interface ProductsInTheSHoppingListFooterProps {
   addresses: CurrentUserAddressesFragment_addresses$key;
+  bestSellers: BestSellersFragment_bestSellers$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
 }
 
@@ -128,22 +129,6 @@ function ProductsInTheShoppingListFooter(
           _dark={{ backgroundColor: "gray.700" }}
           _light={{ backgroundColor: "coolGray.50" }}
           mb="2"
-          ml={{
-            base: "3",
-            sm: "3",
-            md: "12",
-            lg: "20",
-            xl: "16",
-            "2xl": "40",
-          }}
-          mr={{
-            base: "3",
-            sm: "3",
-            md: "12",
-            lg: "20",
-            xl: "16",
-            "2xl": "40",
-          }}
           mt="2"
           overflow="hidden"
           rounded="lg"
@@ -166,9 +151,6 @@ function ProductsInTheShoppingListFooter(
           </Text>
         </Box>
       )}
-      <Box>
-        <Text>Aqui va la FLatList</Text>
-      </Box>
     </VStack>
   );
 }
