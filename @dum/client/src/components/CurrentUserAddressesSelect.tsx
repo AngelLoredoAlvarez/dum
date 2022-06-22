@@ -18,9 +18,6 @@ function UserAddressesSelect(props: CurrentUserAddressesSelectProps) {
 
   return (
     <Select
-      _text={{
-        color: "red.600",
-      }}
       fontSize={{
         base: "sm",
         sm: "md",
