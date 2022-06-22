@@ -30,6 +30,7 @@ function ShoppingListPage({
     <Layout currentUser={shoppingListPageQuery}>
       <VStack alignItems={"center"} flex={1} space={3}>
         <ProductsInTheShoppingList
+          addresses={shoppingListPageQuery.currentUser}
           costs={shoppingListPageQuery.currentUserOpenedShoppingList}
           currentUserID={shoppingListPageQuery.currentUser.id}
           freeShippingPercentage={
