@@ -21,29 +21,28 @@ function ProductsInTheShoppingListFooter(
   );
 
   return (
-    <VStack>
+    <VStack
+      mb={2}
+      ml={{
+        base: 5,
+        sm: 5,
+        md: 50,
+        lg: 100,
+        xl: 200,
+        "2xl": 250,
+      }}
+      mr={{
+        base: 5,
+        sm: 5,
+        md: 50,
+        lg: 100,
+        xl: 200,
+        "2xl": 250,
+      }}
+      mt={2}
+    >
       {costs.amountToReachFreeShipping !== null && costs.totalToPay !== null ? (
-        <VStack
-          mb={2}
-          ml={{
-            base: 5,
-            sm: 5,
-            md: 50,
-            lg: 100,
-            xl: 200,
-            "2xl": 250,
-          }}
-          mr={{
-            base: 5,
-            sm: 5,
-            md: 50,
-            lg: 100,
-            xl: 200,
-            "2xl": 250,
-          }}
-          mt={2}
-          space={3}
-        >
+        <VStack space={3}>
           <Divider
             _dark={{
               bg: "white",
@@ -54,7 +53,19 @@ function ProductsInTheShoppingListFooter(
             orientation={"horizontal"}
           />
           <HStack alignItems={"center"} justifyContent={"right"} space={3}>
-            <CurrentUserAddressesSelect addresses={props.addresses} />
+            <Box
+              flex={1}
+              ml={{
+                base: 0,
+                sm: 250,
+                md: 350,
+                lg: 450,
+                xl: 550,
+                "2xl": 650,
+              }}
+            >
+              <CurrentUserAddressesSelect addresses={props.addresses} />
+            </Box>
             <Text
               bold
               fontSize={{
@@ -156,7 +167,7 @@ function ProductsInTheShoppingListFooter(
         </Box>
       )}
       <Box>
-        <Text>Aqui va la FlatList</Text>
+        <Text>Aqui va la FLatList</Text>
       </Box>
     </VStack>
   );
