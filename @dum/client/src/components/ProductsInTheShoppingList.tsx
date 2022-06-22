@@ -2,6 +2,7 @@ import { FlatList } from "native-base";
 import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
+import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
 import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
@@ -15,6 +16,7 @@ import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
   addresses: CurrentUserAddressesFragment_addresses$key;
+  bestSellers: BestSellersFragment_bestSellers$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
   freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
@@ -45,6 +47,7 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
         ) : (
           <ProductsInTheShoppingListFooter
             addresses={props.addresses}
+            bestSellers={props.bestSellers}
             costs={props.costs}
           />
         )
