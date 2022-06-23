@@ -1,4 +1,12 @@
-import { Box, Button, Divider, HStack, Text, VStack } from "native-base";
+import {
+  Box,
+  Button,
+  Divider,
+  Hidden,
+  HStack,
+  Text,
+  VStack,
+} from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -153,7 +161,41 @@ function ProductsInTheShoppingListFooter(
               pero... 😏
             </Text>
           </Box>
-          <BestSellersList bestSellers={props.bestSellers} />
+          <Hidden only={["base", "sm", "md", "lg"]}>
+            <BestSellersList
+              amountOfItemsToFetch={5}
+              bestSellers={props.bestSellers}
+              numberOfColumns={5}
+            />
+          </Hidden>
+          <Hidden only={["base", "sm", "md", "xl", "2xl"]}>
+            <BestSellersList
+              amountOfItemsToFetch={4}
+              bestSellers={props.bestSellers}
+              numberOfColumns={4}
+            />
+          </Hidden>
+          <Hidden only={["base", "sm", "lg", "xl", "2xl"]}>
+            <BestSellersList
+              amountOfItemsToFetch={3}
+              bestSellers={props.bestSellers}
+              numberOfColumns={3}
+            />
+          </Hidden>
+          <Hidden only={["base", "md", "lg", "xl", "2xl"]}>
+            <BestSellersList
+              amountOfItemsToFetch={2}
+              bestSellers={props.bestSellers}
+              numberOfColumns={2}
+            />
+          </Hidden>
+          <Hidden only={["sm", "md", "lg", "xl", "2xl"]}>
+            <BestSellersList
+              amountOfItemsToFetch={1}
+              bestSellers={props.bestSellers}
+              numberOfColumns={1}
+            />
+          </Hidden>
         </Box>
       )}
     </VStack>
