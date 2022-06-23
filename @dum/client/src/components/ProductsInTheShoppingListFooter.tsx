@@ -6,7 +6,9 @@ import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/_
 import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import ProductsInTheShoppingListFooterFragment from "../graphql/Fragments/ProductsInTheShoppingListFooterFragment";
+import BestSellersList from "./BestSellersList";
 import CurrentUserAddressesSelect from "./CurrentUserAddressesSelect";
+
 interface ProductsInTheSHoppingListFooterProps {
   addresses: CurrentUserAddressesFragment_addresses$key;
   bestSellers: BestSellersFragment_bestSellers$key;
@@ -125,30 +127,33 @@ function ProductsInTheShoppingListFooter(
           </Box>
         </VStack>
       ) : (
-        <Box
-          _dark={{ backgroundColor: "gray.700" }}
-          _light={{ backgroundColor: "coolGray.50" }}
-          mb="2"
-          mt="2"
-          overflow="hidden"
-          rounded="lg"
-          shadow="1"
-        >
-          <Text
-            flex={1}
-            fontSize={{
-              base: "lg",
-              sm: "lg",
-              md: "xl",
-              lg: "2xl",
-              xl: "3xl",
-              "2xl": "4xl",
-            }}
-            textAlign={"center"}
+        <Box>
+          <Box
+            _dark={{ backgroundColor: "gray.700" }}
+            _light={{ backgroundColor: "coolGray.50" }}
+            mb="2"
+            mt="2"
+            overflow="hidden"
+            rounded="lg"
+            shadow="1"
           >
-            Actualmente, no cuentas con ningun producto en tu carrito 😪 pero...
-            😏
-          </Text>
+            <Text
+              flex={1}
+              fontSize={{
+                base: "lg",
+                sm: "lg",
+                md: "xl",
+                lg: "2xl",
+                xl: "3xl",
+                "2xl": "4xl",
+              }}
+              textAlign={"center"}
+            >
+              Actualmente, no cuentas con ningun producto en tu carrito 😪
+              pero... 😏
+            </Text>
+          </Box>
+          <BestSellersList bestSellers={props.bestSellers} />
         </Box>
       )}
     </VStack>
