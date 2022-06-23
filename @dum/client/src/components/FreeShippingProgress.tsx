@@ -95,7 +95,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
                   "2xl": "2xl",
                 }}
               >
-                $ {freeShippingPercentage.amountToReachFreeShipping}
+                {freeShippingPercentage.amountToReachFreeShipping}
               </Text>{" "}
               en productos.
             </Text>
