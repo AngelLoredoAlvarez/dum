@@ -1,10 +1,11 @@
 import { FlatList, Text } from "native-base";
 import * as React from "react";
-import { useFragment } from "react-relay/hooks";
+import { usePaginationFragment } from "react-relay/hooks";
 
 import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
 import BestSellersFragment from "../graphql/Fragments/BestSellersFragment";
 import BestSellerListItem from "./BestSellerListItem";
+import Loading from "./Loading";
 
 interface BestSellersListProps {
   amountOfItemsToFetch: number;
@@ -13,14 +14,35 @@ interface BestSellersListProps {
 }
 
 function BestSellersList(props: BestSellersListProps) {
-  const { products } = useFragment<BestSellersFragment_bestSellers$key>(
+  const { data, isLoadingNext, hasNext, loadNext } = usePaginationFragment(
     BestSellersFragment,
     props.bestSellers
   );
 
   return (
     <FlatList
-      data={products.edges}
+      data={data.products.edges}
+      ListFooterComponent={
+        hasNext ? (
+          isLoadingNext ? (
+            <Loading />
+          ) : null
+        ) : (
+          <Text
+            fontSize={{
+              base: "sm",
+              sm: "sm",
+              md: "md",
+              lg: "lg",
+              xl: "xl",
+              "2xl": "2xl",
+            }}
+            textAlign={"center"}
+          >
+            No hay nada más para mostrar
+          </Text>
+        )
+      }
       ListHeaderComponent={
         <Text
           fontSize={{
@@ -40,9 +62,9 @@ function BestSellersList(props: BestSellersListProps) {
       }
       keyExtractor={(item) => item.node.id}
       numColumns={props.numberOfColumns}
-      /*onEndReached={() => {
+      onEndReached={() => {
         loadNext(props.amountOfItemsToFetch);
-      }}*/
+      }}
       onEndReachedThreshold={0}
       renderItem={({ item }) => <BestSellerListItem bestSeller={item.node} />}
     />
