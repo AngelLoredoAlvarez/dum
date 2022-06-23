@@ -90,7 +90,7 @@ function ProductsInTheShoppingListFooter(
             >
               {costs.amountToReachFreeShipping === "0.00"
                 ? "¡Envío Gratis!"
-                : `Costo de Envío $${costs.amountToReachFreeShipping}`}
+                : `Costo de Envío ${costs.amountToReachFreeShipping}`}
             </Text>
           </HStack>
           <HStack alignItems={"center"} justifyContent={"right"} space={3}>
