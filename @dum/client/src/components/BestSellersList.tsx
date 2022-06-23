@@ -7,7 +7,9 @@ import BestSellersFragment from "../graphql/Fragments/BestSellersFragment";
 import BestSellerListItem from "./BestSellerListItem";
 
 interface BestSellersListProps {
+  amountOfItemsToFetch: number;
   bestSellers: BestSellersFragment_bestSellers$key;
+  numberOfColumns: number;
 }
 
 function BestSellersList(props: BestSellersListProps) {
@@ -37,6 +39,11 @@ function BestSellersList(props: BestSellersListProps) {
         </Text>
       }
       keyExtractor={(item) => item.node.id}
+      numColumns={props.numberOfColumns}
+      /*onEndReached={() => {
+        loadNext(props.amountOfItemsToFetch);
+      }}*/
+      onEndReachedThreshold={0}
       renderItem={({ item }) => <BestSellerListItem bestSeller={item.node} />}
     />
   );
