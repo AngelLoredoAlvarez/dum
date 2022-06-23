@@ -1879,7 +1879,7 @@ enum SalesOrderBy {
 
 """A Shopping List own by a User."""
 type ShoppingList implements Node {
-  amountToReachFreeShipping: BigFloat
+  amountToReachFreeShipping: String
   createdAt: Datetime!
 
   """
