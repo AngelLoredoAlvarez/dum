@@ -37,7 +37,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "graphql": "^16.5.0",
-    "lerna": "^5.1.4",
+    "lerna": "^5.1.5",
     "string-width": "^5.1.2"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint_d": "^12.2.0",
@@ -67,7 +67,7 @@
     "jest": "^28.1.1",
     "mock-req": "^0.2.0",
     "mock-res": "^0.6.0",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.18",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
