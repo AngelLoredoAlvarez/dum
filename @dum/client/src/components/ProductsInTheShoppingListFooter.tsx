@@ -88,7 +88,7 @@ function ProductsInTheShoppingListFooter(
                 "2xl": "2xl",
               }}
             >
-              {costs.amountToReachFreeShipping === "0.00"
+              {costs.amountToReachFreeShipping === "$0.00"
                 ? "¡Envío Gratis!"
                 : `Costo de Envío ${costs.amountToReachFreeShipping}`}
             </Text>
