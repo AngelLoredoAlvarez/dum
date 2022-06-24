@@ -27,7 +27,9 @@ import * as Yup from "yup";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
+import type { AddToShoppingListMutation as AddToShoppingListMutationsTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import type { LoginMutation as LoginMutationTypes } from "../graphql/Mutations/__generated__/LoginMutation.graphql";
+import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
 import LoginMutation from "../graphql/Mutations/LoginMutation";
 import type { LoginPageQuery as LoginPageQueryTypes } from "../graphql/Queries/__generated__/LoginPageQuery.graphql";
 import LoginPageQuery from "../graphql/Queries/LoginPageQuery";
@@ -59,6 +61,9 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
   const [login] = useMutation<LoginMutationTypes>(LoginMutation);
+  const [addToShoppingList] = useMutation<AddToShoppingListMutationsTypes>(
+    AddToShoppingListMutation
+  );
 
   const router = useRouter();
 
@@ -67,17 +72,22 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
   const redirectOnLogin = React.useCallback(() => {
     if (router.query.hasOwnProperty("next")) {
       if (router.query.next.includes("ultimo-producto-agregado")) {
-        router.push(
-          `${router.query.next}?product_id=${router.query.product_id}&quantity=${router.query.quantity}`,
-          `${router.query.next}`
-        );
-      } else {
-        router.push(`${router.query.next}`);
+        addToShoppingList({
+          onCompleted: () => {},
+          onError: () => {},
+          variables: {
+            AddToShoppingListInput: {
+              productId: router.query.product_id,
+              selectedQuantity: Number(router.query.quantity),
+            },
+          },
+        });
       }
+      router.push(`${router.query.next}`);
     } else {
       router.push("/");
     }
-  }, [router]);
+  }, [addToShoppingList, router]);
 
   const onSubmit = ({ email, password }) => {
     login({
