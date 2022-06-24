@@ -135,7 +135,7 @@ function ProductsInTheShoppingListFooter(
           </Box>
         </VStack>
       ) : (
-        <Box>
+        <Box alignItems={"center"}>
           <Box
             _dark={{ backgroundColor: "gray.700" }}
             _light={{ backgroundColor: "coolGray.50" }}
