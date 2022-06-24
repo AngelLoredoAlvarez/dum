@@ -155,27 +155,6 @@ create or replace function dum_public.users_shopping_list_products_count(u dum_p
 $$ language sql stable;
 
 /*
- * Function that returns all the products in the Opened Shopping List for a User
- */
-create or replace function dum_public.products_in_the_shopping_list() returns setof dum_public.shopping_list_details as $$
-  select
-   dum_public.shopping_list_details.*
-  from
-    dum_public.shopping_list_details
-  inner join
-    dum_public.shopping_lists
-  on
-    (dum_public.shopping_list_details.shopping_list_id = dum_public.shopping_lists.id)
-  where
-    dum_public.shopping_lists.id = dum_public.opened_shopping_list_id()
-  and
-    dum_public.shopping_lists.user_id = dum_public.current_user_id()
-  order by
-    dum_public.shopping_list_details.updated_at
-  desc;
-$$ language sql stable;
-
-/*
  * Function that returns the last added product to the shopping list
  */
 create or replace function dum_public.last_added_product_in_the_shopping_list() returns dum_public.shopping_list_details as $$
