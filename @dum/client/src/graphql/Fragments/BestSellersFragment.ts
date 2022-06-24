@@ -3,7 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 export default graphql`
   fragment BestSellersFragment_bestSellers on Query
   @argumentDefinitions(
-    first: { type: "Int", defaultValue: 5 }
+    first: { type: "Int", defaultValue: 10 }
     after: { type: "Cursor" }
   )
   @refetchable(queryName: "BestSellers") {
