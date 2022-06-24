@@ -226,8 +226,21 @@ $$ language plpgsql stable;
  * Function that returns the total to pay for the opened shopping list
  */
 create or replace function dum_public.shopping_lists_total_to_pay(sl dum_public.shopping_lists) returns text as $$
-  select cast(sum(unformated_cost) as money) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id();
-$$ language sql stable;
+  declare
+    products_total numeric(8,2);
+    total numeric(8,2);
+  begin
+    select sum(unformated_cost) from dum_public.shopping_list_details where shopping_list_id = dum_public.opened_shopping_list_id() into products_total;
+
+    if products_total < 500 then
+      total := products_total + 500;
+    else
+      total := products_total;
+    end if;
+
+    return cast(total as money);
+  end;
+$$ language plpgsql stable;
 
 /*
  * Computed column that returns the percentage covered for all the products in the opened shopping list
