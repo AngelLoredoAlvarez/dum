@@ -57,7 +57,7 @@ function FreeShippingProgress(props: FreeShippingPercentageProps) {
             size={"lg"}
             value={freeShippingPercentage.percentageFreeShipping}
           />
-          {freeShippingPercentage.amountToReachFreeShipping === "0.00" ? (
+          {freeShippingPercentage.amountToReachFreeShipping === "$0.00" ? (
             <Text
               fontSize={{
                 base: "sm",
