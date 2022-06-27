@@ -223,11 +223,8 @@ function RegisterPage({
         } else {
           toast.show({
             description: `${apiErrors[0].message}`,
-            isClosable: true,
             placement: "top",
-            status: "error",
             title: "Verifica tus Datos",
-            variant: "top-accent",
           });
         }
       },
