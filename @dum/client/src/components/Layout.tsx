@@ -229,7 +229,6 @@ function Layout(props: LayoutProps) {
           shadow={6}
         >
           <Pressable
-            cursor="pointer"
             opacity={router.pathname === "/" ? 1 : 0.5}
             py="3"
             flex={1}
@@ -252,7 +251,6 @@ function Layout(props: LayoutProps) {
             </Center>
           </Pressable>
           <Pressable
-            cursor="pointer"
             flex={1}
             opacity={router.pathname.includes("/tienda") ? 1 : 0.6}
             onPress={() => router.push("/tienda")}
@@ -280,7 +278,6 @@ function Layout(props: LayoutProps) {
           </Pressable>
           {currentUser !== null ? (
             <Pressable
-              cursor="pointer"
               flex={1}
               opacity={router.pathname.includes("/carrito") ? 1 : 0.6}
               onPress={() => router.push("/carrito")}
