@@ -18,7 +18,10 @@ import {
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment, useMutation, useSubscription } from "react-relay";
-import type { GraphQLSubscriptionConfig } from "relay-runtime";
+import type {
+  GraphQLSubscriptionConfig,
+  RecordSourceSelectorProxy,
+} from "relay-runtime";
 
 import { CurrentUserFragment_user$key } from "../graphql/Fragments/__generated__/CurrentUserFragment_user.graphql";
 import CurrentUserFragment from "../graphql/Fragments/CurrentUserFragment";
@@ -195,6 +198,9 @@ function CustomDrawerContent(props: CustomDrawerContentProps) {
                     handleRedirectAfterLogout();
                   },
                   onError: () => {},
+                  updater: (store: RecordSourceSelectorProxy) => {
+                    store.invalidateStore();
+                  },
                   variables: {},
                 });
               }}
