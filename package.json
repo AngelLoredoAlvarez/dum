@@ -37,7 +37,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "graphql": "^16.5.0",
-    "lerna": "^5.1.5",
+    "lerna": "^5.1.6",
     "string-width": "^5.1.2"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "eslint-plugin-graphql": "^4.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.5.3",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.1.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
