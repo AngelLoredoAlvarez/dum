@@ -158,7 +158,6 @@ function ForgotPasswordPage({
                       onChange={onChange}
                       placeholder="Correo Electrónico"
                       size={"md"}
-                      type={"email"}
                       value={value}
                     />
                   )}
