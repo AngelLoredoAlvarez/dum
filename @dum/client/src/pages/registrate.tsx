@@ -29,6 +29,7 @@ import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
 import StreetsList from "../components/StreetsList";
 import SuburbsList from "../components/SuburbsList";
+import ToastAlert from "../components/ToastAlert";
 import type { AddToShoppingListMutation as AddToShoppingListMutationTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import type { RegisterMutation as RegisterMutationTypes } from "../graphql/Mutations/__generated__/RegisterMutation.graphql";
 import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
@@ -222,9 +223,18 @@ function RegisterPage({
           }
         } else {
           toast.show({
-            description: `${apiErrors[0].message}`,
             placement: "top",
-            title: "Verifica tus Datos",
+            render: ({ id }) => (
+              <ToastAlert
+                description={apiErrors[0].message}
+                id={id}
+                isClosable={true}
+                onClose={() => toast.close(id)}
+                status={"warning"}
+                title={"Verifica tus Datos"}
+                variant={"top-accent"}
+              />
+            ),
           });
         }
       },
