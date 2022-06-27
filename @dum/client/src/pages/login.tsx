@@ -27,6 +27,7 @@ import * as Yup from "yup";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import Redirect from "../components/Redirect";
+import ToastAlert from "../components/ToastAlert";
 import type { AddToShoppingListMutation as AddToShoppingListMutationsTypes } from "../graphql/Mutations/__generated__/AddToShoppingListMutation.graphql";
 import type { LoginMutation as LoginMutationTypes } from "../graphql/Mutations/__generated__/LoginMutation.graphql";
 import AddToShoppingListMutation from "../graphql/Mutations/AddToShoppingListMutation";
@@ -98,15 +99,25 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
           }
         } else if (apiErrors) {
           toast.show({
-            description: `${apiErrors[0].message}`,
             placement: "top",
-            title:
-              // @ts-ignore
-              apiErrors[0].extensions.exception.code === "CREDS"
-                ? "Verifica tus Datos"
-                : // @ts-ignore
-                  apiErrors[0].extensions.exception.code === "LOCKD" &&
-                  "Cuenta Bloqueada",
+            render: ({ id }) => (
+              <ToastAlert
+                description={apiErrors[0].message}
+                id={id}
+                isClosable={true}
+                onClose={() => toast.close(id)}
+                status={"error"}
+                title={
+                  // @ts-ignore
+                  apiErrors[0].extensions.exception.code === "CREDS"
+                    ? "Verifica tus Datos"
+                    : // @ts-ignore
+                      apiErrors[0].extensions.exception.code === "LOCKD" &&
+                      "Cuenta Bloqueada"
+                }
+                variant={"top-accent"}
+              />
+            ),
           });
         }
       },
