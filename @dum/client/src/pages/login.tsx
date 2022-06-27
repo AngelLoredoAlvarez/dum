@@ -99,9 +99,7 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
         } else if (apiErrors) {
           toast.show({
             description: `${apiErrors[0].message}`,
-            isClosable: true,
             placement: "top",
-            status: "error",
             title:
               // @ts-ignore
               apiErrors[0].extensions.exception.code === "CREDS"
@@ -109,7 +107,6 @@ function LoginPage({ preloadedQuery }: RelayProps<{}, LoginPageQueryTypes>) {
                 : // @ts-ignore
                   apiErrors[0].extensions.exception.code === "LOCKD" &&
                   "Cuenta Bloqueada",
-            variant: "top-accent",
           });
         }
       },
