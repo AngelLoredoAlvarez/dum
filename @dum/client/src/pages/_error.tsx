@@ -2,7 +2,7 @@ import Error from "next/error";
 import * as React from "react";
 
 function Page({ statusCode }) {
-  return <Error statusCode={statusCode}></Error>;
+  return <Error statusCode={statusCode} />;
 }
 
 Page.getInitialProps = ({ res, err }) => {
