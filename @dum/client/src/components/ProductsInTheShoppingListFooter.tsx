@@ -68,11 +68,11 @@ function ProductsInTheShoppingListFooter(
               flex={1}
               ml={{
                 base: 0,
-                sm: 250,
-                md: 350,
-                lg: 450,
-                xl: 550,
-                "2xl": 650,
+                sm: 0,
+                md: 100,
+                lg: 150,
+                xl: 200,
+                "2xl": 300,
               }}
             >
               <CurrentUserAddressesSelect addresses={props.addresses} />
