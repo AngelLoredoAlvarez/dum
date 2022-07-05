@@ -17,6 +17,7 @@ export default graphql`
       shoppingListDetail {
         id
         rowId
+        quantity
         cost
       }
     }
