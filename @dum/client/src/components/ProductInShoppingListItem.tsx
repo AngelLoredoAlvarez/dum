@@ -52,6 +52,10 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
     updateShoppingListDetailProductQuantity({
       onCompleted: () => {},
       onError: () => {},
+      updater: (store: RecordSourceSelectorProxy) => {
+        const currentUser = store.get(props.currentUserID);
+        currentUser.setValue(selectedQuantity, "shoppingListProductsCount");
+      },
       variables: {
         UpdateShoppingListDetailProductQuantityInput: {
           productId: productInShoppingList.product.rowId,
@@ -61,6 +65,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
     });
   }, [
     productInShoppingList.product.rowId,
+    props.currentUserID,
     selectedQuantity,
     updateShoppingListDetailProductQuantity,
   ]);
