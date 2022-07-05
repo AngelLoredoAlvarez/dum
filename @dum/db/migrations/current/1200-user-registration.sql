@@ -100,6 +100,9 @@ begin
       user_id = v_user.id;
   end if;
 
+  -- Creates the User's First Shopping List
+  insert into dum_public.shopping_lists(user_id) values(v_user.id);
+
   -- Refresh the user
   select * into v_user from dum_public.users where id = v_user.id;
 
