@@ -299,6 +299,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
         </Text>
         <Button
           colorScheme="red"
+          isDisabled={isInFlight}
           mr={3}
           rightIcon={
             <MaterialCommunityIcons color="white" name="trash-can" size={20} />
