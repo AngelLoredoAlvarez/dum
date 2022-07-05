@@ -263,3 +263,18 @@ create or replace function dum_public.shopping_lists_amount_to_reach_free_shippi
   end;
 $$ language plpgsql stable;
 
+/*
+ * Custom Mutation that updates the selected quantity of a Product in the Shopping List
+ */
+create or replace function dum_public.update_shopping_list_detail_product_quantity(product_id uuid, quantity integer) returns dum_public.shopping_list_details as $$
+  update
+    dum_public.shopping_list_details
+  set
+    quantity = $2,
+    unformated_cost = dum_public.shopping_list_detail_unformated_cost($1, $2)
+  where
+    product_id = $1
+  returning
+    *;
+$$ language sql volatile;
+

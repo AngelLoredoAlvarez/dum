@@ -844,6 +844,12 @@ type Mutation {
     """
     input: UpdateShoppingListDetailByIdInput!
   ): UpdateShoppingListDetailPayload
+  updateShoppingListDetailProductQuantity(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateShoppingListDetailProductQuantityInput!
+  ): UpdateShoppingListDetailProductQuantityPayload
 
   """Updates a single `User` using a unique key and a patch."""
   updateUser(
@@ -2578,6 +2584,46 @@ type UpdateShoppingListDetailPayload {
   shoppingList: ShoppingList
 
   """The `ShoppingListDetail` that was updated by this mutation."""
+  shoppingListDetail: ShoppingListDetail
+
+  """An edge for our `ShoppingListDetail`. May be used by Relay 1."""
+  shoppingListDetailEdge(
+    """The method to use when ordering `ShoppingListDetail`."""
+    orderBy: [ShoppingListDetailsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ShoppingListDetailsEdge
+}
+
+"""All input for the `updateShoppingListDetailProductQuantity` mutation."""
+input UpdateShoppingListDetailProductQuantityInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  productId: UUID!
+  quantity: Int!
+}
+
+"""The output of our `updateShoppingListDetailProductQuantity` mutation."""
+type UpdateShoppingListDetailProductQuantityPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """Reads a single `Product` that is related to this `ShoppingListDetail`."""
+  product: Product
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `ShoppingList` that is related to this `ShoppingListDetail`.
+  """
+  shoppingList: ShoppingList
   shoppingListDetail: ShoppingListDetail
 
   """An edge for our `ShoppingListDetail`. May be used by Relay 1."""
