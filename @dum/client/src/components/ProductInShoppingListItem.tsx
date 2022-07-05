@@ -17,7 +17,9 @@ import { ConnectionHandler, RecordSourceSelectorProxy } from "relay-runtime";
 import type { ProductInShoppingListItemFragment_productInShoppingList$key } from "../graphql/Fragments/__generated__/ProductInShoppingListItemFragment_productInShoppingList.graphql";
 import ProductInShoppingListItemFragment from "../graphql/Fragments/ProductInShoppingListItemFragment";
 import type { DeleteFromShoppingListMutation as DeleteFromShoppingListMutationTypes } from "../graphql/Mutations/__generated__/DeleteFromShoppingListMutation.graphql";
+import type { UpdateShoppingListDetailProductQuantityMutation as UpdateShoppingListDetailProductQuantityMutationTypes } from "../graphql/Mutations/__generated__/UpdateShoppingListDetailProductQuantityMutation.graphql";
 import DeleteFromShoppingListMutation from "../graphql/Mutations/DeleteFromShoppingListMutation";
+import UpdateShoppingListDetailProductQuantityMutation from "../graphql/Mutations/UpdateShoppingListDetailProductQuantityMutation";
 
 interface ProductInShoppingListItemProps {
   currentUserID: string;
@@ -40,6 +42,28 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
   const [selectedQuantity, setSelectedQuantity] = React.useState<number>(
     productInShoppingList?.quantity
   );
+
+  const [updateShoppingListDetailProductQuantity, isInFlight] =
+    useMutation<UpdateShoppingListDetailProductQuantityMutationTypes>(
+      UpdateShoppingListDetailProductQuantityMutation
+    );
+
+  React.useEffect(() => {
+    updateShoppingListDetailProductQuantity({
+      onCompleted: () => {},
+      onError: () => {},
+      variables: {
+        UpdateShoppingListDetailProductQuantityInput: {
+          productId: productInShoppingList.product.rowId,
+          quantity: selectedQuantity,
+        },
+      },
+    });
+  }, [
+    productInShoppingList.product.rowId,
+    selectedQuantity,
+    updateShoppingListDetailProductQuantity,
+  ]);
 
   const handleIncrease = () => {
     if (selectedQuantity == productInShoppingList.product.stock) {
@@ -220,6 +244,7 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
                 -
               </Button>
             }
+            isDisabled={isInFlight}
             onChangeText={(val: string) => handleChange(val)}
             py="0"
             size={"md"}
