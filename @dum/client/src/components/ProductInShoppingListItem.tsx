@@ -52,10 +52,6 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
     updateShoppingListDetailProductQuantity({
       onCompleted: () => {},
       onError: () => {},
-      updater: (store: RecordSourceSelectorProxy) => {
-        const currentUser = store.get(props.currentUserID);
-        currentUser.setValue(selectedQuantity, "shoppingListProductsCount");
-      },
       variables: {
         UpdateShoppingListDetailProductQuantityInput: {
           productId: productInShoppingList.product.rowId,
@@ -106,15 +102,6 @@ function ProductInShoppingListItem(props: ProductInShoppingListItemProps) {
       updater: (store: RecordSourceSelectorProxy) => {
         const connection = store.get(props.productsInTheShoppingListID);
         ConnectionHandler.deleteNode(connection, productInShoppingList.id);
-
-        const currentUser = store.get(props.currentUserID);
-        const currentShoppingListCount: number = +currentUser.getValue(
-          "shoppingListProductsCount"
-        );
-        currentUser.setValue(
-          currentShoppingListCount - productInShoppingList.quantity,
-          "shoppingListProductsCount"
-        );
       },
       variables: {
         DeleteFromShoppingListInput: {
