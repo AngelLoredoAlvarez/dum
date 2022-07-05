@@ -8,6 +8,9 @@ export default graphql`
       shoppingList {
         id
         rowId
+        user {
+          shoppingListProductsCount
+        }
         amountToReachFreeShipping
         percentageFreeShipping
         totalToPay
