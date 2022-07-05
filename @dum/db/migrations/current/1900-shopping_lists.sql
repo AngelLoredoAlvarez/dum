@@ -4,7 +4,7 @@
  create table dum_public.shopping_lists (
    id uuid primary key default gen_random_uuid(),
    is_open boolean default true,
-   user_id uuid not null references dum_public.users(id),
+   user_id uuid not null references dum_public.users(id) on update cascade on delete cascade,
    created_at timestamptz not null default now(),
    updated_at timestamptz not null default now()
  );
