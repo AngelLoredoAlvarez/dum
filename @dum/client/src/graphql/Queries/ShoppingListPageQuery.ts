@@ -7,7 +7,7 @@ export default graphql`
       id
       rowId
       fullName
-      ...CurrentUserAddressesFragment_addresses
+      shortMainAddress
     }
     ...MainDepartmentsFragment_mainDepartments
     currentUserOpenedShoppingList {
