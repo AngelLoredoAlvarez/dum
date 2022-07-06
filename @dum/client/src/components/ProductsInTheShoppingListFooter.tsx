@@ -126,7 +126,9 @@ function ProductsInTheShoppingListFooter(
                 "2xl": "2xl",
               }}
             >
-              Total con Envío:{" "}
+              {costs.amountToReachFreeShipping === "$0.00"
+                ? "Total: "
+                : "Total con Envío: "}
             </Text>
             <Text
               bold
