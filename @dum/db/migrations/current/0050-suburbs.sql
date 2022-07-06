@@ -3,8 +3,9 @@
  */
 create table dum_public.suburbs (
   id uuid primary key default gen_random_uuid(),
+  zip_code char(5),
+  type text,
   name text,
-  zip_code text,
   town_id uuid not null references dum_public.towns on update cascade on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -40,5 +41,5 @@ create or replace function dum_public.suburbs_by_town_id(town_id uuid default nu
 $$ language sql stable;
 
 -- Inserts the default suburbs associated to a specific town
-insert into dum_public.suburbs(id, name, town_id, zip_code) values('c5ef579f-61d5-4441-82a5-108247ec4058', 'CENTRO', '84673058-eca2-42b1-bd94-84b1ece47c0c', '79610'),
-                                                                  ('a86ee345-7012-4eb4-b97c-7513ea7be919', 'CENTRO', '0adb7363-baf9-4fb1-aeb8-18977861bd1b', '79650');
+insert into dum_public.suburbs(id, zip_code, type, name, town_id) values('c5ef579f-61d5-4441-82a5-108247ec4058', '79610', 'COLONIA', 'CENTRO', '84673058-eca2-42b1-bd94-84b1ece47c0c'),
+                                                                        ('a86ee345-7012-4eb4-b97c-7513ea7be919', '79650', 'COLONIA', 'CENTRO', '0adb7363-baf9-4fb1-aeb8-18977861bd1b');

@@ -2341,6 +2341,7 @@ type Suburb implements Node {
   """Reads a single `Town` that is related to this `Suburb`."""
   town: Town
   townId: UUID!
+  type: String
   updatedAt: Datetime!
 
   """Reads and enables pagination through a set of `UserAddress`."""
