@@ -50,3 +50,31 @@ create trigger _100_timestamps
   select * from dum_public.user_addresses where user_id = dum_public.current_user_id();
  $$ language sql stable;
 
+/*
+ * Computed Column that returns the Main Address of the Current User
+ */
+create or replace function dum_public.users_short_main_address(u dum_public.users) returns text as $$
+  declare
+    suburb_id uuid;
+    suburb_zip_code text;
+    settlement_type text;
+    suburb_name text;
+  begin
+    select dum_public.user_addresses.suburb_id from dum_public.user_addresses where is_main = true and user_id = u.id into suburb_id;
+
+    select
+      zip_code,
+      type,
+      name
+    into
+      suburb_zip_code,
+      settlement_type,
+      suburb_name
+    from
+      dum_public.suburbs
+    where
+      id = suburb_id;
+
+    return suburb_zip_code || ', ' || settlement_type || ' ' || suburb_name;
+  end;
+$$ language plpgsql stable;

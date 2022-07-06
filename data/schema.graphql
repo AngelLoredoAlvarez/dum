@@ -2776,6 +2776,7 @@ type User implements Node {
     """The method to use when ordering `ShoppingList`."""
     orderBy: [ShoppingListsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ShoppingListsConnection!
+  shortMainAddress: String
   updatedAt: Datetime!
 
   """Reads and enables pagination through a set of `UserAddress`."""
