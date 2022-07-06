@@ -30,7 +30,6 @@ function ShoppingListPage({
     <Layout currentUser={shoppingListPageQuery}>
       <VStack alignItems={"center"} flex={1} space={3}>
         <ProductsInTheShoppingList
-          addresses={shoppingListPageQuery.currentUser}
           bestSellers={shoppingListPageQuery}
           costs={shoppingListPageQuery.currentUserOpenedShoppingList}
           currentUserID={shoppingListPageQuery.currentUser.id}
@@ -41,6 +40,7 @@ function ShoppingListPage({
           productsInTheShoppingList={
             shoppingListPageQuery.currentUserOpenedShoppingList
           }
+          shortMainAddress={shoppingListPageQuery.currentUser.shortMainAddress}
         />
       </VStack>
     </Layout>
