@@ -55,19 +55,31 @@ create trigger _100_timestamps
  */
 create or replace function dum_public.users_short_main_address(u dum_public.users) returns text as $$
   declare
+    town_id uuid;
     suburb_id uuid;
-    suburb_zip_code text;
+    town_name text;
     settlement_type text;
     suburb_name text;
   begin
-    select dum_public.user_addresses.suburb_id from dum_public.user_addresses where is_main = true and user_id = u.id into suburb_id;
+    select
+      dum_public.user_addresses.town_id,
+      dum_public.user_addresses.suburb_id
+    into
+      town_id,
+      suburb_id
+    from
+      dum_public.user_addresses
+    where
+      is_main = true
+    and
+      user_id = u.id;
+
+    select name from dum_public.towns where id = town_id into town_name;
 
     select
-      zip_code,
       type,
       name
     into
-      suburb_zip_code,
       settlement_type,
       suburb_name
     from
@@ -75,6 +87,6 @@ create or replace function dum_public.users_short_main_address(u dum_public.user
     where
       id = suburb_id;
 
-    return suburb_zip_code || ', ' || settlement_type || ' ' || suburb_name;
+    return town_name || ', ' || settlement_type || ' ' || suburb_name;
   end;
 $$ language plpgsql stable;
