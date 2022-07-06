@@ -4,6 +4,7 @@ import {
   Divider,
   Hidden,
   HStack,
+  Link,
   Text,
   VStack,
 } from "native-base";
@@ -11,16 +12,14 @@ import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
 import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
-import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
 import ProductsInTheShoppingListFooterFragment from "../graphql/Fragments/ProductsInTheShoppingListFooterFragment";
 import BestSellersList from "./BestSellersList";
-import CurrentUserAddressesSelect from "./CurrentUserAddressesSelect";
 
 interface ProductsInTheSHoppingListFooterProps {
-  addresses: CurrentUserAddressesFragment_addresses$key;
   bestSellers: BestSellersFragment_bestSellers$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
+  shortMainAddress: string;
 }
 
 function ProductsInTheShoppingListFooter(
@@ -64,19 +63,42 @@ function ProductsInTheShoppingListFooter(
             orientation={"horizontal"}
           />
           <HStack alignItems={"center"} justifyContent={"right"} space={3}>
-            <Box
-              flex={1}
-              ml={{
-                base: 0,
-                sm: 0,
-                md: 100,
-                lg: 150,
-                xl: 200,
-                "2xl": 300,
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
               }}
             >
-              <CurrentUserAddressesSelect addresses={props.addresses} />
-            </Box>
+              Enviar a:
+            </Text>
+            <Text
+              fontSize={{
+                base: "xs",
+                sm: "xs",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+            >
+              <Link>{props.shortMainAddress}</Link>
+            </Text>
+            <Text
+              fontSize={{
+                base: "sm",
+                sm: "md",
+                md: "lg",
+                lg: "xl",
+                xl: "2xl",
+                "2xl": "2xl",
+              }}
+            >
+              Costo de Envío:{" "}
+            </Text>
             <Text
               bold
               fontSize={{
@@ -89,8 +111,8 @@ function ProductsInTheShoppingListFooter(
               }}
             >
               {costs.amountToReachFreeShipping === "$0.00"
-                ? "¡Envío Gratis!"
-                : `Costo de Envío ${costs.amountToReachFreeShipping}`}
+                ? "¡Gratis!"
+                : `${costs.amountToReachFreeShipping}`}
             </Text>
           </HStack>
           <HStack alignItems={"center"} justifyContent={"right"} space={3}>
