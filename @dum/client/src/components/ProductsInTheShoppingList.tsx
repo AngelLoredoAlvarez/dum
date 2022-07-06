@@ -3,7 +3,6 @@ import * as React from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 
 import type { BestSellersFragment_bestSellers$key } from "../graphql/Fragments/__generated__/BestSellersFragment_bestSellers.graphql";
-import type { CurrentUserAddressesFragment_addresses$key } from "../graphql/Fragments/__generated__/CurrentUserAddressesFragment_addresses.graphql";
 import type { FreeShippingPercentageFragment_freeShippingPercentage$key } from "../graphql/Fragments/__generated__/FreeShippingPercentageFragment_freeShippingPercentage.graphql";
 import type { MainDepartmentsFragment_mainDepartments$key } from "../graphql/Fragments/__generated__/MainDepartmentsFragment_mainDepartments.graphql";
 import type { ProductsInTheShoppingListFooterFragment_costs$key } from "../graphql/Fragments/__generated__/ProductsInTheShoppingListFooterFragment_costs.graphql";
@@ -15,13 +14,13 @@ import ProductsInTheShoppingListFooter from "./ProductsInTheShoppingListFooter";
 import ProductsInTheShoppingListHeader from "./ProductsInTheShoppingListHeader";
 
 interface ProductsInTheShoppingListProps {
-  addresses: CurrentUserAddressesFragment_addresses$key;
   bestSellers: BestSellersFragment_bestSellers$key;
   costs: ProductsInTheShoppingListFooterFragment_costs$key;
   currentUserID: string;
   freeShippingPercentage: FreeShippingPercentageFragment_freeShippingPercentage$key;
   mainDepartments: MainDepartmentsFragment_mainDepartments$key;
   productsInTheShoppingList: ProductsInTheShoppingListFragment_shoppingListDetails$key;
+  shortMainAddress: string;
 }
 
 function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
@@ -46,9 +45,9 @@ function ProductsInTheShoppingList(props: ProductsInTheShoppingListProps) {
           ) : null
         ) : (
           <ProductsInTheShoppingListFooter
-            addresses={props.addresses}
             bestSellers={props.bestSellers}
             costs={props.costs}
+            shortMainAddress={props.shortMainAddress}
           />
         )
       }
