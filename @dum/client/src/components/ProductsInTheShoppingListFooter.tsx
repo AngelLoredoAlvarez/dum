@@ -8,6 +8,7 @@ import {
   Text,
   VStack,
 } from "native-base";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -29,6 +30,12 @@ function ProductsInTheShoppingListFooter(
     ProductsInTheShoppingListFooterFragment,
     props.costs
   );
+
+  const router = useRouter();
+
+  const handleRouting = React.useCallback(() => {
+    router.push("/configuracion/direcciones");
+  }, [router]);
 
   return (
     <VStack
@@ -85,7 +92,7 @@ function ProductsInTheShoppingListFooter(
                 "2xl": "2xl",
               }}
             >
-              <Link>{props.shortMainAddress}</Link>
+              <Link onPress={handleRouting}>{props.shortMainAddress}</Link>
             </Text>
             <Text
               fontSize={{
