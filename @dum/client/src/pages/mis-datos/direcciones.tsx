@@ -14,20 +14,24 @@ import { getClientEnvironment } from "../../lib/client";
 function UserAddressesPage({
   preloadedQuery,
 }: RelayProps<{}, UserAddressesPageQueryTypes>) {
-  const userAddressesPageQuery = usePreloadedQuery<UserAddressesPageQueryTypes>(
-    UserAddressesPageQuery,
-    preloadedQuery
-  );
+  const currentUserAddressesPageQuery =
+    usePreloadedQuery<UserAddressesPageQueryTypes>(
+      UserAddressesPageQuery,
+      preloadedQuery
+    );
 
   if (
-    userAddressesPageQuery.currentUser === null ||
-    userAddressesPageQuery.currentUser === undefined
+    currentUserAddressesPageQuery.currentUser === null ||
+    currentUserAddressesPageQuery.currentUser === undefined
   )
     return <Redirect href="/" />;
 
   return (
-    <Layout currentUser={userAddressesPageQuery}>
-      <UserAddressesList userAddresses={userAddressesPageQuery.currentUser} />
+    <Layout currentUser={currentUserAddressesPageQuery}>
+      <UserAddressesList
+        currentUserFullMainAddress={currentUserAddressesPageQuery.currentUser}
+        userAddresses={currentUserAddressesPageQuery.currentUser}
+      />
     </Layout>
   );
 }
