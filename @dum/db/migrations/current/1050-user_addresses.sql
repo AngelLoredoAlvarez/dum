@@ -90,3 +90,39 @@ create or replace function dum_public.users_short_main_address(u dum_public.user
     return town_name || ', ' || settlement_type || ' ' || suburb_name;
   end;
 $$ language plpgsql stable;
+
+/*
+ * Computed Column that returns a short version of the addresses related to a user
+ */
+create or replace function dum_public.user_addresses_full_address(ua dum_public.user_addresses) returns text as $$
+  declare
+    full_address text;
+    street text;
+    settlement_type text;
+    suburb text;
+    town text;
+  begin
+    select name from dum_public.streets where id = ua.street_id into street;
+
+    select
+      type,
+      name
+    into
+      settlement_type,
+      suburb
+    from
+      dum_public.suburbs
+    where
+      id = ua.suburb_id;
+
+    select name from dum_public.towns where id = ua.town_id into town;
+
+    if ua.int_number <> '' then
+      full_address := 'CALLE ' || street || ' #' || ua.ext_number || ' Int. ' || ua.int_number || ', ' || settlement_type || ' ' || suburb || ', ' || town;
+    else
+      full_address := 'CALLE ' || street || ' #' || ua.ext_number || ', ' || settlement_type || ' ' || suburb || ', ' || town;
+    end if;
+
+    return full_address;
+  end;
+$$ language plpgsql stable;
