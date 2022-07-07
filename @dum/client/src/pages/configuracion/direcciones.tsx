@@ -1,4 +1,3 @@
-import { Box, Text } from "native-base";
 import * as React from "react";
 import { usePreloadedQuery } from "react-relay";
 import type { RelayProps } from "relay-nextjs";
@@ -7,6 +6,7 @@ import { withRelay } from "relay-nextjs";
 import Layout from "../../components/Layout";
 import Loading from "../../components/Loading";
 import Redirect from "../../components/Redirect";
+import UserAddressesList from "../../components/UserAddressesList";
 import type { UserAddressesPageQuery as UserAddressesPageQueryTypes } from "../../graphql/Queries/__generated__/UserAddressesPageQuery.graphql";
 import UserAddressesPageQuery from "../../graphql/Queries/UserAddressesPageQuery";
 import { getClientEnvironment } from "../../lib/client";
@@ -27,9 +27,7 @@ function UserAddressesPage({
 
   return (
     <Layout currentUser={userAddressesPageQuery}>
-      <Box>
-        <Text>UserAddressesPage</Text>
-      </Box>
+      <UserAddressesList userAddresses={userAddressesPageQuery.currentUser} />
     </Layout>
   );
 }
