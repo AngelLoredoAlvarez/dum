@@ -34,7 +34,7 @@ function ProductsInTheShoppingListFooter(
   const router = useRouter();
 
   const handleRouting = React.useCallback(() => {
-    router.push("/configuracion/direcciones");
+    router.push("/mis-datos/direcciones");
   }, [router]);
 
   return (
