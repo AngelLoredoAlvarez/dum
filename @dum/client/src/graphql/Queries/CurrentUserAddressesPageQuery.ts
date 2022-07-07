@@ -8,6 +8,7 @@ export default graphql`
       rowId
       fullName
       ...CurrentUserAddressesListFragment_currentUserAddresses
+      ...CurrentUserFullMainAddressFragment_currentUserFullMainAddress
     }
   }
 `;
