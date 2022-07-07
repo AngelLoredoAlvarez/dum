@@ -126,3 +126,63 @@ create or replace function dum_public.user_addresses_full_address(ua dum_public.
     return full_address;
   end;
 $$ language plpgsql stable;
+
+/*
+ * Computed Column that returns the Full Address from the Current User
+ */
+create or replace function dum_public.users_full_main_address(u dum_public.users) returns text as $$
+  declare
+    full_address text := 'FUCK';
+    current_user_street_id uuid;
+    current_user_street_name text;
+    current_user_street_ext_number text;
+    current_user_street_int_number text;
+    current_user_suburb_id uuid;
+    current_user_settlement_type text;
+    current_user_suburb_name text;
+    current_user_town_id uuid;
+    current_user_town_name text;
+  begin
+    select
+      street_id,
+      ext_number,
+      int_number,
+      suburb_id,
+      town_id
+    into
+      current_user_street_id,
+      current_user_street_ext_number,
+      current_user_street_int_number,
+      current_user_suburb_id,
+      current_user_town_id
+    from
+      dum_public.user_addresses
+    where
+      is_main = true
+    and
+      user_id = u.id;
+
+    select name from dum_public.streets where id = current_user_street_id into current_user_street_name;
+
+    select
+      type,
+      name
+    into
+      current_user_settlement_type,
+      current_user_suburb_name
+    from
+      dum_public.suburbs
+    where
+      id = current_user_suburb_id;
+
+    select name from dum_public.towns where id = current_user_town_id into current_user_town_name;
+
+    if current_user_street_int_number <> '' then
+      full_address := current_user_street_name || ' #' || current_user_street_ext_number || ', Int. ' || current_user_street_int_number || ', ' || current_user_settlement_type || ' ' || current_user_suburb_name || ', ' || current_user_town_name;
+    else
+      full_address := current_user_street_name || ' #' || current_user_street_ext_number || ', ' || current_user_settlement_type || ' ' || current_user_suburb_name || ', ' || current_user_town_name;
+    end if;
+
+    return full_address;
+  end;
+$$ language plpgsql stable;
