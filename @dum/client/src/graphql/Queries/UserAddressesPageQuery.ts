@@ -7,6 +7,7 @@ export default graphql`
       id
       rowId
       fullName
+      ...UserAddressesListFragment_userAddresses
     }
   }
 `;
