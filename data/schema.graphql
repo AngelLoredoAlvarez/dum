@@ -2888,6 +2888,7 @@ type User implements Node {
 type UserAddress implements Node {
   createdAt: Datetime!
   extNumber: String
+  fullAddress: String
 
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
