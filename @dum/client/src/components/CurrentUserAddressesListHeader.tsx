@@ -44,6 +44,7 @@ function CurrentUserAddressesListHeader(
           xl: "row",
           "2xl": "row",
         }}
+        space={3}
       >
         <Text
           bold
