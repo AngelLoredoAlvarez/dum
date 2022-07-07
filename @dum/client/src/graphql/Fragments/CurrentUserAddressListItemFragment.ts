@@ -1,7 +1,7 @@
 import graphql from "babel-plugin-relay/macro";
 
 export default graphql`
-  fragment UserAddressListItemFragment_address on UserAddress {
+  fragment CurrentUserAddressListItemFragment_currentUserAddress on UserAddress {
     id
     rowId
     fullAddress

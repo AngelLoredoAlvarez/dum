@@ -1,13 +1,13 @@
 import graphql from "babel-plugin-relay/macro";
 
 export default graphql`
-  query UserAddressesPageQuery {
+  query CurrentUserAddressesPageQuery {
     ...CurrentUserFragment_user
     currentUser {
       id
       rowId
       fullName
-      ...UserAddressesListFragment_userAddresses
+      ...CurrentUserAddressesListFragment_currentUserAddresses
     }
   }
 `;
