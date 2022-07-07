@@ -1,7 +1,23 @@
 import { Stack, Text, VStack } from "native-base";
 import * as React from "react";
+import { useFragment } from "react-relay/hooks";
 
-function CurrentUserAddressesListHeader() {
+import type { CurrentUserFullMainAddressFragment_currentUserFullMainAddress$key } from "../graphql/Fragments/__generated__/CurrentUserFullMainAddressFragment_currentUserFullMainAddress.graphql";
+import CurrentUserFullMainAddressFragment from "../graphql/Fragments/CurrentUserFullMainAddressFragment";
+
+interface CurrentUserAddressesListHeaderProps {
+  fullMainAddress: CurrentUserFullMainAddressFragment_currentUserFullMainAddress$key;
+}
+
+function CurrentUserAddressesListHeader(
+  props: CurrentUserAddressesListHeaderProps
+) {
+  const { fullMainAddress } =
+    useFragment<CurrentUserFullMainAddressFragment_currentUserFullMainAddress$key>(
+      CurrentUserFullMainAddressFragment,
+      props.fullMainAddress
+    );
+
   return (
     <VStack alignItems={"center"} borderWidth={1} space={3}>
       <Text
@@ -19,6 +35,7 @@ function CurrentUserAddressesListHeader() {
         Mis Direcciones
       </Text>
       <Stack
+        alignItems={"center"}
         direction={{
           base: "column",
           sm: "column",
@@ -39,7 +56,19 @@ function CurrentUserAddressesListHeader() {
             "2xl": "4xl",
           }}
         >
-          Tu Dirección principal es:
+          Tu Dirección principal es:{" "}
+        </Text>
+        <Text
+          fontSize={{
+            base: "md",
+            sm: "lg",
+            md: "xl",
+            lg: "2xl",
+            xl: "3xl",
+            "2xl": "4xl",
+          }}
+        >
+          {fullMainAddress}
         </Text>
       </Stack>
     </VStack>
