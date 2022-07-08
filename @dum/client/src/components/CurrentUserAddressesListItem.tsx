@@ -1,5 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { HStack, Icon, IconButton, Text, Tooltip } from "native-base";
+import {
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Modal,
+  Text,
+  Tooltip,
+} from "native-base";
 import * as React from "react";
 import { useFragment } from "react-relay/hooks";
 
@@ -18,6 +26,9 @@ function CurrentUserAddressesListItem(
       CurrentUserAddressListItemFragment,
       props.fullAddress
     );
+
+  const [deleteAddressModalState, setDeleteAddressModalState] =
+    React.useState<boolean>(false);
 
   return (
     <HStack
@@ -103,9 +114,53 @@ function CurrentUserAddressesListItem(
                 size="5"
               />
             }
+            onPress={() => {
+              setDeleteAddressModalState(true);
+            }}
           />
         </Tooltip>
       </HStack>
+      <Modal avoidKeyboard={true} isOpen={deleteAddressModalState} size={"xl"}>
+        <Modal.Content>
+          <Modal.Header>¿Eliminar dirección?</Modal.Header>
+          <Modal.Body>
+            <Text
+              fontSize={{
+                base: "xs",
+                sm: "xs",
+                md: "xs",
+                lg: "sm",
+                xl: "md",
+                "2xl": "lg",
+              }}
+              textAlign={"center"}
+            >
+              ¿Estas seguro que deseas eliminar <Text bold>{fullAddress}</Text>?
+            </Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button.Group space={2}>
+              <Button
+                variant="ghost"
+                colorScheme="blueGray"
+                onPress={() => {
+                  setDeleteAddressModalState(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                colorScheme={"error"}
+                onPress={() => {
+                  setDeleteAddressModalState(false);
+                }}
+              >
+                Save
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </HStack>
   );
 }
