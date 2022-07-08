@@ -5,5 +5,6 @@ export default graphql`
     id
     rowId
     fullAddress
+    isMain
   }
 `;
