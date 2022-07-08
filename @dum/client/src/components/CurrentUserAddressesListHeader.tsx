@@ -49,24 +49,24 @@ function CurrentUserAddressesListHeader(
         <Text
           bold
           fontSize={{
-            base: "md",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "3xl",
-            "2xl": "4xl",
+            base: "sm",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
           }}
         >
           Tu Dirección principal es:{" "}
         </Text>
         <Text
           fontSize={{
-            base: "md",
-            sm: "lg",
-            md: "xl",
-            lg: "2xl",
-            xl: "3xl",
-            "2xl": "4xl",
+            base: "sm",
+            sm: "md",
+            md: "lg",
+            lg: "xl",
+            xl: "2xl",
+            "2xl": "3xl",
           }}
         >
           {fullMainAddress}
