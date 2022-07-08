@@ -90,6 +90,21 @@ function CurrentUserAddressesListItem(
             }
           />
         </Tooltip>
+        <Tooltip label={"Eliminar dirección"}>
+          <IconButton
+            _hover={{
+              bg: "yellow.200",
+            }}
+            borderRadius="full"
+            icon={
+              <Icon
+                as={<MaterialIcons name={"delete"} />}
+                color="muted.400"
+                size="5"
+              />
+            }
+          />
+        </Tooltip>
       </HStack>
     </HStack>
   );
