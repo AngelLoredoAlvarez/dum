@@ -135,7 +135,8 @@ function CurrentUserAddressesListItem(
               }}
               textAlign={"center"}
             >
-              ¿Estas seguro que deseas eliminar <Text bold>{fullAddress}</Text>?
+              ¿Estas seguro que deseas eliminar <Text bold>{fullAddress}</Text>{" "}
+              de tus direcciones?
             </Text>
           </Modal.Body>
           <Modal.Footer>
@@ -147,7 +148,7 @@ function CurrentUserAddressesListItem(
                   setDeleteAddressModalState(false);
                 }}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button
                 colorScheme={"error"}
@@ -155,7 +156,7 @@ function CurrentUserAddressesListItem(
                   setDeleteAddressModalState(false);
                 }}
               >
-                Save
+                Eliminar
               </Button>
             </Button.Group>
           </Modal.Footer>
