@@ -4,7 +4,7 @@ const packageJson = require("../../../package.json");
 // TODO: customise this with your own settings!
 
 export const fromEmail =
-  '"PostGraphile Starter" <no-reply@examples.graphile.org>';
+  '"Desarrollos Urbanos Montecristo" <losfresnos2@outlook.com>';
 export const awsRegion = "us-east-1";
 export const projectName = packageJson.name.replace(/[-_]/g, " ");
 export const companyName = projectName; // For copyright ownership
