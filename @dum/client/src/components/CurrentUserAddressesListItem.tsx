@@ -27,9 +27,6 @@ function CurrentUserAddressesListItem(
       props.fullAddress
     );
 
-  const [addAddressModalState, setAddressModalState] =
-    React.useState<boolean>(false);
-
   const [deleteAddressModalState, setDeleteAddressModalState] =
     React.useState<boolean>(false);
 
