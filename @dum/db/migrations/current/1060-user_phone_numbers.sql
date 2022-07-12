@@ -41,4 +41,3 @@ create trigger _100_timestamps
  create or replace function dum_public.user_phone_numbers() returns setof dum_public.user_phone_numbers as $$
   select * from dum_public.user_phone_numbers where user_id = dum_public.current_user_id();
  $$ language sql stable;
-

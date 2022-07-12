@@ -277,4 +277,3 @@ create or replace function dum_public.update_shopping_list_detail_product_quanti
   returning
     *;
 $$ language sql volatile;
-

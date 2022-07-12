@@ -35,4 +35,3 @@ create policy insert_own on dum_public.sales for insert with check (user_id = du
 create or replace function dum_public.sales_total(sale dum_public.sales) returns text as $$
   select cast(sale.unformated_total as money);
 $$ language sql stable;
-

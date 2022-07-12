@@ -28,4 +28,3 @@ grant select on dum_public.lots to :DATABASE_VISITOR;
 create function dum_public.lots_latlong(lots dum_public.lots) returns text as $$
   select ST_AsLatLonText(geom) from (select ST_Transform(lots.geom, 4326) as geom) g;
 $$ language sql stable;
-
