@@ -1,10 +1,12 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import {
   Box,
+  Button,
   Center,
   HStack,
   Icon,
   IconButton,
+  Modal,
   Stack,
   Text,
   Tooltip,
@@ -28,6 +30,9 @@ function CurrentUserAddressesListHeader(
       CurrentUserFullMainAddressFragment,
       props.fullMainAddress
     );
+
+  const [addAddressModalState, setAddressModalState] =
+    React.useState<boolean>(false);
 
   return (
     <VStack space={5}>
@@ -119,6 +124,7 @@ function CurrentUserAddressesListHeader(
                   size="5"
                 />
               }
+              onPress={() => setAddressModalState(true)}
             />
           </Tooltip>
         </HStack>
@@ -154,6 +160,33 @@ function CurrentUserAddressesListHeader(
           </Text>
         </HStack>
       </VStack>
+      <Modal avoidKeyboard={true} isOpen={addAddressModalState} size={"xl"}>
+        <Modal.Content>
+          <Modal.Header>Agregar dirección</Modal.Header>
+          <Modal.Body></Modal.Body>
+          <Modal.Footer>
+            <Button.Group space={2}>
+              <Button
+                variant="ghost"
+                colorScheme="blueGray"
+                onPress={() => {
+                  setAddressModalState(false);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                colorScheme={"green"}
+                onPress={() => {
+                  setAddressModalState(false);
+                }}
+              >
+                Guardar
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </VStack>
   );
 }
